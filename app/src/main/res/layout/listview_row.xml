@@ -7,45 +7,47 @@
 
 
     <ImageView
-        android:id="@+id/person1ID"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/chatImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="20dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:layout_marginTop="5dp"
         app:srcCompat="@drawable/person1" />
 
 
     <TextView
-        android:id="@+id/nameID"
+        android:id="@+id/chatName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="120dp"
         android:includeFontPadding="true"
+        android:layout_alignTop="@+id/chatImage"
+        android:layout_marginStart="110dp"
         android:text="FIU Library"
         android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/descriptionID"
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nameID"
-        android:layout_marginStart="120dp"
+        android:layout_below="@+id/chatName"
+        android:layout_marginStart="110dp"
         android:text="It was great to see you again"
         android:textSize="12sp" />
+
     <TextView
+        android:id="@+id/timeStampID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/nameID"
-        android:paddingTop="9dp"
+        android:layout_alignTop="@+id/chatName"
         android:paddingEnd="10dp"
-        android:textSize="12sp"
-        android:text="Yesterday"/>
+        android:paddingTop="9dp"
+        android:text="Yesterday"
+        android:textSize="12sp" />
 
 </RelativeLayout>
