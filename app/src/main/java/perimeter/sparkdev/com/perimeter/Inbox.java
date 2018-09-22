@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 public class Inbox extends  AppCompatActivity {
 
-    int[] IMAGES = {R.drawable.person1, R.drawable.ecs,R.drawable.lab,
+    private int[] IMAGES = {R.drawable.person1, R.drawable.ecs,R.drawable.lab,
                     R.drawable.sun, R.drawable.panther_hall,R.drawable.person1,
                     R.drawable.ecs,R.drawable.lab,R.drawable.sun, R.drawable.panther_hall};
-    String[] NAMES = {"GC", "ECS", "CP", "Astronomy",
+    private String[] NAMES = {"GC", "ECS", "CP", "Astronomy",
                         "Panther Hall","GC", "ECS", "CP", "Astronomy",
                          "Panther Hall"};
-    String [] DESCRIPTIONS = {"Whats for lunch?", "Im going to print now.", "Good luck on the test!"
+    private String [] DESCRIPTIONS = {"Whats for lunch?", "Im going to print now.", "Good luck on the test!"
                             ,"The starts look beautiful.", "Anyone found an ID?",
                             "Whats for lunch?", "Im going to print now.", "Good luck on the test!"
                              ,"The starts look beautiful.", "Anyone found an ID?"} ;
@@ -26,7 +26,7 @@ public class Inbox extends  AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox);
-
+        //start here
         ListView listView = (ListView)findViewById(R.id.messagesID);
 
         CustomAdapter customAdapter = new CustomAdapter();
@@ -36,7 +36,7 @@ public class Inbox extends  AppCompatActivity {
     }
 
 
-    class CustomAdapter extends BaseAdapter
+    private class CustomAdapter extends BaseAdapter
     {
 
         @Override
