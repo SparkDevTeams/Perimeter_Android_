@@ -2,6 +2,7 @@ package perimeter.sparkdev.com.perimeter;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,18 +18,15 @@ import java.util.Arrays;
 
 public class Inbox extends  AppCompatActivity {
 
-    private int[] IMAGES = {R.drawable.person1, R.drawable.ecs,R.drawable.lab,
-                    R.drawable.sun, R.drawable.panther_hall,R.drawable.person1,
-                    R.drawable.ecs,R.drawable.lab,R.drawable.sun, R.drawable.panther_hall};
+    private Integer[] IMAGES = {R.drawable.gc,R.drawable.ecs,R.drawable.pg6,R.drawable.pg5,
+                            R.drawable.library,R.drawable.library};
+    private ArrayList<Integer> imgs2 = new ArrayList<Integer>(Arrays.asList(IMAGES));
 
-    private String[] NAMES = {"GC", "ECS", "CP", "Astronomy",
-                        "Panther Hall","GC", "ECS", "CP", "Astronomy",
-                         "Panther Hall"};
+    private String[] NAMES = {"GC", "ECS", "PG6", "PG5",
+                        "Library","SASC"};
     private ArrayList<String> names2 = new ArrayList<String>(Arrays.asList(NAMES));
     private String [] DESCRIPTIONS = {"Whats for lunch?", "Im going to print now.", "Good luck on the test!"
-                            ,"The starts look beautiful.", "Anyone found an ID?",
-                            "Whats for lunch?", "Im going to print now.", "Good luck on the test!"
-                             ,"The starts look beautiful.", "Anyone found an ID?"} ;
+                           , "Anyone found an ID?", "Im going to print now.", "Good luck on the test!"} ;
     private ArrayList<String> desc2 = new ArrayList<String>(Arrays.asList(DESCRIPTIONS));
 
     @Override
@@ -36,12 +34,18 @@ public class Inbox extends  AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox);
         //start here
-        RecyclerView view = (RecyclerView)findViewById(R.id.messagesRecyclerView);
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.messagesRecyclerView);
+
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        view.setLayoutManager(llm);
-        InboxAdapter customAdapter = new InboxAdapter(names2,desc2);
-        view.setAdapter(customAdapter);
+        recyclerView.setLayoutManager(llm);
+
+        InboxAdapter customAdapter = new InboxAdapter(names2,desc2,imgs2);
+        recyclerView.setAdapter(customAdapter);
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerView.getContext()
+                                                                            ,llm.getOrientation());
+        recyclerView.addItemDecoration(itemDecoration);
 
 
     }
