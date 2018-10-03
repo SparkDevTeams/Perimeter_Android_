@@ -14,25 +14,23 @@ import java.util.ArrayList;
 
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHolder> {
 
-    private ArrayList<String> list;  //title
-    private ArrayList<String> list2; //description
-    private ArrayList<Integer>   list3; //image
+    private ArrayList<String> mNames;  //title
+    private ArrayList<String> mDescp; //description
+    private ArrayList<Integer>   mImgs; //image
 
 
 
-    public InboxAdapter(ArrayList list, ArrayList list2, ArrayList list3)
-    {
-        this.list = list;
-        this.list2 = list2;
-        this.list3 = list3;
+    public InboxAdapter(ArrayList list, ArrayList list2, ArrayList list3) {
+        this.mNames = list;
+        this.mDescp = list2;
+        this.mImgs = list3;
 
     }
 
 
     @NonNull
     @Override
-    public InboxAdapter.InboxViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
-    {
+    public InboxAdapter.InboxViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View inboxView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.listview_row,
                                                                     viewGroup, false);
 
@@ -41,11 +39,10 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull InboxAdapter.InboxViewHolder inboxViewHolder, int i)
-    {
-        String a = list.get(i);
-        String b = list2.get(i);
-        Integer c = list3.get(i) ;
+    public void onBindViewHolder(@NonNull InboxAdapter.InboxViewHolder inboxViewHolder, int i) {
+        String a = mNames.get(i);
+        String b = mDescp.get(i);
+        Integer c = mImgs.get(i) ;
 
         inboxViewHolder.title.setText(a);
         inboxViewHolder.descrip.setText(b);
@@ -53,20 +50,17 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
     }
 
     @Override
-    public int getItemCount()
-    {
-        return list.size();
+    public int getItemCount() {
+        return mNames.size();
     }
 
     //inner class too retrieve the views
-    public class InboxViewHolder extends RecyclerView.ViewHolder
-    {
+    public class InboxViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public TextView title;
         public TextView descrip;
 
-        public InboxViewHolder(View view)
-        {
+        public InboxViewHolder(View view) {
             super(view);
 
 

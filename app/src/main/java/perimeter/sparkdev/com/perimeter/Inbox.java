@@ -17,17 +17,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Inbox extends  AppCompatActivity {
-
+    //images
     private Integer[] IMAGES = {R.drawable.gc,R.drawable.ecs,R.drawable.pg6,R.drawable.pg5,
-                            R.drawable.library,R.drawable.library};
-    private ArrayList<Integer> imgs2 = new ArrayList<Integer>(Arrays.asList(IMAGES));
+                            R.drawable.library,R.drawable.sasc,R.drawable.oe};
+    private ArrayList<Integer> IMGS2 = new ArrayList<Integer>(Arrays.asList(IMAGES));
 
+    //names
     private String[] NAMES = {"GC", "ECS", "PG6", "PG5",
-                        "Library","SASC"};
-    private ArrayList<String> names2 = new ArrayList<String>(Arrays.asList(NAMES));
+                        "Library","SASC","OE"};
+    private ArrayList<String> NAMES2 = new ArrayList<String>(Arrays.asList(NAMES));
+
+    //descriptions
     private String [] DESCRIPTIONS = {"Whats for lunch?", "Im going to print now.", "Good luck on the test!"
-                           , "Anyone found an ID?", "Im going to print now.", "Good luck on the test!"} ;
-    private ArrayList<String> desc2 = new ArrayList<String>(Arrays.asList(DESCRIPTIONS));
+                           , "Anyone found an ID?", "Im going to print now.", "Good luck on the test!","Im in the lab."} ;
+    private ArrayList<String> DESCR2 = new ArrayList<String>(Arrays.asList(DESCRIPTIONS));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +43,12 @@ public class Inbox extends  AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
 
-        InboxAdapter customAdapter = new InboxAdapter(names2,desc2,imgs2);
+        InboxAdapter customAdapter = new InboxAdapter(NAMES2,DESCR2,IMGS2);
         recyclerView.setAdapter(customAdapter);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerView.getContext()
                                                                             ,llm.getOrientation());
         recyclerView.addItemDecoration(itemDecoration);
-
 
     }
 
