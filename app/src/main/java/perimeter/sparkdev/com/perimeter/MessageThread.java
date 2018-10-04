@@ -1,18 +1,17 @@
 package perimeter.sparkdev.com.perimeter;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-public class MessageThread extends AppCompatActivity {
-
+public class MessageThread extends Activity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private String[] myDataset = new String[] {
-            "Test1", "Test2", "Test3", "Test4", "Test5"
+    private String[] words = {
+            "Word1", "Word2", "Word3"
     };
 
     @Override
@@ -23,14 +22,13 @@ public class MessageThread extends AppCompatActivity {
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(myDataset);
+        mAdapter = new RecyclerAdapter(words);
         mRecyclerView.setAdapter(mAdapter);
     }
 }
