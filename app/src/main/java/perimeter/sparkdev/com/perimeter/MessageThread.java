@@ -19,7 +19,7 @@ public class MessageThread extends Activity {
         setContentView(R.layout.activity_message_thread);
 
         for(int i = 0; i < 30; i++){
-            words[i]=("Contact " + i);
+            words[i]=("Message " + (i+1));
         }
 
         // Get access to the RecyclerView
