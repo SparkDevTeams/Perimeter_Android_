@@ -21,7 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private EditText mName;
     private EditText mPassword;
     //private TextView mInfo;
@@ -29,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView mCreateAccount;
     private int mCounter=1;
     private FirebaseAuth mAuth;
-    private final String TAG= "MainActivity";
+    private final String TAG= "LoginActivity";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
 
         mName= findViewById(R.id.etName);
@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
                 //I think I'll refer to Dayana's code here for when she sets up her part.
                 //for now it opens up a to a random page but will be needd to go to the create account page
                 //going to take out the SecondActivity thing that I had and then gonn add a toast
-                //Intent intent =new Intent(MainActivity.this, SecondActivity.class);
+                //Intent intent =new Intent(LoginActivity.this, SecondActivity.class);
                 // startActivity(intent);
                 Log.d(TAG, "To sign-up!");
-                Toast.makeText(MainActivity.this,"To the sign up page", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,"To the sign up page", Toast.LENGTH_SHORT).show();
             }
         };
         ss.setSpan(clickableSpan1,23,33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -89,13 +89,13 @@ public class MainActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()){
                     Log.d(TAG, "Login successful");
-                    Toast.makeText(MainActivity.this,"Login passed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"Login passed", Toast.LENGTH_SHORT).show();
                     FirebaseUser user= mAuth.getCurrentUser();
                     //updateUI(user);
                 }
                 else{
                     Log.d(TAG, "Login unsuccessful");
-                    Toast.makeText(MainActivity.this,"Login failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"Login failed", Toast.LENGTH_SHORT).show();
                     //updateUI(null);
                 }
             }
