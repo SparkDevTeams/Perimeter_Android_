@@ -1,13 +1,17 @@
 package perimeter.sparkdev.com.perimeter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,14 +20,16 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
 
     private ArrayList<String> mNames;  //title
     private ArrayList<String> mDescp; //description
-    private ArrayList<Integer>   mImgs; //image
+    private ArrayList<Integer> mImgs; //image
+    private Context mContext;
 
 
-
-    public InboxAdapter(ArrayList list, ArrayList list2, ArrayList list3) {
+    //constructor for adapter
+    public InboxAdapter(Context context, ArrayList list, ArrayList list2, ArrayList list3) {
         this.mNames = list;
         this.mDescp = list2;
         this.mImgs = list3;
+        mContext = context;
 
     }
 
@@ -47,6 +53,15 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
         inboxViewHolder.title.setText(a);
         inboxViewHolder.descrip.setText(b);
         inboxViewHolder.imageView.setImageResource(c);
+
+        //on click listener for each row
+        inboxViewHolder.rowLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, TempActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -59,6 +74,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
         public ImageView imageView;
         public TextView title;
         public TextView descrip;
+        public RelativeLayout rowLayout ;
 
         public InboxViewHolder(View view) {
             super(view);
@@ -67,7 +83,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
             imageView = (ImageView) view.findViewById(R.id.chatImage);
             title =  (TextView) view.findViewById(R.id.chatName);
             descrip = (TextView) view.findViewById(R.id.description);
-
+            rowLayout = (RelativeLayout) view.findViewById(R.id.rowItem) ;
 
         }
     }

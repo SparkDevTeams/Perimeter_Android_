@@ -43,7 +43,7 @@ public class Inbox extends  AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
 
-        InboxAdapter customAdapter = new InboxAdapter(NAMES2,DESCR2,IMGS2);
+        InboxAdapter customAdapter = new InboxAdapter(this, NAMES2,DESCR2,IMGS2);
         recyclerView.setAdapter(customAdapter);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerView.getContext()
