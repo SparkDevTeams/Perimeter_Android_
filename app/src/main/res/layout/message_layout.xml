@@ -2,12 +2,18 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
+
+    <!-- Make sure your layout_height is set to wrap_content, to avoid each row to be on top of one
+another once the app is created-->
 
     <TextView
-        android:id="@+id/test_text"
+        android:id="@+id/contact_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Test" />
+        android:layout_height="wrap_content"
+        android:text="Contact Name"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_margin="10dp" />
 
 </LinearLayout>

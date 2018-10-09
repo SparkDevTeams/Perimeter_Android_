@@ -1,46 +1,59 @@
 package perimeter.sparkdev.com.perimeter;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
-    private String[] mDataset;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView mTextView;
-        public MyViewHolder(TextView v) {
-            super(v);
-            mTextView = v;
+    private final String[] mDataset;        // This will hold your data
+    private LayoutInflater contactInflater;      // This will be the inflater for ContactListAdapter
+
+    // ContactListAdapter Constructor
+    public RecyclerAdapter(Context context, String[] mDataset) {
+        contactInflater = LayoutInflater.from(context); // Initialize the layout inflater
+        this.mDataset = mDataset;
+    }
+
+    // Inner class to the ContactListAdapter and extends
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        // The following variables are for the text view and the adapter for each row
+        public final TextView mTextView;
+        final RecyclerAdapter rowAdapter;
+
+        // Constructor where the first parameter is to inflate the layout and the second
+        // parameter is to associate the ContactViewHolder with its adapter
+        public MyViewHolder(View itemView, RecyclerAdapter adapter) {
+            super(itemView);
+            // Initialize the view holder's text view from the XML resources (activity_contact_list.xml)
+            // Be sure to cast it to the View type that you need it to be (i.e TextView)
+            mTextView = (TextView) itemView.findViewById(R.id.contact_name);
+            // Set up the adapter
+            this.rowAdapter = adapter;
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public RecyclerAdapter(String[] myDataset) {
-        mDataset = myDataset;
+    // The onCreateViewHolder() method is very similar to the onCreate() method. In this method,
+    // the LAYOUT will be inflated and it will return a view holder with the specified layout
+    // and the corresponding adapter
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        // Inflate the layout
+        View customView = contactInflater.inflate(R.layout.message_layout, viewGroup, false);
+        // Return the new view holder
+        return new MyViewHolder(customView, this);
     }
 
-    // Create new views (invoked by the layout manager)
+    // The onBindViewHolder() connects your data to your view holder
     @Override
-    public RecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.message_layout, parent, false);
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        String currentContact = mDataset[position];     // Hold the current contact name
+        holder.mTextView.setText(currentContact); // Set contact name at i position to TextView
 
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
