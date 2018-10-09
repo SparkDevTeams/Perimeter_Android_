@@ -11,8 +11,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //test inbox screen
-        Intent intent = new Intent(this,Inbox.class);
-        startActivity(intent);
+
     }
 }
