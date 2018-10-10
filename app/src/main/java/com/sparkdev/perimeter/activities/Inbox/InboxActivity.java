@@ -1,10 +1,13 @@
-package com.sparkdev.perimeter;
+package com.sparkdev.perimeter.activities.Inbox;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
+import com.sparkdev.perimeter.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

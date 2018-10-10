@@ -1,7 +1,9 @@
-package com.sparkdev.perimeter;
+package com.sparkdev.perimeter.activities.Inbox;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.sparkdev.perimeter.R;
 
 public class TempActivity extends AppCompatActivity {
 

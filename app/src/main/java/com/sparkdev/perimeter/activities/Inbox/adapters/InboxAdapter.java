@@ -1,4 +1,4 @@
-package com.sparkdev.perimeter;
+package com.sparkdev.perimeter.activities.Inbox.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.activities.Inbox.TempActivity;
 
 import java.util.ArrayList;
 
