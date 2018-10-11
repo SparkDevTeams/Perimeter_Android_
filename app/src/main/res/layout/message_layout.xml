@@ -9,8 +9,8 @@ another once the app is created-->
 
     <ImageView
         android:id="@+id/sample_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="10dp"
         android:background="@drawable/ic_launcher_background"
         android:src="@drawable/ic_launcher_foreground" />
@@ -30,15 +30,21 @@ another once the app is created-->
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:layout_margin="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="top"
                 android:text="Contact Name"
-                android:textSize="20dp" />
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/time_stamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="end"
                 android:text="6:00 PM"
                 android:textAlignment="textEnd"
@@ -50,9 +56,10 @@ another once the app is created-->
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="top"
-                android:layout_margin="0dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Message Text"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
     </LinearLayout>
 
