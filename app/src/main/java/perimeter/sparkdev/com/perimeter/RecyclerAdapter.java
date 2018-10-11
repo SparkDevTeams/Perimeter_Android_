@@ -8,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
-    private final String[] mDataset;        // This will hold your data
+    private final ArrayList<String> mDataset;        // This will hold your data
     private LayoutInflater contactInflater;      // This will be the inflater for ContactListAdapter
 
     // ContactListAdapter Constructor
-    public RecyclerAdapter(Context context, String[] mDataset) {
+    public RecyclerAdapter(Context context, ArrayList<String> mDataset) {
         contactInflater = LayoutInflater.from(context); // Initialize the layout inflater
         this.mDataset = mDataset;
     }
@@ -51,7 +53,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     // The onBindViewHolder() connects your data to your view holder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String currentContact = mDataset[position];     // Hold the current contact name
+        String currentContact = mDataset.get(position);     // Hold the current contact name
         holder.mTextView.setText(currentContact); // Set contact name at i position to TextView
 
     }
@@ -59,6 +61,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 }
