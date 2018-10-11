@@ -19,8 +19,7 @@ public class InboxActivity extends  AppCompatActivity {
     private ArrayList<Integer> images2 = new ArrayList<Integer>(Arrays.asList(images));
 
     // Chat Room Names
-    private String[] names = {"GC", "ECS", "PG6", "PG5",
-                        "Library","SASC","OE"};
+    private String[] names = {"GC", "ECS", "PG6", "PG5", "Library","SASC","OE"};
     private ArrayList<String> names2 = new ArrayList<String>(Arrays.asList(names));
 
     // Chat Room Last Message Sent
