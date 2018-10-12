@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory>
+        <EditTextPreference
+           android:dialogTitle="Your Email"
+            android:dialogMessage="Enter your email"
+            android:inputType="textEmailAddress"
+            android:key="key_email"
+            android:title="Email"
+            android:summary="rvaid004@fiu.edu" >
+        </EditTextPreference>
+
+        <SwitchPreference  android:id="@+id/switch_1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:title="Notifications">
+        </SwitchPreference>
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
+
