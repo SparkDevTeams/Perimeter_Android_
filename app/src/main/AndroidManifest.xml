@@ -9,15 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-      <activity android:name=".activities.Inbox.InboxActivity">
-      </activity>
-      <activity android:name=".activities.Inbox.TempActivity"/>
       <activity android:name=".activities.Login.LoginActivity">
         <intent-filter>
           <action android:name="android.intent.action.MAIN" />
           <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+      <activity android:name=".activities.Inbox.InboxActivity">
+      </activity>
+      <activity android:name=".activities.MessageThread.MessageThread"/>
+      <activity android:name=".activities.Settings.Settings_Activity"/>
     </application>
 
 </manifest>
