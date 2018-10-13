@@ -37,7 +37,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         public MyViewHolder(View itemView, RecyclerAdapter adapter) {
             super(itemView);
             // Initialize the view holder's text view from the XML resources (activity_contact_list.xml)
-            // Be sure to cast it to the View type that you need it to be (i.e TextView)
+            // Be sure to cast it to the View type that you neesd it to be (i.e TextView)
             mContactTextView = (TextView) itemView.findViewById(R.id.contact_name);
             mMessageTextView = (TextView) itemView.findViewById(R.id.message_text);
             // Set up the adapter

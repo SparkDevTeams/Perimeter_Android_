@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sparkdev.perimeter.R;
-import com.sparkdev.perimeter.activities.Inbox.TempActivity;
+import com.sparkdev.perimeter.activities.MessageThread.MessageThread;
 
 import java.util.ArrayList;
 
@@ -55,7 +55,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
     //on click listener for each row
     @Override
     public void onClick(View view) {
-      Intent intent = new Intent(mContext, TempActivity.class);
+      Intent intent = new Intent(mContext, MessageThread.class);
       mContext.startActivity(intent);
     }
   }
