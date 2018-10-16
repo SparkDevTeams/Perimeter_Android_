@@ -51,15 +51,15 @@ another once the app is created-->
                 android:textSize="14dp" />
         </LinearLayout>
 
-            <TextView
-                android:id="@+id/message_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="top"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Message Text"
-                android:textSize="16dp" />
+        <TextView
+            android:id="@+id/message_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Message Text"
+            android:textSize="16dp" />
 
     </LinearLayout>
 
