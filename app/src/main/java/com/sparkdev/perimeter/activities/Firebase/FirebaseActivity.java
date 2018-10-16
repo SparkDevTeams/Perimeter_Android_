@@ -87,7 +87,8 @@ public class FirebaseActivity extends AppCompatActivity {
     //Firestore stores data in documents which are stored in collections
     //This method makes a new collection
     Map<String, Object> user = new HashMap<>();
-    user.put("displayName", user1.getEmail());
+    user.put("username", user1.getEmail());
+
     user.put("email", user1.getEmail());
     user.put("firstName", "astrid");
     user.put("id", user1.getUid());
@@ -108,11 +109,15 @@ public class FirebaseActivity extends AppCompatActivity {
         });
 
     // update
-    DocumentReference docRef = db.collection("Users").document("astrid");
-    Map<String, Object> updates = new HashMap<String, Object>();
-    updates.put("firstname", "Robin");
-    user.put("updates", updates);
-    //its not working
+
+//      public void update22(){
+//          DocumentReference docRef = db.collection("Users").document("user2");
+//          Map<String, Object> updates = new HashMap<String, Object>();
+//          updates.put("firstname", "Robin");
+//          user.put("updates", updates);
+//          //its not working
+//      }
+
 
   }
 

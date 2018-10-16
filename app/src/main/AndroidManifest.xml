@@ -19,6 +19,7 @@
       </activity>
       <activity android:name=".activities.MessageThread.MessageThread"/>
       <activity android:name=".activities.Settings.Settings_Activity"/>
+      <activity android:name=".activities.Firebase.FirebaseActivity"/>
     </application>
 
 </manifest>
