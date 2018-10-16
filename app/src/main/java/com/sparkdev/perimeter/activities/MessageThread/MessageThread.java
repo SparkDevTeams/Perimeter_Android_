@@ -2,6 +2,7 @@ package com.sparkdev.perimeter.activities.MessageThread;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -14,7 +15,7 @@ public class MessageThread extends Activity {
 
   private RecyclerView mRecyclerView;
   private RecyclerView.Adapter mAdapter;
-  private RecyclerView.LayoutManager mLayoutManager;
+  private LinearLayoutManager mLayoutManager;
 
   private ArrayList <String> mContacts = new ArrayList<>();
   private ArrayList <String> mMessages = new ArrayList<>();
@@ -37,6 +38,11 @@ public class MessageThread extends Activity {
     mRecyclerView.setAdapter(mAdapter);
     // Define the RecyclerView's default layout manager
     mLayoutManager = new LinearLayoutManager(this);
+    mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     mRecyclerView.setLayoutManager(mLayoutManager);
+
+    //Add a divider between each cell
+    DividerItemDecoration cellDivider = new DividerItemDecoration(mRecyclerView.getContext(),mLayoutManager.getOrientation());
+    mRecyclerView.addItemDecoration(cellDivider);
   }
 }

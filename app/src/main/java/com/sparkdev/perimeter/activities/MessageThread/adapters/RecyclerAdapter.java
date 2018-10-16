@@ -17,12 +17,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     private final ArrayList<String> mContacts;        // This will hold your data
     private final ArrayList<String> mMessages;        // This will hold your data
     private LayoutInflater contactInflater;      // This will be the inflater for ContactListAdapter
+    private Context mContext;
 
     // ContactListAdapter Constructor
-    public RecyclerAdapter(Context context, ArrayList<String> mContacts, ArrayList<String> mMessages) {
-        contactInflater = LayoutInflater.from(context); // Initialize the layout inflater
+    public RecyclerAdapter(Context mContext, ArrayList<String> mContacts, ArrayList<String> mMessages) {
+        contactInflater = LayoutInflater.from(mContext); // Initialize the layout inflater
         this.mContacts = mContacts;
         this.mMessages = mMessages;
+        this.mContext = mContext;
     }
 
     // Inner class to the ContactListAdapter and extends
