@@ -11,6 +11,7 @@
         </EditTextPreference>
 
         <SwitchPreference  android:id="@+id/switch_1"
+            android:key = "switch"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:title="Notifications">
