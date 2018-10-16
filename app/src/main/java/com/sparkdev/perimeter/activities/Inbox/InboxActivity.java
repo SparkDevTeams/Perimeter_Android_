@@ -12,44 +12,45 @@ import com.sparkdev.perimeter.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class InboxActivity extends  AppCompatActivity {
-    // Chat Room Images
-    private Integer[] images = {R.drawable.gc, R.drawable.ecs, R.drawable.pg6, R.drawable.pg5,
-        R.drawable.library, R.drawable.sasc, R.drawable.oe};
-    private ArrayList<Integer> images2 = new ArrayList<Integer>(Arrays.asList(images));
+public class InboxActivity extends AppCompatActivity {
+  // Chat Room Images
+  private Integer[] images = {R.drawable.gc, R.drawable.ecs, R.drawable.pg6, R.drawable.pg5,
+      R.drawable.library, R.drawable.sasc, R.drawable.oe};
+  private ArrayList<Integer> images2 = new ArrayList<Integer>(Arrays.asList(images));
 
-    // Chat Room Names
-    private String[] names = {"GC", "ECS", "PG6", "PG5", "Library","SASC","OE"};
-    private ArrayList<String> names2 = new ArrayList<String>(Arrays.asList(names));
+  // Chat Room Names
+  private String[] names = {"GC", "ECS", "PG6", "PG5",
+      "Library", "SASC", "OE"};
+  private ArrayList<String> names2 = new ArrayList<String>(Arrays.asList(names));
 
-    // Chat Room Last Message Sent
-    private String [] lastMessage = {"Whats for lunch?", "Im going to print now.", "Good luck on the test!"
-                           , "Anyone found an ID?", "Im going to print now.", "Good luck on the test!","Im in the lab."} ;
-    private ArrayList<String> lastMessage2 = new ArrayList<String>(Arrays.asList(lastMessage));
+  // Chat Room Last Message Sent
+  private String[] lastMessage = {"Whats for lunch?", "Im going to print now.", "Good luck on the test!"
+      , "Anyone found an ID?", "Im going to print now.", "Good luck on the test!", "Im in the lab."};
+  private ArrayList<String> lastMessage2 = new ArrayList<String>(Arrays.asList(lastMessage));
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inbox);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_inbox);
 
-        // Get access to the activity's RecyclerView
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.messagesRecyclerView);
+    // Get access to the activity's RecyclerView
+    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);
 
-        // Define the RecyclerView's default layout manager and orientation
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
+    // Define the RecyclerView's default layout manager and orientation
+    LinearLayoutManager llm = new LinearLayoutManager(this);
+    llm.setOrientation(LinearLayoutManager.VERTICAL);
+    recyclerView.setLayoutManager(llm);
 
-        // Create the InboxAdapter and supply the adapter with the data
-        InboxAdapter customAdapter = new InboxAdapter(this, names2, lastMessage2,images2);
-        recyclerView.setAdapter(customAdapter);
+    // Create the InboxAdapter and supply the adapter with the data
+    InboxAdapter customAdapter = new InboxAdapter(this, names2, lastMessage2, images2);
+    recyclerView.setAdapter(customAdapter);
 
-        // Add the line divider between each row
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerView.getContext()
-                                                                            ,llm.getOrientation());
-        recyclerView.addItemDecoration(itemDecoration);
+    // Add the line divider between each row
+    DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerView.getContext()
+        , llm.getOrientation());
+    recyclerView.addItemDecoration(itemDecoration);
 
-    }
+  }
 
 }
 

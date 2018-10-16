@@ -14,19 +14,22 @@ import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
-    private final ArrayList<String> mDataset;        // This will hold your data
+    private final ArrayList<String> mContacts;        // This will hold your data
+    private final ArrayList<String> mMessages;        // This will hold your data
     private LayoutInflater contactInflater;      // This will be the inflater for ContactListAdapter
 
     // ContactListAdapter Constructor
-    public RecyclerAdapter(Context context, ArrayList<String> mDataset) {
+    public RecyclerAdapter(Context context, ArrayList<String> mContacts, ArrayList<String> mMessages) {
         contactInflater = LayoutInflater.from(context); // Initialize the layout inflater
-        this.mDataset = mDataset;
+        this.mContacts = mContacts;
+        this.mMessages = mMessages;
     }
 
     // Inner class to the ContactListAdapter and extends
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // The following variables are for the text view and the adapter for each row
-        public final TextView mTextView;
+        public final TextView mContactTextView;
+        public final TextView mMessageTextView;
         final RecyclerAdapter rowAdapter;
 
         // Constructor where the first parameter is to inflate the layout and the second
@@ -34,8 +37,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         public MyViewHolder(View itemView, RecyclerAdapter adapter) {
             super(itemView);
             // Initialize the view holder's text view from the XML resources (activity_contact_list.xml)
-            // Be sure to cast it to the View type that you need it to be (i.e TextView)
-            mTextView = (TextView) itemView.findViewById(R.id.contact_name);
+            // Be sure to cast it to the View type that you neesd it to be (i.e TextView)
+            mContactTextView = (TextView) itemView.findViewById(R.id.contact_name);
+            mMessageTextView = (TextView) itemView.findViewById(R.id.message_text);
             // Set up the adapter
             this.rowAdapter = adapter;
         }
@@ -55,14 +59,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     // The onBindViewHolder() connects your data to your view holder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String currentContact = mDataset.get(position);     // Hold the current contact name
-        holder.mTextView.setText(currentContact); // Set contact name at i position to TextView
-
+        String currentContact = mContacts.get(position);     // Hold the current contact name
+        String currentMessage = mMessages.get(position);     // Hold the current contact name
+        holder.mContactTextView.setText(currentContact); // Set contact name at i position to TextView
+        holder.mMessageTextView.setText(currentMessage); // Set contact name at i position to TextView
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return mContacts.size();
     }
 }
