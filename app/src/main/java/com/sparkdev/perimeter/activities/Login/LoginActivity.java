@@ -27,7 +27,7 @@ import com.sparkdev.perimeter.activities.Firebase.FirebaseAPI;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity implements FirebaseAPI {
+public class LoginActivity extends AppCompatActivity {
   private EditText mName;
   private EditText mPassword;
   //private TextView mInfo;
@@ -114,12 +114,12 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAPI {
 
 
 
-  public void updateUser(FirebaseFirestore db, Map<String,Object> user){
-    DocumentReference docRef = db.collection("Users").document("user2");
-    Map<String, Object> updates = new HashMap<String, Object>();
-    updates.put("firstname", "Robin");
-    user.put("updates", updates);
-    //its not working
-  }
+//  public void updateUser(FirebaseFirestore db, Map<String,Object> user){
+//    DocumentReference docRef = db.collection("Users").document("user2");
+//    Map<String, Object> updates = new HashMap<String, Object>();
+//    updates.put("firstname", "Robin");
+//    user.put("updates", updates);
+//    //its not working
+//  }
 
 }
