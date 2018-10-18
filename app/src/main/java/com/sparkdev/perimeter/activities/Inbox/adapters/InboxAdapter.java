@@ -25,9 +25,9 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
 
   // InboxAdapter Constructor
   public InboxAdapter(Context context, ArrayList list, ArrayList list2, ArrayList list3) {
-    this.mTitle = list;
-    this.mLastMsg = list2;
-    this.mImgs = list3;
+    mTitle = list;
+    mLastMsg = list2;
+    mImgs = list3;
     mContext = context;
 
   }
