@@ -2,12 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory>
         <EditTextPreference
-           android:dialogTitle="Your Email"
-            android:dialogMessage="Enter your email"
+           android:dialogTitle="Your Username"
+            android:dialogMessage="Enter your username"
             android:inputType="textEmailAddress"
             android:key="key_email"
-            android:title="Email"
-            android:summary="rvaid004@fiu.edu" >
+            android:title="UserName"
+            android:summary="rvaid004" >
         </EditTextPreference>
 
         <SwitchPreference  android:id="@+id/switch_1"
@@ -16,6 +16,15 @@
             android:layout_height="50dp"
             android:title="Notifications">
         </SwitchPreference>
+
+
+        <SwitchPreference  android:id="@+id/switch_2"
+            android:key = "switch"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:title="Wi-Fi">
+        </SwitchPreference>
+
     </PreferenceCategory>
 
 
