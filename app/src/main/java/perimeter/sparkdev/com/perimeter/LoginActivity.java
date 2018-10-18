@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
@@ -43,11 +45,10 @@ public class LoginActivity extends AppCompatActivity {
         mLogin= findViewById(R.id.btnLogin);
         mCreateAccount = findViewById(R.id.tvCreateAccount);
         mAuth= FirebaseAuth.getInstance();
-        // mName.setSelection(1);
-        //mPassword.setSelection(1);
+
+        //makes the "Don' have an account" text clickable to go the Sign-Up Screen
         String text= "Don't have an account? Create One";
         SpannableString ss= new SpannableString(text);
-
         ClickableSpan clickableSpan1= new ClickableSpan() {
             @Override
             public void onClick(View widget) {
@@ -70,6 +71,9 @@ public class LoginActivity extends AppCompatActivity {
                 validate(mName.getText().toString(),mPassword.getText().toString());
             }
         });
+
+        mName.addTextChangedListener(loginTextWatcher);
+        mPassword.addTextChangedListener(loginTextWatcher);
     }
 
     @Override
@@ -80,6 +84,25 @@ public class LoginActivity extends AppCompatActivity {
         //updateUI(currentUser);
     }
 
+private TextWatcher loginTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String usernameInput= mName.getText().toString().trim();
+            String passwordInput= mPassword.getText().toString().trim();
+
+            mLogin.setEnabled(usernameInput.isEmpty()==false&& passwordInput.isEmpty()==false);
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     private void validate(String userName, String password){
         //Firebase stuff will probably end up here
@@ -100,13 +123,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-    //might not need at all
-    private void updateUI(FirebaseUser user){
-        //hideProgressDialog();
-        if (user!=null){
-
-        }
     }
 
 }
