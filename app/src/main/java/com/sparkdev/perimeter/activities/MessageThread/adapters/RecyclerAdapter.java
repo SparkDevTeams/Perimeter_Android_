@@ -1,5 +1,7 @@
 package com.sparkdev.perimeter.activities.MessageThread.adapters;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sparkdev.perimeter.R;
 
 import java.util.ArrayList;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
@@ -62,9 +67,27 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String currentContact = mContacts.get(position);    // Hold the current contact name
-        String currentMessage = mMessages.get(position);    // Hold the current contact name
+        final String currentMessage = mMessages.get(position);    // Hold the current message
         holder.mContactTextView.setText(currentContact);    // Set contact name at i position to TextView
-        holder.mMessageTextView.setText(currentMessage);    // Set contact name at i position to TextView
+        holder.mMessageTextView.setText(currentMessage);    // Set message at i position to TextView
+
+        //Get clipboard manager object
+        Object clipboardService = mContext.getSystemService(CLIPBOARD_SERVICE);
+        final ClipboardManager clipboardManager = (ClipboardManager)clipboardService;
+
+        holder.mMessageTextView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                String srcText = currentMessage;
+
+                // Create a new ClipData.
+                ClipData clipData = ClipData.newPlainText("Source Text", srcText);
+                // Set it as primary clip data to copy text to system clipboard.
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(mContext, "Message text copied", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
