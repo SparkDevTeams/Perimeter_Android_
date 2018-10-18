@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.sparkdev.perimeter.R;
 
 import java.util.ArrayList;
@@ -75,6 +74,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         Object clipboardService = mContext.getSystemService(CLIPBOARD_SERVICE);
         final ClipboardManager clipboardManager = (ClipboardManager)clipboardService;
 
+        // Copies message text on long click
         holder.mMessageTextView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
