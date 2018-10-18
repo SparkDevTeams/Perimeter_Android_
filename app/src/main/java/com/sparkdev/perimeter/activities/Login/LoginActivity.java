@@ -19,13 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.sparkdev.perimeter.R;
-import com.sparkdev.perimeter.activities.Firebase.FirebaseAPI;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
   private EditText mName;
@@ -112,14 +106,5 @@ public class LoginActivity extends AppCompatActivity {
     }
   }
 
-
-
-//  public void updateUser(FirebaseFirestore db, Map<String,Object> user){
-//    DocumentReference docRef = db.collection("Users").document("user2");
-//    Map<String, Object> updates = new HashMap<String, Object>();
-//    updates.put("firstname", "Robin");
-//    user.put("updates", updates);
-//    //its not working
-//  }
 
 }

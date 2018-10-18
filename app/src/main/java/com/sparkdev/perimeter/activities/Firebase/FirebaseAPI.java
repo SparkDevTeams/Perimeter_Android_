@@ -1,36 +1,108 @@
 package com.sparkdev.perimeter.activities.Firebase;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
+import com.sparkdev.perimeter.models.UserProfile;
 
-import java.util.Map;
+/**
+ * A firebase method wrapper
+ */
+public class FirebaseAPI {
 
-public interface FirebaseAPI {
-FirebaseAuth auth = FirebaseAuth.getInstance();
+    private static FirebaseAPI sFirebaseApiInstance;
 
-FirebaseFirestore database = FirebaseFirestore.getInstance();
-CollectionReference mChatRoomCollection = database.collection("Users");
-CollectionReference mMessageCollection = database.collection("Messages");
-CollectionReference mUserCollection = database.collection("Users");
+    private static final String TAG = "FIREBASE_API";
 
-    //inbox
-    //method to login users with username and password
-    //1) Authentication
-    //add references of firebase docs here lke auth, docref
-    public void LoginUsers(FirebaseAuth mUser);
+    private FirebaseFirestore mFirestore;
 
-    //method to create new user
-    public void createUser();
+    /**
+     * Private fireabase API init
+     */
+    private FirebaseAPI(Context context) {
+        Log.d(TAG, "Firestore has been initialzed ");
+        FirebaseApp.initializeApp(context);
+        mFirestore = FirebaseFirestore.getInstance();
+    }
 
-    //method to update User information
-    public void updateUser(FirebaseFirestore db, Map<String,Object> user);
+    public static FirebaseAPI getInstance(Context context) {
 
-    //method to upload media
-    public void uploadMedia();
+        if (sFirebaseApiInstance != null){
+            return sFirebaseApiInstance;
+        } else {
+            sFirebaseApiInstance = new FirebaseAPI(context);
+            return sFirebaseApiInstance;
+        }
+    }
+
+    public void loginUser(String email, String password, final PerimeterLoginCompletionListener listener1) {
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "onComplete: Task completed");
+
+                if(task.isSuccessful()){
+                    AuthResult loginResult = task.getResult();
+                    String userID = loginResult.getUser().getUid();
+
+                    getUserWithUserID(userID, new PerimeterGetUserCompletionListener() {
+                        @Override
+                        public void onSuccess(UserProfile profile) {
+                            listener1.onSuccess();
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            listener1.onFailure();
+                        }
+                    });
+
+                }
+                else{
+                    listener1.onFailure();
+                }
+            }
+        });
+        
+    }
+
+    public void getUserWithUserID(String userID, final PerimeterGetUserCompletionListener userListener){
+        CollectionReference userReference = mFirestore.collection("Users");
+        DocumentReference userDocuments = userReference.document(userID);
 
 
+        userDocuments.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
+                if(task.isSuccessful()){
+                    Gson g = new Gson();
+                    UserProfile profile = g.fromJson(task.getResult().getData().toString(),UserProfile.class);
+                    userListener.onSuccess(profile);
+
+                    Log.d(TAG, "User with DisplayName "+ profile.getDisplayName());
+                }
+                else{
+                    userListener.onFailure();
+                    Log.d(TAG, task.getException().getMessage());
+
+                }
+            }
+        });
+    }
 
 }
