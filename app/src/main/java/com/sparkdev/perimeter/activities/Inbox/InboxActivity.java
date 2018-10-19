@@ -1,5 +1,6 @@
 package com.sparkdev.perimeter.activities.Inbox;
 
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -35,6 +36,9 @@ public class InboxActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_inbox);
 
+    //Set action bar title
+    getSupportActionBar().setTitle("Message Inbox");
+
     // Get access to the activity's RecyclerView
     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);
 
@@ -53,6 +57,7 @@ public class InboxActivity extends AppCompatActivity {
     recyclerView.addItemDecoration(itemDecoration);
 
   }
+
 
 
   @Override

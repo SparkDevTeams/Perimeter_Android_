@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
@@ -16,6 +17,7 @@ public class MessageThread extends Activity {
   private RecyclerView mRecyclerView;
   private RecyclerView.Adapter mAdapter;
   private LinearLayoutManager mLayoutManager;
+  private TextView mMessageText;
 
   private ArrayList <String> mContacts = new ArrayList<>();
   private ArrayList <String> mMessages = new ArrayList<>();
@@ -42,7 +44,8 @@ public class MessageThread extends Activity {
     mRecyclerView.setLayoutManager(mLayoutManager);
 
     //Add a divider between each cell
-    DividerItemDecoration cellDivider = new DividerItemDecoration(mRecyclerView.getContext(),mLayoutManager.getOrientation());
+    DividerItemDecoration cellDivider = new DividerItemDecoration(mRecyclerView.getContext(),
+                                                                  mLayoutManager.getOrientation());
     mRecyclerView.addItemDecoration(cellDivider);
   }
 }
