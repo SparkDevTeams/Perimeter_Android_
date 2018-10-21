@@ -1,23 +1,38 @@
 package com.sparkdev.perimeter.models;
 
+import com.google.firebase.firestore.PropertyName;
+import com.google.firebase.firestore.ServerTimestamp;
+
 import java.util.Date;
 
 public class Message {
 
-    private Date mDateSent;
+    @ServerTimestamp
+    @PropertyName("timestamp")
+    private Date mTimestamp;
+    @PropertyName("message")
     private String mMessage;
+    @PropertyName("senderId")
     private String mSenderId;
+    @PropertyName("messageType")
     private String mMessageType;
+    @PropertyName("audioLink")
     private String mAudioLink;
+    @PropertyName("imageLink")
     private String mImageLink;
+    @PropertyName("videoLink")
     private String mVideoLink;
+    @PropertyName("chatRoomId")
     private String mChatRoomId;
+    @PropertyName("messageId")
     private String mMessageId;
+    @PropertyName("senderDisplayName")
+    private String mSenderDisplayName;
 
-    public Message(Date dateSent, String message, String senderId, String messageType,
+    public Message(Date timestamp, String message, String senderId, String messageType,
                    String audioLink, String imageLink, String videoLink, String chatRoomId,
-                   String messageId) {
-        mDateSent = dateSent;
+                   String messageId, String senderDisplayName) {
+        mTimestamp = timestamp;
         mMessage = message;
         mSenderId = senderId;
         mMessageType = messageType;
@@ -26,11 +41,10 @@ public class Message {
         mVideoLink = videoLink;
         mChatRoomId = chatRoomId;
         mMessageId = messageId;
+        mSenderDisplayName = senderDisplayName;
     }
 
-    public Date getDateSent() {
-        return mDateSent;
-    }
+    public Message(){}
 
     public String getMessage() {
         return mMessage;
@@ -63,4 +77,13 @@ public class Message {
     public String getMessageId() {
         return mMessageId;
     }
+
+    public Date getTimestamp() {
+        return mTimestamp;
+    }
+
+    public String getSenderDisplayName() {
+        return mSenderDisplayName;
+    }
+
 }
