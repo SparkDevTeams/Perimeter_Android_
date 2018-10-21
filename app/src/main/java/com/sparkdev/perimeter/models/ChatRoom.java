@@ -1,9 +1,7 @@
 package com.sparkdev.perimeter.models;
 
 import com.google.firebase.firestore.PropertyName;
-import com.google.gson.annotations.SerializedName;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChatRoom {
