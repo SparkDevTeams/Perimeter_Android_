@@ -5,19 +5,21 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
 
 import java.util.ArrayList;
 
-public class MessageThread extends Activity {
+public class MessageThread extends AppCompatActivity {
 
   private RecyclerView mRecyclerView;
   private RecyclerView.Adapter mAdapter;
   private LinearLayoutManager mLayoutManager;
-  private TextView mMessageText;
 
   private ArrayList <String> mContacts = new ArrayList<>();
   private ArrayList <String> mMessages = new ArrayList<>();
@@ -31,6 +33,9 @@ public class MessageThread extends Activity {
       mContacts.add("Contact " + (i+1));
       mMessages.add("This is an example of a text message from Contact " + (i+1));
     }
+
+    //Set action bar title
+    getSupportActionBar().setTitle("Group 1");
 
     // Get access to the RecyclerView
     mRecyclerView = (RecyclerView) findViewById(R.id.message_recycler_view);
@@ -47,5 +52,12 @@ public class MessageThread extends Activity {
     DividerItemDecoration cellDivider = new DividerItemDecoration(mRecyclerView.getContext(),
                                                                   mLayoutManager.getOrientation());
     mRecyclerView.addItemDecoration(cellDivider);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.message_thread_menu, menu);
+    return true;
   }
 }
