@@ -84,4 +84,6 @@ public class ChatRoom {
     public Message getLastMessage() {
         return mLastMessage;
     }
+
+    public void setCurrentMessageId(String messageId) { mCurrentMessagesId = messageId;}
 }
