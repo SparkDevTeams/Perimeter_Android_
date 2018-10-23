@@ -1,5 +1,6 @@
 package com.sparkdev.perimeter.activities.Inbox;
 
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -8,13 +9,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 
+import com.sparkdev.perimeter.activities.Firebase.GetChatRoomsCompletionListener;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
 import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.models.ChatRoom;
+import com.sparkdev.perimeter.models.FirebaseAPI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class InboxActivity extends AppCompatActivity {
+  //Chat Rooms
+  private ArrayList<ChatRoom> chatRooms ;
+
+
   // Chat Room Images
   private Integer[] images = {R.drawable.gc, R.drawable.ecs, R.drawable.pg6, R.drawable.pg5,
       R.drawable.library, R.drawable.sasc, R.drawable.oe};
@@ -35,6 +44,9 @@ public class InboxActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_inbox);
 
+    //Set action bar title
+    getSupportActionBar().setTitle("Message Inbox");
+
     // Get access to the activity's RecyclerView
     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);
 
@@ -42,6 +54,20 @@ public class InboxActivity extends AppCompatActivity {
     LinearLayoutManager llm = new LinearLayoutManager(this);
     llm.setOrientation(LinearLayoutManager.VERTICAL);
     recyclerView.setLayoutManager(llm);
+
+    //fetch ChatRooms list from Firebase
+      FirebaseAPI fb = FirebaseAPI.getInstance(this);
+      fb.getAllChatRooms( new GetChatRoomsCompletionListener (){
+          @Override
+          public void onSuccess(List<ChatRoom> chatRooms) {
+              setChatRooms((ArrayList<ChatRoom>)(chatRooms));
+          }
+
+          @Override
+          public void onFailure() {
+
+          }
+      });
 
     // Create the InboxAdapter and supply the adapter with the data
     InboxAdapter customAdapter = new InboxAdapter(this, names2, lastMessage2, images2);
@@ -52,14 +78,25 @@ public class InboxActivity extends AppCompatActivity {
         , llm.getOrientation());
     recyclerView.addItemDecoration(itemDecoration);
 
-  }
 
+
+  }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.inbox_menu, menu);
     return true;
+  }
+
+
+  public ArrayList<ChatRoom> getChatRooms(){
+      return chatRooms;
+  }
+
+  public void setChatRooms(ArrayList<ChatRoom> chats)
+  {
+      chatRooms = chats;
   }
 }
 

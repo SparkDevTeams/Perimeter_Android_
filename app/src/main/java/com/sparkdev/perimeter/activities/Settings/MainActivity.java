@@ -7,6 +7,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.activities.Firebase.GetChatRoomsCompletionListener;
+import com.sparkdev.perimeter.activities.Firebase.GetChatRoomMessagesCompletionListener;
+import com.sparkdev.perimeter.models.ChatRoom;
+import com.sparkdev.perimeter.models.FirebaseAPI;
+import com.sparkdev.perimeter.models.Message;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     Button btnShowSetting;
@@ -23,6 +30,31 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+        });
+
+        FirebaseAPI.getInstance(this).getAllChatRooms(new GetChatRoomsCompletionListener() {
+            @Override
+            public void onSuccess(List<ChatRoom> chatRooms) {
+                ChatRoom chatRoom1 = chatRooms.get(0);
+
+                FirebaseAPI.getInstance(MainActivity.this).getMessagesForChatRoom(chatRoom1, new GetChatRoomMessagesCompletionListener() {
+                    @Override
+                    public void onSuccess(List<Message> messages) {
+
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
         });
 
     }

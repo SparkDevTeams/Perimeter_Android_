@@ -1,10 +1,10 @@
 package com.sparkdev.perimeter.models;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.activities.Firebase.FirebaseAPI;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +26,6 @@ public class MainActivity extends AppCompatActivity {
         String email = "poop@poo.com";
         String password = "password";
 
-        firebaseAPI.loginUser(email, password);
+       // firebaseAPI.loginUser(email, password);
     }
 }
