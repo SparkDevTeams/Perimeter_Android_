@@ -54,10 +54,10 @@ public class MessageThread extends AppCompatActivity {
     mRecyclerView.addItemDecoration(cellDivider);
   }
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater inflater = getMenuInflater();
-    inflater.inflate(R.menu.message_thread_menu, menu);
-    return true;
-  }
+//  @Override
+//  public boolean onCreateOptionsMenu(Menu menu) {
+//    MenuInflater inflater = getMenuInflater();
+//    inflater.inflate(R.menu.message_thread_menu, menu);
+//    return true;
+//  }
 }
