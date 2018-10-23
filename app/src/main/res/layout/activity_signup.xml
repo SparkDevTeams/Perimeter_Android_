@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".SignUpActivity"
+    android:background="#343437"
+    tools:layout_editor_absoluteY="25dp">
+
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="374dp"
+        android:layout_height="554dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:clipToPadding="true"
+        android:fillViewport="true"
+        android:scrollbarStyle="insideInset"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|center|fill"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="315dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center_vertical|center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="60dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo" />
+
+            <EditText
+                android:id="@+id/emailID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_text"
+                android:ems="10"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:password="false"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="73dp"
+                tools:layout_editor_absoluteY="206dp" />
+
+            <EditText
+                android:id="@+id/pass1ID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_text"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:password="true"
+                android:phoneNumber="false"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="73dp"
+                tools:layout_editor_absoluteY="269dp" />
+
+            <TextView
+                android:id="@+id/criteriaID"
+                android:layout_width="284dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:textAlignment="center"
+                android:text="Password must be 8 characters long, have at least one number and one character and one capital letter"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/warn1ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Password does not reach criteria!"
+                android:textAlignment="center"
+                android:textColor="#FF0000"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/pass2ID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_text"
+                android:ems="10"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:password="true"
+                android:phoneNumber="false"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="73dp"
+                tools:layout_editor_absoluteY="329dp" />
+
+            <TextView
+                android:id="@+id/warn2ID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Passwords do not match!"
+                android:textAlignment="center"
+                android:textColor="#FF0000"
+                android:visibility="gone"
+                tools:layout_editor_absoluteX="66dp"
+                tools:layout_editor_absoluteY="488dp" />
+
+            <EditText
+                android:id="@+id/dNameID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_text"
+                android:ems="10"
+                android:hint="Display Name"
+                android:inputType="textPersonName"
+                android:textAlignment="center"
+                android:textColorHighlight="#262626"
+                tools:layout_editor_absoluteX="73dp"
+                tools:layout_editor_absoluteY="389dp" />
+
+            <TextView
+                android:id="@+id/warn3ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="There are empty fields!"
+                android:textAlignment="center"
+                android:textColor="#FF0000"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/signUpBID"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/rounded_button"
+                android:isScrollContainer="true"
+                android:text="Sign Up"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                tools:layout_editor_absoluteX="136dp"
+                tools:layout_editor_absoluteY="474dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
