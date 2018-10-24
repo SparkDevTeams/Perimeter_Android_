@@ -20,8 +20,11 @@ import java.util.List;
 
 public class InboxActivity extends AppCompatActivity {
 
-  private List<ChatRoom> mChatRooms ;
+  private LinearLayoutManager llm;
+  private DividerItemDecoration itemDecoration;
+  private RecyclerView recyclerView;
   private FirebaseAPI fb;
+  private List<ChatRoom> mChatRooms ;
   private Context mContext = this;
 
 
@@ -34,7 +37,7 @@ public class InboxActivity extends AppCompatActivity {
     getSupportActionBar().setTitle("Message Inbox");
 
     // Get access to the activity's RecyclerView
-    final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);
+    recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);
 
     //fetch ChatRooms list from Firebase
       fb = FirebaseAPI.getInstance(this);
@@ -55,13 +58,13 @@ public class InboxActivity extends AppCompatActivity {
       });
 
     // Define the RecyclerView's default layout manager and orientation
-    LinearLayoutManager llm = new LinearLayoutManager(this);
+    llm = new LinearLayoutManager(this);
     llm.setOrientation(LinearLayoutManager.VERTICAL);
     recyclerView.setLayoutManager(llm);
 
 
     // Add the line divider between each row
-    DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerView.getContext()
+    itemDecoration = new DividerItemDecoration(recyclerView.getContext()
         , llm.getOrientation());
     recyclerView.addItemDecoration(itemDecoration);
 
@@ -75,6 +78,8 @@ public class InboxActivity extends AppCompatActivity {
     inflater.inflate(R.menu.inbox_menu, menu);
     return true;
   }
+  
+
 
 
 }

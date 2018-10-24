@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.MessageThread.MessageThread;
 import com.sparkdev.perimeter.models.ChatRoom;
@@ -86,7 +87,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
     inboxViewHolder.titleTextView.setText(currentChat.getId());
     inboxViewHolder.lastMsgTextView.setText(currentChat.getLastMessage().getMessage());
     inboxViewHolder.time.setText(formattedDate);
-//    inboxViewHolder.imageView.setImageResource(Integer.parseInt(currentChat.getChatRoomImageUrl()));
+    Glide.with(mContext).load(currentChat.getChatRoomImageUrl()).into(inboxViewHolder.imageView);
 
   }
 
