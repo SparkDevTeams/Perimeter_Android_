@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
 
-import perimeter.sparkdev.com.perimeter.R;
+import com.sparkdev.perimeter.R;
 
 public class SignUpActivity extends AppCompatActivity
 {
