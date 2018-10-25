@@ -13,23 +13,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.models.Message;
-import java.util.ArrayList;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
-    private final ArrayList<String> mContacts;        // This will hold your data
     private final List<Message> mMessages;        // This will hold your data
     private LayoutInflater contactInflater;      // This will be the inflater for ContactListAdapter
     private Context mContext;
     private LinearLayout mLinearLayout;
 
     // ContactListAdapter Constructor
-    public RecyclerAdapter(Context mContext, ArrayList<String> mContacts, List<Message> mMessages) {
+    public RecyclerAdapter(Context mContext, List<Message> mMessages) {
         contactInflater = LayoutInflater.from(mContext); // Initialize the layout inflater
-        this.mContacts = mContacts;
         this.mMessages = mMessages;
         this.mContext = mContext;
     }
@@ -39,6 +40,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         // The following variables are for the text view and the adapter for each row
         public final TextView mContactTextView;
         public final TextView mMessageTextView;
+        public final TextView mTimeStampTextView;
+        public final CircleImageView mContactImage;
         final RecyclerAdapter rowAdapter;
 
         // Constructor where the first parameter is to inflate the layout and the second
@@ -49,6 +52,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             // Be sure to cast it to the View type that you need it to be (i.e TextView)
             mContactTextView = itemView.findViewById(R.id.contact_name);
             mMessageTextView = itemView.findViewById(R.id.message_text);
+            mTimeStampTextView = itemView.findViewById(R.id.time_stamp);
+            mContactImage = itemView.findViewById(R.id.contact_icon);
             mLinearLayout = itemView.findViewById(R.id.cell_layout);
             // Set up the adapter
             this.rowAdapter = adapter;
@@ -69,10 +74,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     // The onBindViewHolder() connects your data to your view holder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String currentContact = mContacts.get(position);    // Hold the current contact name
         final Message currentMessage = mMessages.get(position);    // Hold the current message
-        holder.mContactTextView.setText(currentContact);    // Set contact name at i position to TextView
-        holder.mMessageTextView.setText(currentMessage.getMessage());    // Set message at i position to TextView
+
+        //holder.mContactImage.setText(currentMessage.getTimestamp().toString());    // Set contact icon at position to TextView
+        holder.mContactTextView.setText(currentMessage.getSenderDisplayName());    // Set contact name at position to TextView
+        holder.mMessageTextView.setText(currentMessage.getMessage());    // Set message at position to TextView
+
+        //fix time formatting
+        SimpleDateFormat df = new SimpleDateFormat("h:mm a");
+        String formattedDate = df.format(currentMessage.getTimestamp());
+
+        holder.mTimeStampTextView.setText(formattedDate);    // Set time stamp at position to TextView
 
         //Get clipboard manager object
         Object clipboardService = mContext.getSystemService(CLIPBOARD_SERVICE);

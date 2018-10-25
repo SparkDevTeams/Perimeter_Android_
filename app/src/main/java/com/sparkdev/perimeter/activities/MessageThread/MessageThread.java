@@ -7,13 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
+
 import com.sparkdev.perimeter.R;
-import com.sparkdev.perimeter.activities.Firebase.GetChatRoomMessagesCompletionListener;
+import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
 import com.sparkdev.perimeter.models.ChatRoom;
-import com.sparkdev.perimeter.models.FirebaseAPI;
+import com.sparkdev.perimeter.models.FirebaseAPI2;
 import com.sparkdev.perimeter.models.Message;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MessageThread extends AppCompatActivity implements GetChatRoomMessagesCompletionListener {
@@ -21,9 +22,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList <String> mContacts = new ArrayList<>();
     private List <Message> mMessages;
-    private com.sparkdev.perimeter.models.FirebaseAPI mFirebaseAPI;
     private ChatRoom mChatRoom = new ChatRoom();
 
     @Override
@@ -31,12 +30,9 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_thread);
 
-        for(int i = 0; i < 30; i++){
-            mContacts.add("Contact " + (i+1));
-        }
-        mFirebaseAPI = FirebaseAPI.getInstance(this);
+        FirebaseAPI2 firebaseAPI = FirebaseAPI2.getInstance(this);
         mChatRoom.setCurrentMessageId("lHEXmV32Vt5SFSiQ4fnq");
-        mFirebaseAPI.getMessagesForChatRoom(mChatRoom,this);
+        firebaseAPI.getMessagesForChatRoom(mChatRoom,this);
 
         //Set action bar title
         getSupportActionBar().setTitle("Group 1");
@@ -66,13 +62,13 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     public void onSuccess(List<Message> messages) {
         mMessages = messages;
         // Create the adapter and supply the adapter with the data (i.e from an arraylist or database)
-        mAdapter = new RecyclerAdapter(this,mContacts, mMessages);
+        mAdapter = new RecyclerAdapter(this, mMessages);
         // Connect the adapter to the RecyclerView
         mRecyclerView.setAdapter(mAdapter);
     }
 
     public void onFailure() {
-        //Add toast message
+        Toast.makeText(this, "Unable to load messages", Toast.LENGTH_SHORT).show();
     }
 
 }
