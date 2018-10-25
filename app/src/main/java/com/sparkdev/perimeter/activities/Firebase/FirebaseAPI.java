@@ -14,6 +14,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
+import com.sparkdev.perimeter.activities.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
+import com.sparkdev.perimeter.activities.Firebase.LoginInterfaces.PerimeterLoginCompletionListener;
 import com.sparkdev.perimeter.models.UserProfile;
 
 /**

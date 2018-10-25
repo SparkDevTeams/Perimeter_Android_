@@ -8,10 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import com.sparkdev.perimeter.R;
-import com.sparkdev.perimeter.activities.Firebase.GetChatRoomMessagesCompletionListener;
+import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
 import com.sparkdev.perimeter.models.ChatRoom;
-import com.sparkdev.perimeter.models.FirebaseAPI;
+import com.sparkdev.perimeter.models.FirebaseAPI2;
 import com.sparkdev.perimeter.models.Message;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     private LinearLayoutManager mLayoutManager;
     private ArrayList <String> mContacts = new ArrayList<>();
     private List <Message> mMessages;
-    private com.sparkdev.perimeter.models.FirebaseAPI mFirebaseAPI;
+    private com.sparkdev.perimeter.models.FirebaseAPI2 mFirebaseAPI;
     private ChatRoom mChatRoom = new ChatRoom();
 
     @Override
@@ -34,7 +34,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
         for(int i = 0; i < 30; i++){
             mContacts.add("Contact " + (i+1));
         }
-        mFirebaseAPI = FirebaseAPI.getInstance(this);
+        mFirebaseAPI = FirebaseAPI2.getInstance(this);
         mChatRoom.setCurrentMessageId("lHEXmV32Vt5SFSiQ4fnq");
         mFirebaseAPI.getMessagesForChatRoom(mChatRoom,this);
 
