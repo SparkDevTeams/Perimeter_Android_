@@ -30,9 +30,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginHorizontal="5dp"
-            android:layout_marginVertical="5dp"
-            android:layout_alignBottom="@id/send_button"
-
+            android:layout_centerVertical="true"
             android:background="@drawable/ic_photo_camera_black_24dp"/>
 
         <ImageButton
@@ -40,8 +38,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginHorizontal="5dp"
-            android:layout_marginVertical="5dp"
-            android:layout_alignBottom="@id/send_button"
+            android:layout_centerVertical="true"
             android:background="@drawable/ic_mic_black_24dp"
             android:layout_toEndOf="@+id/camera_button" />
 
@@ -63,7 +60,7 @@
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="5dp"
-            android:layout_marginVertical="5dp"
+            android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/text_input"
             android:background="@color/colorWhite"
             android:text="SEND"

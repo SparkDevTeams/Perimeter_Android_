@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Toast;
-
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
@@ -31,11 +30,14 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
         setContentView(R.layout.activity_message_thread);
 
         FirebaseAPI2 firebaseAPI = FirebaseAPI2.getInstance(this);
-        mChatRoom.setCurrentMessageId("lHEXmV32Vt5SFSiQ4fnq");
+
+        mChatRoom.setCurrentMessagesId("lHEXmV32Vt5SFSiQ4fnq");
+        mChatRoom.setLocation("ECS");
+        //getIncomingIntent();
         firebaseAPI.getMessagesForChatRoom(mChatRoom,this);
 
         //Set action bar title
-        getSupportActionBar().setTitle("Group 1");
+        getSupportActionBar().setTitle(mChatRoom.getLocation());
 
         // Get access to the RecyclerView
         mRecyclerView = findViewById(R.id.message_recycler_view);
@@ -71,4 +73,15 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
         Toast.makeText(this, "Unable to load messages", Toast.LENGTH_SHORT).show();
     }
 
+    private void getIncomingIntent() {
+        if (getIntent().hasExtra("chat_room")) {
+            String currentMessagesId = getIntent().getStringExtra("chat_room");
+
+            setChatRoom(currentMessagesId);
+        }
+    }
+
+    private void setChatRoom(String currentMessagesId) {
+        mChatRoom.setCurrentMessagesId(currentMessagesId);
+    }
 }
