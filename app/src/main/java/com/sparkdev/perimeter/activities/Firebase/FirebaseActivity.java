@@ -25,7 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OldFirebase extends AppCompatActivity {
+public class FirebaseActivity extends AppCompatActivity {
     private static final String TAG = " Sometjing ";
     //Declaring an Instance
     private FirebaseAuth mAuth;
