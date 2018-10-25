@@ -29,12 +29,12 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_thread);
 
-        FirebaseAPI2 firebaseAPI = FirebaseAPI2.getInstance(this);
+        FirebaseAPI2 mFirebaseAPI = FirebaseAPI2.getInstance(this);
 
         mChatRoom.setCurrentMessagesId("lHEXmV32Vt5SFSiQ4fnq");
         mChatRoom.setLocation("ECS");
         //getIncomingIntent();
-        firebaseAPI.getMessagesForChatRoom(mChatRoom,this);
+        mFirebaseAPI.getMessagesForChatRoom(mChatRoom,this);
 
         //Set action bar title
         getSupportActionBar().setTitle(mChatRoom.getLocation());
@@ -74,14 +74,26 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     }
 
     private void getIncomingIntent() {
-        if (getIntent().hasExtra("chat_room")) {
+        if (getIntent().hasExtra("chat_room") && getIntent().hasExtra("chat_location") && getIntent().hasExtra("chat_icon")) {
             String currentMessagesId = getIntent().getStringExtra("chat_room");
+            String chatRoomLocation = getIntent().getStringExtra("chat_location");
+            String chatRoomImageUrl = getIntent().getStringExtra("chat_icon");
 
             setChatRoom(currentMessagesId);
+            setChatRoomLocation(chatRoomLocation);
+            setChatRoomIcon(chatRoomImageUrl);
         }
     }
 
     private void setChatRoom(String currentMessagesId) {
         mChatRoom.setCurrentMessagesId(currentMessagesId);
+    }
+
+    private void setChatRoomLocation(String chatRoomLocation) {
+        mChatRoom.setLocation(chatRoomLocation);
+    }
+
+    private void setChatRoomIcon(String chatRoomImageUrl) {
+        mChatRoom.setChatRoomImageUrl(chatRoomImageUrl);
     }
 }

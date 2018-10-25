@@ -91,4 +91,5 @@ public class ChatRoom {
 
     public void setLocation (String location) { mLocation = location;}
 
+    public void setChatRoomImageUrl(String chatRoomImageUrl) { mChatRoomImageUrl = chatRoomImageUrl; }
 }
