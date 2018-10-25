@@ -10,22 +10,26 @@
 
 
 
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/switch_1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Notifications"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="4dp" />
+    <!--<android.support.v7.widget.SwitchCompat-->
+        <!--android:id="@+id/switch_1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:text="Notifications"-->
+        <!--tools:layout_editor_absoluteX="4dp"-->
+        <!--tools:layout_editor_absoluteY="4dp" />-->
 
 
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/switch_2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Wi-Fi"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="76dp" />
+    <!--<android.support.v7.widget.SwitchCompat-->
+        <!--android:id="@+id/switch_2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:text="Wi-Fi"-->
+        <!--tools:layout_editor_absoluteX="4dp"-->
+        <!--tools:layout_editor_absoluteY="76dp" />-->
 
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"></ListView>
 
 </LinearLayout>
