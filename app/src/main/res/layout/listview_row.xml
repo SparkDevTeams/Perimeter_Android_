@@ -40,10 +40,11 @@
         android:layout_alignStart="@+id/chatName"
         android:text="It was great to see you again"
         android:textSize="12sp"
+        android:maxLines="1"
         />
 
     <TextView
-        android:id="@+id/timeStampID"
+        android:id="@+id/timeStamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
