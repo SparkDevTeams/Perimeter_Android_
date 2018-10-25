@@ -56,6 +56,7 @@ public class SignUpActivity extends AppCompatActivity
             }
         });
 
+        //newfire
         mSignUp.setOnClickListener(new View.OnClickListener()
         { //validates
             @Override
