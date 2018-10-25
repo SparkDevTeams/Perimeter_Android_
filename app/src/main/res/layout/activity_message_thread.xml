@@ -8,14 +8,15 @@
     tools:context=".activities.MessageThread.MessageThread"
     android:background="@color/colorLightGray">
 
-  <android.support.v7.widget.RecyclerView
-      android:id="@+id/message_recycler_view"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:scrollbars="vertical" >
-  </android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/message_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/input_toolbar"
+        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
 
   <LinearLayout
+      android:id="@+id/input_toolbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
@@ -45,16 +46,18 @@
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:hint="Write a message..."/>
+        android:hint="Type a message..."
+        android:inputType="textAutoComplete|textCapSentences|textMultiLine"
+        android:imeOptions="actionSend" />
 
     <Button
-        android:layout_width="40dp"
+        android:layout_width="60dp"
         android:layout_height="40dp"
         android:background="@color/colorWhite"
         android:text="SEND"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
-        android:textSize="15sp"/>
+        android:textSize="15sp" />
 
   </LinearLayout>
 

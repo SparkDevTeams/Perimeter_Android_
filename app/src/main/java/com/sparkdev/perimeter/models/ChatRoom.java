@@ -1,7 +1,9 @@
 package com.sparkdev.perimeter.models;
 
 import com.google.firebase.firestore.PropertyName;
+import com.google.gson.annotations.SerializedName;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChatRoom {
@@ -84,4 +86,6 @@ public class ChatRoom {
     public Message getLastMessage() {
         return mLastMessage;
     }
+
+    public void setCurrentMessageId(String messageId) { mCurrentMessagesId = messageId;}
 }

@@ -1,6 +1,7 @@
 package com.sparkdev.perimeter.activities.Inbox;
 
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -8,36 +9,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
 import com.sparkdev.perimeter.activities.Firebase.GetChatRoomsCompletionListener;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.FirebaseAPI;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class InboxActivity extends AppCompatActivity {
-  //Chat Rooms
-  private ArrayList<ChatRoom> chatRooms ;
 
+  private LinearLayoutManager llm;
+  private DividerItemDecoration itemDecoration;
+  private RecyclerView recyclerView;
+  private FirebaseAPI fb;
+  private List<ChatRoom> mChatRooms ;
+  private Context mContext = this;
 
-  // Chat Room Images
-  private Integer[] images = {R.drawable.gc, R.drawable.ecs, R.drawable.pg6, R.drawable.pg5,
-      R.drawable.library, R.drawable.sasc, R.drawable.oe};
-  private ArrayList<Integer> images2 = new ArrayList<Integer>(Arrays.asList(images));
-
-  // Chat Room Names
-  private String[] names = {"GC", "ECS", "PG6", "PG5",
-      "Library", "SASC", "OE"};
-  private ArrayList<String> names2 = new ArrayList<String>(Arrays.asList(names));
-
-  // Chat Room Last Message Sent
-  private String[] lastMessage = {"Whats for lunch?", "Im going to print now.", "Good luck on the test!"
-      , "Anyone found an ID?", "Im going to print now.", "Good luck on the test!", "Im in the lab."};
-  private ArrayList<String> lastMessage2 = new ArrayList<String>(Arrays.asList(lastMessage));
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -48,33 +37,34 @@ public class InboxActivity extends AppCompatActivity {
     getSupportActionBar().setTitle("Message Inbox");
 
     // Get access to the activity's RecyclerView
-    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);
-
-    // Define the RecyclerView's default layout manager and orientation
-    LinearLayoutManager llm = new LinearLayoutManager(this);
-    llm.setOrientation(LinearLayoutManager.VERTICAL);
-    recyclerView.setLayoutManager(llm);
+    recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);
 
     //fetch ChatRooms list from Firebase
-      FirebaseAPI fb = FirebaseAPI.getInstance(this);
+      fb = FirebaseAPI.getInstance(this);
       fb.getAllChatRooms( new GetChatRoomsCompletionListener (){
-          @Override
+
           public void onSuccess(List<ChatRoom> chatRooms) {
-              setChatRooms((ArrayList<ChatRoom>)(chatRooms));
+            mChatRooms = chatRooms;
+
+            // Create the InboxAdapter and supply the adapter with the data
+            InboxAdapter customAdapter = new InboxAdapter(mContext, mChatRooms);
+            recyclerView.setAdapter(customAdapter);
           }
 
-          @Override
-          public void onFailure() {
 
+          public void onFailure() {
+            Toast.makeText(mContext,"Unable to load chats", Toast.LENGTH_SHORT).show();
           }
       });
 
-    // Create the InboxAdapter and supply the adapter with the data
-    InboxAdapter customAdapter = new InboxAdapter(this, names2, lastMessage2, images2);
-    recyclerView.setAdapter(customAdapter);
+    // Define the RecyclerView's default layout manager and orientation
+    llm = new LinearLayoutManager(this);
+    llm.setOrientation(LinearLayoutManager.VERTICAL);
+    recyclerView.setLayoutManager(llm);
+
 
     // Add the line divider between each row
-    DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerView.getContext()
+    itemDecoration = new DividerItemDecoration(recyclerView.getContext()
         , llm.getOrientation());
     recyclerView.addItemDecoration(itemDecoration);
 
@@ -88,16 +78,10 @@ public class InboxActivity extends AppCompatActivity {
     inflater.inflate(R.menu.inbox_menu, menu);
     return true;
   }
+  
 
 
-  public ArrayList<ChatRoom> getChatRooms(){
-      return chatRooms;
-  }
 
-  public void setChatRooms(ArrayList<ChatRoom> chats)
-  {
-      chatRooms = chats;
-  }
 }
 
 

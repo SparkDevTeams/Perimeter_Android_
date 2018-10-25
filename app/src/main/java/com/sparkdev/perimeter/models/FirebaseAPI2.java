@@ -15,7 +15,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import com.sparkdev.perimeter.activities.Firebase.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.activities.Firebase.GetChatRoomsCompletionListener;
 
@@ -23,13 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * A firebase method wrapper
  */
-public class FirebaseAPI {
+public class FirebaseAPI2 {
 
-    private static FirebaseAPI sFirebaseApiInstance;
+    private static FirebaseAPI2 sFirebaseApi2Instance;
 
     private static final String TAG = "FIREBASE_API";
 
@@ -38,7 +36,7 @@ public class FirebaseAPI {
     /**
      * Private fireabase API init
      */
-    private FirebaseAPI(Context context) {
+    private FirebaseAPI2(Context context) {
         Log.d(TAG, "Firestore has been initialzed ");
         FirebaseApp.initializeApp(context);
         mFirestore = FirebaseFirestore.getInstance();
@@ -48,13 +46,13 @@ public class FirebaseAPI {
         mFirestore.setFirestoreSettings(settings);
     }
 
-    public static FirebaseAPI getInstance(Context context) {
+    public static FirebaseAPI2 getInstance(Context context) {
 
-        if (sFirebaseApiInstance != null){
-            return sFirebaseApiInstance;
+        if (sFirebaseApi2Instance != null){
+            return sFirebaseApi2Instance;
         } else {
-            sFirebaseApiInstance = new FirebaseAPI(context);
-            return sFirebaseApiInstance;
+            sFirebaseApi2Instance = new FirebaseAPI2(context);
+            return sFirebaseApi2Instance;
         }
     }
 
