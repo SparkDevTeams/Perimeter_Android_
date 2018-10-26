@@ -1,6 +1,7 @@
-package com.sparkdev.perimeter.activities.Firebase.SignUpInterface;
+package com.sparkdev.perimeter.models.Firebase.LoginInterfaces;
 
-public interface PerimeterSignUpCompletionListener {
+public interface PerimeterLoginCompletionListener {
+
 
     //method call when login is successful
     public void onSuccess();

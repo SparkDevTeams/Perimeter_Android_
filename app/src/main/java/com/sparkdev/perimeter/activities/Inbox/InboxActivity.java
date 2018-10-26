@@ -11,11 +11,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Toast;
 
-import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.models.ChatRoom;
-import com.sparkdev.perimeter.models.FirebaseAPI2;
+import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
+
 import java.util.List;
 
 public class InboxActivity extends AppCompatActivity {
@@ -23,8 +24,8 @@ public class InboxActivity extends AppCompatActivity {
   private LinearLayoutManager llm;
   private DividerItemDecoration itemDecoration;
   private RecyclerView recyclerView;
-  private FirebaseAPI2 fb;
-  private List<ChatRoom> mChatRooms ;
+  private FirebaseAPI fb;
+  private List<ChatRoom> mChatRooms;
   private Context mContext = this;
 
 
@@ -40,22 +41,22 @@ public class InboxActivity extends AppCompatActivity {
     recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);
 
     //fetch ChatRooms list from Firebase
-      fb = FirebaseAPI2.getInstance(this);
-      fb.getAllChatRooms( new GetChatRoomsCompletionListener (){
+    fb = FirebaseAPI.getInstance(this);
+    fb.getAllChatRooms(new GetChatRoomsCompletionListener() {
 
-          public void onSuccess(List<ChatRoom> chatRooms) {
-            mChatRooms = chatRooms;
+      public void onSuccess(List<ChatRoom> chatRooms) {
+        mChatRooms = chatRooms;
 
-            // Create the InboxAdapter and supply the adapter with the data
-            InboxAdapter customAdapter = new InboxAdapter(mContext, mChatRooms);
-            recyclerView.setAdapter(customAdapter);
-          }
+        // Create the InboxAdapter and supply the adapter with the data
+        InboxAdapter customAdapter = new InboxAdapter(mContext, mChatRooms);
+        recyclerView.setAdapter(customAdapter);
+      }
 
 
-          public void onFailure() {
-            Toast.makeText(mContext,"Unable to load chats", Toast.LENGTH_SHORT).show();
-          }
-      });
+      public void onFailure() {
+        Toast.makeText(mContext, "Unable to load chats", Toast.LENGTH_SHORT).show();
+      }
+    });
 
     // Define the RecyclerView's default layout manager and orientation
     llm = new LinearLayoutManager(this);
@@ -69,7 +70,6 @@ public class InboxActivity extends AppCompatActivity {
     recyclerView.addItemDecoration(itemDecoration);
 
 
-
   }
 
   @Override
@@ -78,8 +78,6 @@ public class InboxActivity extends AppCompatActivity {
     inflater.inflate(R.menu.inbox_menu, menu);
     return true;
   }
-  
-
 
 
 }
