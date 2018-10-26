@@ -35,7 +35,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
   }
 
   //inner class to retrieve the views
-  public class InboxViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+  public class InboxViewHolder extends RecyclerView.ViewHolder{
     public ImageView imageView;
     public TextView titleTextView;
     public TextView lastMsgTextView;
@@ -52,15 +52,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
       time = (TextView)view.findViewById(R.id.timeStamp);
       rowLayout = (RelativeLayout) view.findViewById(R.id.rowItem);
 
-      itemView.setOnClickListener(this);
 
-    }
 
-    //on click listener for each row
-    @Override
-    public void onClick(View view) {
-      Intent intent = new Intent(mContext, MessageThread.class);
-      mContext.startActivity(intent);
     }
   }
   //end of inner class
@@ -78,7 +71,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
 
   @Override
   public void onBindViewHolder(InboxAdapter.InboxViewHolder inboxViewHolder, int i) {
-    ChatRoom currentChat = mChats.get(i);
+    final ChatRoom currentChat = mChats.get(i);
 
     //fix time formatting
     SimpleDateFormat df = new SimpleDateFormat("h:mm a");
@@ -89,6 +82,17 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
     inboxViewHolder.time.setText(formattedDate);
     Glide.with(mContext).load(currentChat.getChatRoomImageUrl()).into(inboxViewHolder.imageView);
 
+    inboxViewHolder.rowLayout.setOnClickListener(new View.OnClickListener(){
+
+      @Override
+      public void onClick(View view) {
+         Intent intent = new Intent(mContext, MessageThread.class);
+         intent.putExtra("chat_room", currentChat.getCurrentMessagesId());
+         intent.putExtra("chat_location",currentChat.getLocation());
+         intent.putExtra("chat_icon",currentChat.getChatRoomImageUrl());
+         mContext.startActivity(intent);
+      }
+    });
   }
 
   @Override
