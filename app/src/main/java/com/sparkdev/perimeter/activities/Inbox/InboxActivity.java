@@ -7,25 +7,40 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.MetadataChanges;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.FirebaseAPI2;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 public class InboxActivity extends AppCompatActivity {
 
   private LinearLayoutManager llm;
   private DividerItemDecoration itemDecoration;
   private RecyclerView recyclerView;
+  private InboxAdapter mCustomAdapter;
   private FirebaseAPI2 fb;
   private List<ChatRoom> mChatRooms ;
   private Context mContext = this;
+  private static final String TAG = "InboxActivity";
 
 
   @Override
@@ -47,8 +62,11 @@ public class InboxActivity extends AppCompatActivity {
             mChatRooms = chatRooms;
 
             // Create the InboxAdapter and supply the adapter with the data
-            InboxAdapter customAdapter = new InboxAdapter(mContext, mChatRooms);
-            recyclerView.setAdapter(customAdapter);
+            mCustomAdapter = new InboxAdapter(mContext, mChatRooms);
+            recyclerView.setAdapter(mCustomAdapter);
+
+            //set up listners
+              setUpListeners();
           }
 
 
@@ -70,6 +88,7 @@ public class InboxActivity extends AppCompatActivity {
 
 
 
+
   }
 
   @Override
@@ -78,8 +97,36 @@ public class InboxActivity extends AppCompatActivity {
     inflater.inflate(R.menu.inbox_menu, menu);
     return true;
   }
-  
 
+
+
+    public void setUpListeners()
+  {
+      DocumentReference docRef = (DocumentReference) FirebaseFirestore.getInstance().collection("ChatRooms").addSnapshotListener(new EventListener<QuerySnapshot>() {
+          @Override
+          public void onEvent(@Nullable QuerySnapshot snapshots,
+                              @Nullable FirebaseFirestoreException e) {
+              if (e != null) {
+                  Log.w(TAG, "listen:error", e);
+                  return;
+              }
+
+              List<ChatRoom> newChats = new ArrayList<>();
+              for(int i = 0; i< snapshots.getDocuments().size(); i++)
+              {
+                  DocumentSnapshot snapshot = snapshots.getDocuments().get(i);
+                  ChatRoom chatRoom = snapshot.toObject(ChatRoom.class);
+                  newChats.add(chatRoom);
+              }
+
+              mChatRooms = newChats;
+              mCustomAdapter.changeChatList(mChatRooms);
+              mCustomAdapter.notifyDataSetChanged();
+
+          }
+      });
+
+  }
 
 
 }
