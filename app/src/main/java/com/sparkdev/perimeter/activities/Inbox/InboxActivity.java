@@ -14,11 +14,11 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.sparkdev.perimeter.R;
-import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
 import com.sparkdev.perimeter.activities.Settings.Settings_Activity;
 import com.sparkdev.perimeter.models.ChatRoom;
-import com.sparkdev.perimeter.models.FirebaseAPI2;
+import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class InboxActivity extends AppCompatActivity {
   private LinearLayoutManager llm;
   private DividerItemDecoration itemDecoration;
   private RecyclerView recyclerView;
-  private FirebaseAPI2 fb;
+  private FirebaseAPI fb;
   private List<ChatRoom> mChatRooms ;
   private Context mContext = this;
 
@@ -44,8 +44,8 @@ public class InboxActivity extends AppCompatActivity {
     recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);
 
     //fetch ChatRooms list from Firebase
-      fb = FirebaseAPI2.getInstance(this);
-      fb.getAllChatRooms( new GetChatRoomsCompletionListener (){
+      fb = FirebaseAPI.getInstance(this);
+      fb.getAllChatRooms( new GetChatRoomsCompletionListener(){
 
           public void onSuccess(List<ChatRoom> chatRooms) {
             mChatRooms = chatRooms;
