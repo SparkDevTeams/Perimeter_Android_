@@ -106,31 +106,30 @@ public class InboxActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item) ;
     }
   }
-
-  public void setUpListeners()
-  {
-    DocumentReference docRef = (DocumentReference) FirebaseFirestore.getInstance().collection("ChatRooms").addSnapshotListener(new EventListener<QuerySnapshot>() {
-      @Override
-      public void onEvent(@Nullable QuerySnapshot snapshots,
-                          @Nullable FirebaseFirestoreException e) {
-        if (e != null) {
-          Log.w(TAG, "listen:error", e);
-          return;
-        }
-        List<ChatRoom> newChats = new ArrayList<>();
-        for(int i = 0; i< snapshots.getDocuments().size(); i++)
-        {
-          DocumentSnapshot snapshot = snapshots.getDocuments().get(i);
-          ChatRoom chatRoom = snapshot.toObject(ChatRoom.class);
-          newChats.add(chatRoom);
-        }
-        mChatRooms = newChats;
-        mCustomAdapter.changeChatList(mChatRooms);
-        mCustomAdapter.notifyDataSetChanged();
-      }
-    });
-  }
-
+  
+    public void setUpListeners()
+    {
+        DocumentReference docRef = (DocumentReference) FirebaseFirestore.getInstance().collection("ChatRooms").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshots,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "listen:error", e);
+                    return;
+                }
+                List<ChatRoom> newChats = new ArrayList<>();
+                for(int i = 0; i< snapshots.getDocuments().size(); i++)
+                {
+                    DocumentSnapshot snapshot = snapshots.getDocuments().get(i);
+                    ChatRoom chatRoom = snapshot.toObject(ChatRoom.class);
+                    newChats.add(chatRoom);
+                }
+                mChatRooms = newChats;
+                mCustomAdapter.changeChatList(mChatRooms);
+                mCustomAdapter.notifyDataSetChanged();
+            }
+        });
+    }
 }
 
 
