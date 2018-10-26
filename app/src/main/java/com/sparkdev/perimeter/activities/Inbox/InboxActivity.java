@@ -107,6 +107,7 @@ public class InboxActivity extends AppCompatActivity {
     }
   }
   
+  
     public void setUpListeners()
     {
         DocumentReference docRef = (DocumentReference) FirebaseFirestore.getInstance().collection("ChatRooms").addSnapshotListener(new EventListener<QuerySnapshot>() {
