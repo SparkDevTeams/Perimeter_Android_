@@ -88,6 +88,8 @@ public class SignUpActivity extends AppCompatActivity
 
     private void validate(String userName, String password)
     {
+        //firebase api create login method
+
         /*mAuth.signInWithEmailAndPassword(userName, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task)
