@@ -1,28 +1,51 @@
 package com.sparkdev.perimeter.models;
 
+import com.google.firebase.firestore.PropertyName;
+import com.google.gson.annotations.SerializedName;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChatRoom {
 
-    private String mId;
-    private String mLocation;
-    private String mBeaconIdMajor;
-    private String mBeaconIdMinor;
-    private ArrayList<UserProfile> mUsers;
-    private ArrayList<Message> mMessages;
-    private String description;
+   @PropertyName("id")
+   private String mId;
+   @PropertyName("location")
+   private String mLocation;
+   @PropertyName("beaconIdMajor")
+   private String mBeaconIdMajor;
+   @PropertyName("beaconIdMinor")
+   private String mBeaconIdMinor;
+   @PropertyName("usersId")
+   private ArrayList<String> mUsers;
+   @PropertyName("currentMessagesId")
+   private String mCurrentMessagesId;
+   @PropertyName("messagesIds")
+   private ArrayList<String> mMessagesIds;
+   @PropertyName("chatRoomImageUrl")
+   private  String mChatRoomImageUrl;
+   @PropertyName("description")
+   private String mDescription;
+   @PropertyName("lastMessage")
+   private  Message mLastMessage;
 
     public ChatRoom(String id, String location, String beaconIdMajor, String beaconIdMinor,
-                    ArrayList<UserProfile> users, ArrayList<Message> messages, String description) {
+                    ArrayList<String> users, String currentMessagesId, ArrayList<String> messagesIds,
+                    String description, String chatRoomImageUrl, Message lastMessage) {
         mId = id;
         mLocation = location;
         mBeaconIdMajor = beaconIdMajor;
         mBeaconIdMinor = beaconIdMinor;
         mUsers = users;
-        mMessages = messages;
-        this.description = description;
+        mDescription = description;
+        mCurrentMessagesId = currentMessagesId;
+        mMessagesIds = messagesIds;
+        mChatRoomImageUrl = chatRoomImageUrl;
+        mLastMessage = lastMessage;
     }
+
+    public ChatRoom() {}
+
 
     public String getId() {
         return mId;
@@ -40,17 +63,33 @@ public class ChatRoom {
         return mBeaconIdMinor;
     }
 
-    public ArrayList<UserProfile> getUsers() {
+    public ArrayList<String> getUsers() {
         return mUsers;
     }
 
-    public ArrayList<Message> getMessages() {
-        return mMessages;
-    }
-
     public String getDescription() {
-        return description;
+        return mDescription;
     }
 
+    public String getCurrentMessagesId() {
+        return mCurrentMessagesId;
+    }
 
+    public ArrayList<String> getMessagesIds() {
+        return mMessagesIds;
+    }
+
+    public String getChatRoomImageUrl() {
+        return mChatRoomImageUrl;
+    }
+
+    public Message getLastMessage() {
+        return mLastMessage;
+    }
+
+    public void setCurrentMessagesId(String messagesId) { mCurrentMessagesId = messagesId;}
+
+    public void setLocation (String location) { mLocation = location;}
+
+    public void setChatRoomImageUrl(String chatRoomImageUrl) { mChatRoomImageUrl = chatRoomImageUrl; }
 }

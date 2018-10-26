@@ -1,42 +1,101 @@
 package com.sparkdev.perimeter.activities.MessageThread;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.widget.Toast;
 
 import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
+import com.sparkdev.perimeter.models.ChatRoom;
+import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
+import com.sparkdev.perimeter.models.Message;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class MessageThread extends Activity {
+public class MessageThread extends AppCompatActivity implements GetChatRoomMessagesCompletionListener {
 
   private RecyclerView mRecyclerView;
   private RecyclerView.Adapter mAdapter;
-  private RecyclerView.LayoutManager mLayoutManager;
-
-  private ArrayList<String> mContacts = new ArrayList<>();
-  private ArrayList<String> mMessages = new ArrayList<>();
+  private LinearLayoutManager mLayoutManager;
+  private List<Message> mMessages;
+  private ChatRoom mChatRoom = new ChatRoom();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_message_thread);
 
-    for (int i = 0; i < 30; i++) {
-      mContacts.add("Contact " + (i + 1));
-      mMessages.add("This is an example of a text message from Contact " + (i + 1));
-    }
+    FirebaseAPI mFirebaseAPI = FirebaseAPI.getInstance(this);
+
+    mChatRoom.setCurrentMessagesId("lHEXmV32Vt5SFSiQ4fnq");
+    mChatRoom.setLocation("ECS");
+    //getIncomingIntent();
+    mFirebaseAPI.getMessagesForChatRoom(mChatRoom, this);
+
+    //Set action bar title
+    getSupportActionBar().setTitle(mChatRoom.getLocation());
 
     // Get access to the RecyclerView
-    mRecyclerView = (RecyclerView) findViewById(R.id.message_recycler_view);
-    // Create the adapter and supply the adapter with the data (i.e from an arraylist or database)
-    mAdapter = new RecyclerAdapter(this, mContacts, mMessages);
-    // Connect the adapter to the RecyclerView
-    mRecyclerView.setAdapter(mAdapter);
+    mRecyclerView = findViewById(R.id.message_recycler_view);
+
     // Define the RecyclerView's default layout manager
     mLayoutManager = new LinearLayoutManager(this);
+    mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
     mRecyclerView.setLayoutManager(mLayoutManager);
+
+    //Add a divider between each cell
+    DividerItemDecoration cellDivider = new DividerItemDecoration(mRecyclerView.getContext(),
+        mLayoutManager.getOrientation());
+    mRecyclerView.addItemDecoration(cellDivider);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.message_thread_menu, menu);
+    return true;
+  }
+
+  public void onSuccess(List<Message> messages) {
+    mMessages = messages;
+    // Create the adapter and supply the adapter with the data (i.e from an arraylist or database)
+    mAdapter = new RecyclerAdapter(this, mMessages);
+    // Connect the adapter to the RecyclerView
+    mRecyclerView.setAdapter(mAdapter);
+  }
+
+  public void onFailure() {
+    Toast.makeText(this, "Unable to load messages", Toast.LENGTH_SHORT).show();
+  }
+
+  private void getIncomingIntent() {
+    if (getIntent().hasExtra("chat_room") && getIntent().hasExtra("chat_location") && getIntent().hasExtra("chat_icon")) {
+      String currentMessagesId = getIntent().getStringExtra("chat_room");
+      String chatRoomLocation = getIntent().getStringExtra("chat_location");
+      String chatRoomImageUrl = getIntent().getStringExtra("chat_icon");
+
+      setChatRoom(currentMessagesId);
+      setChatRoomLocation(chatRoomLocation);
+      setChatRoomIcon(chatRoomImageUrl);
+    }
+  }
+
+  private void setChatRoom(String currentMessagesId) {
+    mChatRoom.setCurrentMessagesId(currentMessagesId);
+  }
+
+  private void setChatRoomLocation(String chatRoomLocation) {
+    mChatRoom.setLocation(chatRoomLocation);
+  }
+
+  private void setChatRoomIcon(String chatRoomImageUrl) {
+    mChatRoom.setChatRoomImageUrl(chatRoomImageUrl);
   }
 }

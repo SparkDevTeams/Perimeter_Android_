@@ -11,54 +11,53 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.MessageThread.MessageThread;
+import com.sparkdev.perimeter.models.ChatRoom;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHolder> {
 
-  private ArrayList<String> mTitle;  //titleTextView
-  private ArrayList<String> mLastMsg; //last message sent
-  private ArrayList<Integer> mImgs; //image
+  private List<ChatRoom> mChats ;
   private Context mContext;
 
   // InboxAdapter Constructor
-  public InboxAdapter(Context context, ArrayList list, ArrayList list2, ArrayList list3) {
-    this.mTitle = list;
-    this.mLastMsg = list2;
-    this.mImgs = list3;
+  public InboxAdapter(Context context, List<ChatRoom> chats ) {
     mContext = context;
+    mChats = chats;
+
 
   }
 
-  //inner class too retrieve the views
-  public class InboxViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+  //inner class to retrieve the views
+  public class InboxViewHolder extends RecyclerView.ViewHolder{
     public ImageView imageView;
     public TextView titleTextView;
     public TextView lastMsgTextView;
+    public TextView time;
     public RelativeLayout rowLayout;
 
+    //inbox view holder constructor
     public InboxViewHolder(View view) {
       super(view);
-
 
       imageView = (ImageView) view.findViewById(R.id.chatImage);
       titleTextView = (TextView) view.findViewById(R.id.chatName);
       lastMsgTextView = (TextView) view.findViewById(R.id.description);
+      time = (TextView)view.findViewById(R.id.timeStamp);
       rowLayout = (RelativeLayout) view.findViewById(R.id.rowItem);
 
-      itemView.setOnClickListener(this);
 
-    }
 
-    //on click listener for each row
-    @Override
-    public void onClick(View view) {
-      Intent intent = new Intent(mContext, MessageThread.class);
-      mContext.startActivity(intent);
     }
   }
+  //end of inner class
+
 
   @NonNull
   @Override
@@ -72,18 +71,32 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
 
   @Override
   public void onBindViewHolder(InboxAdapter.InboxViewHolder inboxViewHolder, int i) {
-    String a = mTitle.get(i);
-    String b = mLastMsg.get(i);
-    Integer c = mImgs.get(i);
+    final ChatRoom currentChat = mChats.get(i);
 
-    inboxViewHolder.titleTextView.setText(a);
-    inboxViewHolder.lastMsgTextView.setText(b);
-    inboxViewHolder.imageView.setImageResource(c);
+    //fix time formatting
+    SimpleDateFormat df = new SimpleDateFormat("h:mm a");
+    String formattedDate = df.format(currentChat.getLastMessage().getTimestamp());
 
+    inboxViewHolder.titleTextView.setText(currentChat.getId());
+    inboxViewHolder.lastMsgTextView.setText(currentChat.getLastMessage().getMessage());
+    inboxViewHolder.time.setText(formattedDate);
+    Glide.with(mContext).load(currentChat.getChatRoomImageUrl()).into(inboxViewHolder.imageView);
+
+    inboxViewHolder.rowLayout.setOnClickListener(new View.OnClickListener(){
+
+      @Override
+      public void onClick(View view) {
+         Intent intent = new Intent(mContext, MessageThread.class);
+         intent.putExtra("chat_room", currentChat.getCurrentMessagesId());
+         intent.putExtra("chat_location",currentChat.getLocation());
+         intent.putExtra("chat_icon",currentChat.getChatRoomImageUrl());
+         mContext.startActivity(intent);
+      }
+    });
   }
 
   @Override
   public int getItemCount() {
-    return mTitle.size();
+    return mChats.size();
   }
 }

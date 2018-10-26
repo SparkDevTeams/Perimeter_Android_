@@ -1,4 +1,4 @@
-package com.sparkdev.perimeter.models;
+package com.sparkdev.perimeter.models.Firebase;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -16,11 +16,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
+import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
-import com.sparkdev.perimeter.models.Firebase.FirestoreMessagesCollection;
 import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
 import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterLoginCompletionListener;
+import com.sparkdev.perimeter.models.UserProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 public class FirebaseAPI {
 
-  private static FirebaseAPI sFirebaseApi2Instance;
+  private static FirebaseAPI sFirebaseApiInstance;
 
   private static final String TAG = "FIREBASE_API";
 
@@ -52,11 +53,11 @@ public class FirebaseAPI {
 
   public static FirebaseAPI getInstance(Context context) {
 
-    if (sFirebaseApi2Instance != null) {
-      return sFirebaseApi2Instance;
+    if (sFirebaseApiInstance != null) {
+      return sFirebaseApiInstance;
     } else {
-      sFirebaseApi2Instance = new FirebaseAPI(context);
-      return sFirebaseApi2Instance;
+      sFirebaseApiInstance = new FirebaseAPI(context);
+      return sFirebaseApiInstance;
     }
   }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cell_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
@@ -7,15 +8,15 @@
     <!-- Make sure your layout_height is set to wrap_content, to avoid each row to be on top of one
 another once the app is created-->
 
-    <ImageView
-        android:id="@+id/sample_icon"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contact_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="10dp"
-        android:background="@drawable/ic_launcher_background"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
+        android:id="@+id/text_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -51,15 +52,15 @@ another once the app is created-->
                 android:textSize="14dp" />
         </LinearLayout>
 
-            <TextView
-                android:id="@+id/message_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="top"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Message Text"
-                android:textSize="16dp" />
+        <TextView
+            android:id="@+id/message_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Message Text"
+            android:textSize="16dp" />
 
     </LinearLayout>
 
