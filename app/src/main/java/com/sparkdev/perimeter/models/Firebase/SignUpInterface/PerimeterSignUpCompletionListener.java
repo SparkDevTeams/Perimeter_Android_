@@ -1,4 +1,4 @@
-package com.sparkdev.perimeter.activities.Firebase.SignUpInterface;
+package com.sparkdev.perimeter.models.Firebase.SignUpInterface;
 
 public interface PerimeterSignUpCompletionListener {
 

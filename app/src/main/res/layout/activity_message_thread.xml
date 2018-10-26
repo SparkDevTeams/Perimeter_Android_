@@ -13,52 +13,59 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input_toolbar"
-        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+        android:scrollbars="vertical"/>
 
-  <LinearLayout
-      android:id="@+id/input_toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_alignParentBottom="true"
-      android:layout_alignParentStart="true"
-      android:background="@color/colorWhite"
-      android:showDividers="">
-
-    <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/ic_photo_camera_black_24dp"/>
-
-    <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/ic_mic_black_24dp"/>
-
-    <EditText
-        android:layout_width="240dp"
+    <RelativeLayout
+        android:id="@+id/input_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:hint="Type a message..."
-        android:inputType="textAutoComplete|textCapSentences|textMultiLine"
-        android:imeOptions="actionSend" />
-
-    <Button
-        android:layout_width="60dp"
-        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:background="@color/colorWhite"
-        android:text="SEND"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="15sp" />
+        android:showDividers="">
 
-  </LinearLayout>
+        <ImageButton
+            android:id="@+id/camera_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_photo_camera_black_24dp"/>
+
+        <ImageButton
+            android:id="@+id/mic_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_mic_black_24dp"
+            android:layout_toEndOf="@+id/camera_button" />
+
+        <EditText
+            android:id="@+id/text_input"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:hint="Type a message..."
+            android:inputType="textAutoComplete|textCapSentences|textMultiLine"
+            android:imeOptions="actionSend"
+            android:layout_toEndOf="@+id/mic_button"
+            />
+
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/text_input"
+            android:background="@color/colorWhite"
+            android:text="SEND"
+            android:textSize="15sp" />
+
+  </RelativeLayout>
 
 </RelativeLayout>

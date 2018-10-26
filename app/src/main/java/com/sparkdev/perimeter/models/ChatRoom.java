@@ -87,5 +87,9 @@ public class ChatRoom {
         return mLastMessage;
     }
 
-    public void setCurrentMessageId(String messageId) { mCurrentMessagesId = messageId;}
+    public void setCurrentMessagesId(String messagesId) { mCurrentMessagesId = messagesId;}
+
+    public void setLocation (String location) { mLocation = location;}
+
+    public void setChatRoomImageUrl(String chatRoomImageUrl) { mChatRoomImageUrl = chatRoomImageUrl; }
 }

@@ -1,4 +1,4 @@
-package com.sparkdev.perimeter.activities.Firebase.LoginInterfaces;
+package com.sparkdev.perimeter.models.Firebase.LoginInterfaces;
 
 import com.sparkdev.perimeter.models.UserProfile;
 
