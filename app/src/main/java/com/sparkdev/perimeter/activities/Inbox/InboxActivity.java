@@ -2,20 +2,24 @@ package com.sparkdev.perimeter.activities.Inbox;
 
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
-import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.activities.Settings.Settings_Activity;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.FirebaseAPI2;
+
 import java.util.List;
 
 public class InboxActivity extends AppCompatActivity {
@@ -77,6 +81,17 @@ public class InboxActivity extends AppCompatActivity {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.inbox_menu, menu);
     return true;
+  }
+
+  public boolean onOptionsItemSelected(MenuItem item){
+    switch(item.getItemId()){
+      case R.id.item1:
+        startActivity(new Intent(InboxActivity.this, Settings_Activity.class));
+        return true;
+
+      default:
+        return super.onOptionsItemSelected(item) ;
+    }
   }
   
 
