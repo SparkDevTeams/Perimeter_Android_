@@ -16,10 +16,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
-import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
-import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
-import com.sparkdev.perimeter.activities.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
-import com.sparkdev.perimeter.activities.Firebase.LoginInterfaces.PerimeterLoginCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.FirestoreMessagesCollection;
+import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterLoginCompletionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,9 @@ import java.util.List;
 /**
  * A firebase method wrapper
  */
-public class FirebaseAPI2 {
+public class FirebaseAPI {
 
-  private static FirebaseAPI2 sFirebaseApi2Instance;
+  private static FirebaseAPI sFirebaseApi2Instance;
 
   private static final String TAG = "FIREBASE_API";
 
@@ -39,7 +40,7 @@ public class FirebaseAPI2 {
   /**
    * Private fireabase API init
    */
-  private FirebaseAPI2(Context context) {
+  private FirebaseAPI(Context context) {
     Log.d(TAG, "Firestore has been initialzed ");
     FirebaseApp.initializeApp(context);
     mFirestore = FirebaseFirestore.getInstance();
@@ -49,12 +50,12 @@ public class FirebaseAPI2 {
     mFirestore.setFirestoreSettings(settings);
   }
 
-  public static FirebaseAPI2 getInstance(Context context) {
+  public static FirebaseAPI getInstance(Context context) {
 
     if (sFirebaseApi2Instance != null) {
       return sFirebaseApi2Instance;
     } else {
-      sFirebaseApi2Instance = new FirebaseAPI2(context);
+      sFirebaseApi2Instance = new FirebaseAPI(context);
       return sFirebaseApi2Instance;
     }
   }
