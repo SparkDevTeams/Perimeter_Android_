@@ -18,8 +18,6 @@ public class Settings_Activity extends PreferenceActivity {
   SwitchCompat switch_1, switch_2;
   SharedPreferences preferences;
 
-
-
   boolean stateSwitch1, stateSwitch2;
 
   protected void onCreate(Bundle savedInstanceState) {
@@ -29,20 +27,20 @@ public class Settings_Activity extends PreferenceActivity {
 
   }
 
-  public static class MainSettingsFragment extends PreferenceFragment{
-      public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
+  public static class MainSettingsFragment extends PreferenceFragment {
+    public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      addPreferencesFromResource(R.xml.preferences);
 
-        bindSummaryValue(findPreference("key_email"));
+      bindSummaryValue(findPreference("key_email"));
 
-      }
+    }
   }
 
-  private static void bindSummaryValue(Preference preference){
-     preference.setOnPreferenceChangeListener(listener);
-     listener.onPreferenceChange(preference, PreferenceManager.getDefaultSharedPreferences(preference.getContext())
-              .getString(preference.getKey(), ""));
+  private static void bindSummaryValue(Preference preference) {
+    preference.setOnPreferenceChangeListener(listener);
+    listener.onPreferenceChange(preference, PreferenceManager.getDefaultSharedPreferences(preference.getContext())
+        .getString(preference.getKey(), ""));
   }
 
   private static Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
@@ -50,17 +48,17 @@ public class Settings_Activity extends PreferenceActivity {
     public boolean onPreferenceChange(Preference preference, Object newValue) {
 
       String stringValue = newValue.toString();
-      if(preference instanceof ListPreference){
+      if (preference instanceof ListPreference) {
         ListPreference listPreference = (ListPreference) preference;
         int index = listPreference.findIndexOfValue(stringValue);
-        preference.setSummary(index > 0 ? listPreference.getEntries()[index] : null) ;
+        preference.setSummary(index > 0 ? listPreference.getEntries()[index] : null);
 
-      } else if(preference instanceof EditTextPreference){
+      } else if (preference instanceof EditTextPreference) {
         preference.setSummary(stringValue);
       }
 
       return true;
     }
-  } ;
+  };
 
 }

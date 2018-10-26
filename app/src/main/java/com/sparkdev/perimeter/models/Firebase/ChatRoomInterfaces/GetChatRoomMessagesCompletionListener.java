@@ -1,4 +1,4 @@
-package com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces;
+package com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces;
 
 import com.sparkdev.perimeter.models.Message;
 

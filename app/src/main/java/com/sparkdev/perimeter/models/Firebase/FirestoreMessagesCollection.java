@@ -1,6 +1,7 @@
-package com.sparkdev.perimeter.models;
+package com.sparkdev.perimeter.models.Firebase;
 
 import com.google.firebase.firestore.PropertyName;
+import com.sparkdev.perimeter.models.Message;
 
 import java.util.ArrayList;
 
