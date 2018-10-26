@@ -31,9 +31,9 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
 
         FirebaseAPI2 mFirebaseAPI = FirebaseAPI2.getInstance(this);
 
-        mChatRoom.setCurrentMessagesId("lHEXmV32Vt5SFSiQ4fnq");
-        mChatRoom.setLocation("ECS");
-        //getIncomingIntent();
+//       mChatRoom.setCurrentMessagesId("lHEXmV32Vt5SFSiQ4fnq");
+//       mChatRoom.setLocation("ECS");
+        getIncomingIntent();
         mFirebaseAPI.getMessagesForChatRoom(mChatRoom,this);
 
         //Set action bar title
@@ -74,6 +74,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     }
 
     private void getIncomingIntent() {
+
         if (getIntent().hasExtra("chat_room") && getIntent().hasExtra("chat_location") && getIntent().hasExtra("chat_icon")) {
             String currentMessagesId = getIntent().getStringExtra("chat_room");
             String chatRoomLocation = getIntent().getStringExtra("chat_location");
