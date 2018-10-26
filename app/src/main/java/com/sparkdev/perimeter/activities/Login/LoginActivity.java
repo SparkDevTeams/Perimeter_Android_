@@ -1,5 +1,6 @@
 package com.sparkdev.perimeter.activities.Login;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.activities.Firebase.FirebaseAPI;
+import com.sparkdev.perimeter.activities.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
+import com.sparkdev.perimeter.activities.Firebase.LoginInterfaces.PerimeterLoginCompletionListener;
+import com.sparkdev.perimeter.activities.Inbox.InboxActivity;
+import com.sparkdev.perimeter.models.UserProfile;
 
 public class LoginActivity extends AppCompatActivity {
   private EditText mName;
@@ -30,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
   private int mCounter = 1;
   private FirebaseAuth mAuth;
   private final String TAG = "LoginActivity";
+  private FirebaseAPI fire;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     mLogin = findViewById(R.id.btnLogin);
     mCreateAccount = findViewById(R.id.tvCreateAccount);
     mAuth = FirebaseAuth.getInstance();
+    fire = FirebaseAPI.getInstance(this);
     // mName.setSelection(1);
     //mPassword.setSelection(1);
     String text = "Don't have an account? Create One";
@@ -74,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
   public void onStart() {
     super.onStart();
     // Check if user is signed in (non-null) and update UI accordingly.
-    FirebaseUser currentUser = mAuth.getCurrentUser();
+    //FirebaseUser currentUser = mAuth.getCurrentUser();
     //updateUI(currentUser);
   }
 
@@ -86,8 +94,26 @@ public class LoginActivity extends AppCompatActivity {
 
         if (task.isSuccessful()) {
           Log.d(TAG, "Login successful");
+          //startActivity(new Intent(LoginActivity.this, InboxActivity.class));
           Toast.makeText(LoginActivity.this, "Login passed", Toast.LENGTH_SHORT).show();
+          startActivity(new Intent(LoginActivity.this, InboxActivity.class));
           FirebaseUser user = mAuth.getCurrentUser();
+
+          fire.getUserWithUserID(user.getUid(), new PerimeterGetUserCompletionListener() {
+            @Override
+            public void onSuccess(UserProfile profile) {
+              Log.d(TAG, "onSuccess: users prodile display name " + profile.getDisplayName());
+              startActivity(new Intent(LoginActivity.this, InboxActivity.class));
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+          });
+
+
+
           //updateUI(user);
         } else {
           Log.d(TAG, "Login unsuccessful");
@@ -96,15 +122,32 @@ public class LoginActivity extends AppCompatActivity {
         }
       }
     });
+
+//    //method of using API
+//      fire = FirebaseAPI.getInstance(this);
+//      fire.loginUser(userName, password, new PerimeterLoginCompletionListener() {
+//      @Override
+//      public void onSuccess() {
+//        Log.d(TAG, "Login successful22222");
+//        startActivity(new Intent(LoginActivity.this,InboxActivity.class));
+//        FirebaseUser user = mAuth.getCurrentUser();
+//      }
+//
+//      @Override
+//      public void onFailure() {
+//
+//      }
+//    });
   }
 
-  //might not need at all
-  private void updateUI(FirebaseUser user) {
-    //hideProgressDialog();
-    if (user != null) {
+//    //might not need at all
+//    private void updateUI (FirebaseUser user){
+//      //hideProgressDialog();
+//      if (user != null) {
+//
+//      }
+//    }
 
-    }
+
   }
 
-
-}

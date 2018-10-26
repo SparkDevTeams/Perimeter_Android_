@@ -14,7 +14,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.Firebase.FirebaseAPI;
 import com.sparkdev.perimeter.activities.Firebase.LoginInterfaces.PerimeterLoginCompletionListener;
-import com.sparkdev.perimeter.activities.Login.LoginActivity;
+import com.sparkdev.perimeter.models.UserProfile;
+//import com.sparkdev.perimeter.activities.Login.LoginActivity;
 
 public class SignUpActivity extends AppCompatActivity
 {
@@ -100,11 +101,14 @@ public class SignUpActivity extends AppCompatActivity
     {
         //firebase api create login method
         mFirebaseAPI.loginUser(userName, password, new PerimeterLoginCompletionListener() {
+//
+
             @Override
-            public void onSuccess() {
+            public void onSuccess(UserProfile profile) {
                 Log.d(TAG, "Login successful");
                 Toast.makeText(SignUpActivity.this,"Login passed", Toast.LENGTH_SHORT).show();
                 FirebaseUser user= mAuth.getCurrentUser();
+
             }
 
             @Override
