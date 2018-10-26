@@ -2,12 +2,19 @@ package com.sparkdev.perimeter.activities.SignUp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.activities.Firebase.FirebaseAPI;
+import com.sparkdev.perimeter.activities.Firebase.LoginInterfaces.PerimeterLoginCompletionListener;
+import com.sparkdev.perimeter.activities.Login.LoginActivity;
 
 public class SignUpActivity extends AppCompatActivity
 {
@@ -19,6 +26,9 @@ public class SignUpActivity extends AppCompatActivity
     private TextView mwarn1;
     private TextView mwarn2;
     private TextView mwarn3;
+    private FirebaseAPI mFirebaseAPI;
+    private final String TAG = "SignUp Activity ";
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -89,6 +99,19 @@ public class SignUpActivity extends AppCompatActivity
     private void validate(String userName, String password)
     {
         //firebase api create login method
+        mFirebaseAPI.loginUser(userName, password, new PerimeterLoginCompletionListener() {
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, "Login successful");
+                Toast.makeText(SignUpActivity.this,"Login passed", Toast.LENGTH_SHORT).show();
+                FirebaseUser user= mAuth.getCurrentUser();
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
 
         /*mAuth.signInWithEmailAndPassword(userName, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override

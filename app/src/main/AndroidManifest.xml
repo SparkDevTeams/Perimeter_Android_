@@ -13,10 +13,7 @@
       </activity>
 
       <activity android:name=".activities.Inbox.InboxActivity">
-          <intent-filter>
-              <action android:name="android.intent.action.MAIN" />
-              <category android:name="android.intent.category.LAUNCHER" />
-          </intent-filter>
+
       </activity>
 
       <activity android:name=".activities.MessageThread.MessageThread">
@@ -28,6 +25,12 @@
       <activity android:name=".activities.Settings.MainActivity">
 
       </activity>
+        <activity android:name=".activities.SignUp.SignUpActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

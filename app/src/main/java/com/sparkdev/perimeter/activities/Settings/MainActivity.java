@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.sparkdev.perimeter.R;
-import com.sparkdev.perimeter.activities.Firebase.GetChatRoomsCompletionListener;
-import com.sparkdev.perimeter.activities.Firebase.GetChatRoomMessagesCompletionListener;
+import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
+import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
+//import com.sparkdev.perimeter.activities.Firebase.GetChatRoomsCompletionListener;
+//import com.sparkdev.perimeter.activities.Firebase.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.FirebaseAPI2;
 import com.sparkdev.perimeter.models.Message;

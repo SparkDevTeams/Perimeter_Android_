@@ -15,8 +15,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.sparkdev.perimeter.activities.Firebase.GetChatRoomMessagesCompletionListener;
-import com.sparkdev.perimeter.activities.Firebase.GetChatRoomsCompletionListener;
+import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
+import com.sparkdev.perimeter.activities.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
+//import com.sparkdev.perimeter.activities.Firebase.GetChatRoomMessagesCompletionListener;
+//import com.sparkdev.perimeter.activities.Firebase.GetChatRoomsCompletionListener;
 
 import java.util.ArrayList;
 import java.util.List;

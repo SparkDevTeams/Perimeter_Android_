@@ -1,4 +1,4 @@
-package com.sparkdev.perimeter.activities.Firebase;
+//package com.sparkdev.perimeter.activities.Firebase;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -25,37 +25,37 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FirebaseActivity extends AppCompatActivity {
-    private static final String TAG = " Sometjing ";
-    //Declaring an Instance
-    private FirebaseAuth mAuth;
-    private TextView mStatusTextView;
-    private TextView mDetailTextView;
-
-    private EditText mEmailField;
-    private EditText mPasswordField;
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-
-        FirebaseAPI hello = FirebaseAPI.getInstance(this);
-        String userName = "apple5@apple.com";
-        String passWord = "Password";
-        hello.loginUser(userName, passWord, new PerimeterLoginCompletionListener() {
-            @Override
-            public void onSuccess() {
-                Log.d(TAG, "FIrebase logged in");
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        });
+//public class FirebaseActivity extends AppCompatActivity {
+//    private static final String TAG = " Sometjing ";
+//    //Declaring an Instance
+//    private FirebaseAuth mAuth;
+//    private TextView mStatusTextView;
+//    private TextView mDetailTextView;
+//
+//    private EditText mEmailField;
+//    private EditText mPasswordField;
+//
+//    FirebaseFirestore db = FirebaseFirestore.getInstance();
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+////        setContentView(R.layout.activity_main);
+//
+//        FirebaseAPI hello = FirebaseAPI.getInstance(this);
+//        String userName = "apple5@apple.com";
+//        String passWord = "Password";
+//        hello.loginUser(userName, passWord, new PerimeterLoginCompletionListener() {
+//            @Override
+//            public void onSuccess() {
+//                Log.d(TAG, "FIrebase logged in");
+//            }
+//
+//            @Override
+//            public void onFailure() {
+//
+//            }
+//        });
         //Initializing the instance
 //        mAuth = FirebaseAuth.getInstance();
 //
@@ -176,8 +176,8 @@ public class FirebaseActivity extends AppCompatActivity {
 ////            collectRef.add(model);
 ////        }
 ////        //need to call it
-    }
-}
+//    }
+//}
 
 
 
