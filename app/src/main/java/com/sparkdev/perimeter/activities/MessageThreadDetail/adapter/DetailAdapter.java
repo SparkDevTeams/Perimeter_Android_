@@ -50,8 +50,6 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.UsersViewH
     }
     //end of inner class
 
-
-
     @NonNull
     @Override
     public UsersViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
