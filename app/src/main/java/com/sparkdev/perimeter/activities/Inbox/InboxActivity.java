@@ -40,7 +40,7 @@ public class InboxActivity extends AppCompatActivity {
   private FirebaseAPI fb;
   private List<ChatRoom> mChatRooms ;
   private Context mContext = this;
-    private static final String TAG = "InboxActivity";
+  private static final String TAG = "InboxActivity";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

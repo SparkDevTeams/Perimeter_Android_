@@ -1,77 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.MessageThreadDetail.MessageThreadDetailActivity"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorLightGray"
-    tools:context=".activities.MessageThreadDetail.MessageThreadDetailActivity">
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/imageContainer"
-        android:background="@color/colorWhite"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="12dp"
-        android:elevation="1dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/chatImageDetail"
-            android:layout_width="match_parent"
-            android:layout_height="190dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:src="@mipmap/ic_launcher" />
-
-    </RelativeLayout>
-
-
-
-    <RelativeLayout
-        android:id="@+id/descLayout"
-        android:background="@color/colorWhite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageContainer"
-        android:layout_marginBottom="12dp"
-        android:paddingBottom="10dp"
-        android:elevation="1dp">
-
-        <TextView
-            android:id="@+id/chatDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:text="Description"
-            android:textSize="20sp"
-            android:textColor="@color/colorAccent"
-
-            />
-        <TextView
-            android:id="@+id/descriptionText"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/chatDescription"
-            android:layout_alignStart="@+id/chatDescription"
-            android:layout_alignEnd="@+id/chatDescription"
-            android:text="This is the description of the current chat"
-            android:textSize="15dp"/>
-    </RelativeLayout>
-
-
-
-    <android.support.v7.widget.RecyclerView
-        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/descLayout">
-    </android.support.v7.widget.RecyclerView>
+        android:background="@color/colorLightGray"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:descendantFocusability="blocksDescendants">
 
-</RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/imageContainer"
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="12dp"
+                android:elevation="1dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/chatImageDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/gc" />
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:id="@+id/descLayout"
+                android:background="@color/colorWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageContainer"
+                android:layout_marginBottom="12dp"
+                android:paddingBottom="10dp"
+                android:elevation="1dp">
+
+                <TextView
+                    android:id="@+id/chatDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Description"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent" />
+                
+                <TextView
+                    android:id="@+id/descriptionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/chatDescription"
+                    android:layout_alignStart="@+id/chatDescription"
+                    android:layout_alignEnd="@+id/chatDescription"
+                    android:text="This is the description of the current chat"
+                    android:textSize="15dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/usersLay"
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/descLayout"
+                android:elevation="1dp">
+
+                <TextView
+                    android:id="@+id/userTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="15dp"
+                    android:text="Users"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent"
+                    />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/usersRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/userTitle">
+                </android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

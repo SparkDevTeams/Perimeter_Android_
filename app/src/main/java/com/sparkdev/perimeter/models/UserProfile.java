@@ -16,6 +16,8 @@ public class UserProfile {
         mProfileImageUrl = profileImageUrl;
     }
 
+    public UserProfile(){}
+
     public String getFirstName() {
         return mFirstName;
     }

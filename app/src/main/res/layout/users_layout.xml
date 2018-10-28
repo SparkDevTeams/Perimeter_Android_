@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/user_row"
+    android:id="@+id/userRow"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -12,7 +12,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:layout_centerVertical="true"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/gc"/>
 
     <TextView
         android:id="@+id/userName"
