@@ -29,8 +29,6 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
   private List<UserProfile> mUsers = new ArrayList<>() ;
   private Context mContext = this;
 
-
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -55,7 +53,6 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
     recyclerView.setLayoutManager(llm);
 
   }
-
 
   private void populateList()
   {
@@ -96,6 +93,5 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
         mUsers.get(10).setDisplayName("Astrid");
         mUsers.get(11).setDisplayName("Dayana");
   }
-
 
 }
