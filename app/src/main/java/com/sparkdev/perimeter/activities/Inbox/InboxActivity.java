@@ -40,7 +40,7 @@ public class InboxActivity extends AppCompatActivity {
   private FirebaseAPI fb;
   private List<ChatRoom> mChatRooms ;
   private Context mContext = this;
-    private static final String TAG = "InboxActivity";
+  private static final String TAG = "InboxActivity";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,6 @@ public class InboxActivity extends AppCompatActivity {
               //set up listners
               setUpListeners();
           }
-
 
           public void onFailure() {
             Toast.makeText(mContext,"Unable to load chats", Toast.LENGTH_SHORT).show();
@@ -106,11 +105,13 @@ public class InboxActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item) ;
     }
   }
-  
-  
+
+
+    //Listeners determine if data has changed in firebase.
     public void setUpListeners()
     {
-        DocumentReference docRef = (DocumentReference) FirebaseFirestore.getInstance().collection("ChatRooms").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        DocumentReference docRef = (DocumentReference) FirebaseFirestore.getInstance()
+                .collection("ChatRooms").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots,
                                 @Nullable FirebaseFirestoreException e) {
@@ -118,6 +119,8 @@ public class InboxActivity extends AppCompatActivity {
                     Log.w(TAG, "listen:error", e);
                     return;
                 }
+
+                //update chat room list and notify adapter of the change.
                 List<ChatRoom> newChats = new ArrayList<>();
                 for(int i = 0; i< snapshots.getDocuments().size(); i++)
                 {
