@@ -20,6 +20,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
+import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
+import com.sparkdev.perimeter.models.UserProfile;
 
 public class LoginActivity extends AppCompatActivity {
   private EditText mName;
@@ -78,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
     //updateUI(currentUser);
   }
 
-  private void validate(String userName, String password) {
+  private void validate(final String userName, String password) {
     //Firebase stuff will probably end up here
     mAuth.signInWithEmailAndPassword(userName, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
       @Override
@@ -105,6 +108,5 @@ public class LoginActivity extends AppCompatActivity {
 
     }
   }
-
 
 }
