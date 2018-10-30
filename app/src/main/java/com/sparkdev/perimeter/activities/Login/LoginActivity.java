@@ -21,9 +21,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.sparkdev.perimeter.R;
-import com.sparkdev.perimeter.activities.Firebase.FirebaseAPI;
-import com.sparkdev.perimeter.activities.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
-import com.sparkdev.perimeter.activities.Firebase.LoginInterfaces.PerimeterLoginCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
+import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterLoginCompletionListener;
 import com.sparkdev.perimeter.activities.Inbox.InboxActivity;
 import com.sparkdev.perimeter.models.UserProfile;
 
