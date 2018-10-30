@@ -99,4 +99,10 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
   public int getItemCount() {
     return mChats.size();
   }
+
+  public void changeChatList(List<ChatRoom> chatRooms)
+  {
+    mChats = chatRooms;
+  }
+
 }

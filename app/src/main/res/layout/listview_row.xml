@@ -17,7 +17,7 @@
         android:layout_marginTop="20dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        app:srcCompat="@drawable/gc"/>
+        app:srcCompat="@mipmap/ic_launcher"/>
 
 
     <TextView
