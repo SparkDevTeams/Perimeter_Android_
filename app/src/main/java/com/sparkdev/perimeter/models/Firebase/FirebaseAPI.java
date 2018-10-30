@@ -147,16 +147,17 @@ public class FirebaseAPI {
 
   public void getUserWithUserID(String userID, final PerimeterGetUserCompletionListener userListener) {
     CollectionReference userReference = mFirestore.collection("Users");
-    DocumentReference userDocuments = userReference.document(userID);
+    final DocumentReference userDocument = userReference.document(userID);
 
 
-    userDocuments.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+    userDocument.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
       @Override
       public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
         if (task.isSuccessful()) {
-          Gson g = new Gson();
-          UserProfile profile = g.fromJson(task.getResult().getData().toString(), UserProfile.class);
+
+          UserProfile profile = task.getResult().toObject(UserProfile.class);
+
           userListener.onSuccess(profile);
 
           Log.d(TAG, "User with DisplayName " + profile.getDisplayName());
