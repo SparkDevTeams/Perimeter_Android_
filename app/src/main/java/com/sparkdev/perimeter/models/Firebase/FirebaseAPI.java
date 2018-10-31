@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,6 +22,8 @@ import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomMess
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
 import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
 import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterLoginCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.SignUpInterface.PerimeterGetSignUpCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.SignUpInterface.PerimeterSignUpCompletionListener;
 import com.sparkdev.perimeter.models.UserProfile;
 
 import java.util.ArrayList;
@@ -144,16 +147,17 @@ public class FirebaseAPI {
 
   public void getUserWithUserID(String userID, final PerimeterGetUserCompletionListener userListener) {
     CollectionReference userReference = mFirestore.collection("Users");
-    DocumentReference userDocuments = userReference.document(userID);
+    final DocumentReference userDocument = userReference.document(userID);
 
 
-    userDocuments.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+    userDocument.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
       @Override
       public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
         if (task.isSuccessful()) {
-          Gson g = new Gson();
-          UserProfile profile = g.fromJson(task.getResult().getData().toString(), UserProfile.class);
+
+          UserProfile profile = task.getResult().toObject(UserProfile.class);
+
           userListener.onSuccess(profile);
 
           Log.d(TAG, "User with DisplayName " + profile.getDisplayName());
@@ -165,5 +169,63 @@ public class FirebaseAPI {
       }
     });
   }
+
+  public void createSignUpUser(String email, String password, final PerimeterSignUpCompletionListener signListener) {
+
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser user = auth.getCurrentUser();
+
+    auth.createUserWithEmailAndPassword(email, password)
+        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+          @Override
+          public void onComplete(@NonNull Task<AuthResult> task) {
+            if (task.isSuccessful()) {
+              FirebaseAuth authSign = FirebaseAuth.getInstance();
+              Log.d(TAG, "SignUpUser: succcess");
+
+              FirebaseUser signUpUser = authSign.getCurrentUser();
+
+              getSignUpUserInfo(signUpUser, new PerimeterGetSignUpCompletionListener() {
+                @Override
+                public void onSuccess(UserProfile profile) {
+                  signListener.onSuccess();
+                }
+
+                @Override
+                public void onFailure() {
+                  signListener.onFailure();
+                }
+              });
+            }
+
+          }
+        });
+  }
+
+  public void getSignUpUserInfo(FirebaseUser newUser, final PerimeterGetSignUpCompletionListener listenerSign) {
+    CollectionReference signUpUserReference = mFirestore.collection("Users");
+    mFirestore.collection("Users").add(newUser.getIdToken(true));
+    DocumentReference signUpDocuments = signUpUserReference.document();
+    //mFirestore.collection(“Users”).add(newUser);
+
+    signUpDocuments.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+      @Override
+      public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+        if (task.isSuccessful()) {
+          Gson signObject = new Gson();
+          UserProfile signUpProfile = signObject.fromJson(task.getResult().getData().toString(), UserProfile.class);
+          listenerSign.onSuccess(signUpProfile);
+
+          Log.d(TAG, "User with DisplayName " + signUpProfile.getDisplayName());
+        } else {
+          listenerSign.onFailure();
+          Log.d(TAG, task.getException().getMessage());
+        }
+      }
+    });
+
+
+  }
+
 
 }

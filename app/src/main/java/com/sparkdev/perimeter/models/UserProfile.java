@@ -1,11 +1,17 @@
 package com.sparkdev.perimeter.models;
 
-public class UserProfile {
+import com.google.firebase.firestore.PropertyName;
 
+public class UserProfile {
+    @PropertyName("firstName")
     private String mFirstName;
+    @PropertyName("lastName")
     private String mLastName;
+    @PropertyName("email")
     private String mEmail;
+    @PropertyName("displayName")
     private String mDisplayName;
+    @PropertyName("profileImageUrl")
     private String mProfileImageUrl;
 
     public UserProfile(String firstName, String lastName, String email, String displayName, String profileImageUrl) {
@@ -15,6 +21,8 @@ public class UserProfile {
         mDisplayName = displayName;
         mProfileImageUrl = profileImageUrl;
     }
+
+    public UserProfile(){}
 
     public String getFirstName() {
         return mFirstName;

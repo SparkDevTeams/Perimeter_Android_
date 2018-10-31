@@ -6,16 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".models.MainActivity">
     <include layout="@layout/activity_settings_toolbar" android:id="@+id/settings_page_toolbar"/>
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="220dp"
-        android:textColor="#fff"
-        android:background="#2094a1"
-        android:text="Settings" />
+        android:layout_marginEnd="156dp"
+        android:layout_marginBottom="263dp"
+        android:background="@android:color/black"
+        android:text="Settings"
+        android:textColor="#fff" />
 
 
 
