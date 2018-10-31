@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,7 +49,7 @@ public class InboxActivity extends AppCompatActivity {
     setContentView(R.layout.activity_inbox);
 
     //Set action bar title
-    getSupportActionBar().setTitle("Message Inbox");
+   getSupportActionBar().setTitle("Message Inbox");
 
     // Get access to the activity's RecyclerView
     recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);

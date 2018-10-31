@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.widget.ScrollView;
 
@@ -36,7 +37,9 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_message_thread_detail);
 
-    getSupportActionBar().setTitle("Chat Details");
+      Toolbar toolbar = (Toolbar)findViewById(R.id.detailsToolbar);
+      setSupportActionBar(toolbar);
+   // getSupportActionBar().setTitle("Chat Details");
 
     //test the adapter with dummy data
     populateList();

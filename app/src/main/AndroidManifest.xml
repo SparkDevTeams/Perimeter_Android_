@@ -13,18 +13,19 @@
 
     </activity>
     <activity android:name=".activities.Inbox.InboxActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
     </activity>
     <activity android:name=".activities.MessageThread.MessageThread">
+
     </activity>
     <activity android:name=".activities.Settings.Settings_Activity">
     </activity>
     <activity android:name=".activities.Settings.SettingsActivity">
     </activity>
-    <activity android:name=".activities.MessageThreadDetail.MessageThreadDetailActivity">
+    <activity android:name=".activities.MessageThreadDetail.MessageThreadDetailActivity" android:theme="@style/AppTheme.NoActionBar">
     </activity>
   </application>
 
