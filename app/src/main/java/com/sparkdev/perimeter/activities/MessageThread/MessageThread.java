@@ -5,25 +5,38 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
+import com.sparkdev.perimeter.models.Firebase.FirestoreMessagesCollection;
 import com.sparkdev.perimeter.models.Message;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 public class MessageThread extends AppCompatActivity implements GetChatRoomMessagesCompletionListener {
 
+  private static final String TAG = "MessageThread" ;
   private RecyclerView mRecyclerView;
-  private RecyclerView.Adapter mAdapter;
+  private RecyclerAdapter mAdapter;
   private LinearLayoutManager mLayoutManager;
   private List<Message> mMessages;
+  private FirebaseAPI mFirebaseAPI;
   private ChatRoom mChatRoom = new ChatRoom();
 
   @Override
@@ -31,11 +44,11 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_message_thread);
 
-    FirebaseAPI mFirebaseAPI = FirebaseAPI.getInstance(this);
+    mFirebaseAPI = FirebaseAPI.getInstance(this);
 
-    mChatRoom.setCurrentMessagesId("lHEXmV32Vt5SFSiQ4fnq");
-    mChatRoom.setLocation("ECS");
-    //getIncomingIntent();
+//    mChatRoom.setCurrentMessagesId("lHEXmV32Vt5SFSiQ4fnq");
+//    mChatRoom.setLocation("ECS");
+    getIncomingIntent();
     mFirebaseAPI.getMessagesForChatRoom(mChatRoom, this);
 
     //Set action bar title
@@ -69,6 +82,8 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     mAdapter = new RecyclerAdapter(this, mMessages);
     // Connect the adapter to the RecyclerView
     mRecyclerView.setAdapter(mAdapter);
+
+    setUpListeners();
   }
 
   public void onFailure() {
@@ -97,5 +112,38 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
 
   private void setChatRoomIcon(String chatRoomImageUrl) {
     mChatRoom.setChatRoomImageUrl(chatRoomImageUrl);
+  }
+
+  private void setUpListeners()
+  {
+    DocumentReference docRef = (DocumentReference) FirebaseFirestore.getInstance()
+            .collection("Messages").addSnapshotListener(new EventListener<QuerySnapshot>() {
+              @Override
+              public void onEvent(@Nullable QuerySnapshot snapshots,
+                                  @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                  Log.w(TAG, "listen:error", e);
+                  return;
+                }
+
+                //update message list and notify adapter of the change.
+                List<Message> newMsgs = new ArrayList<>();
+                for(int i = 0; i< snapshots.getDocuments().size(); i++)
+                {
+                  DocumentSnapshot document = snapshots.getDocuments().get(i);
+                  if(document.getId().equals(mChatRoom.getCurrentMessagesId()))
+                  {
+                    FirestoreMessagesCollection messagesCollection = document.toObject(FirestoreMessagesCollection.class);
+                    newMsgs = messagesCollection.getMessages();
+                    break;
+                  }
+                }
+
+                mAdapter.changeMessageList(newMsgs);
+                mAdapter.notifyDataSetChanged();
+
+              }
+            });
+
   }
 }
