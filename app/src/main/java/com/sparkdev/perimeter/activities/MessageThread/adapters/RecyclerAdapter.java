@@ -15,6 +15,7 @@ import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.models.Message;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -23,7 +24,7 @@ import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
-    private final List<Message> mMessages;        // This will hold your data
+    private List<Message> mMessages;        // This will hold your data
     private LayoutInflater contactInflater;      // This will be the inflater for ContactListAdapter
     private Context mContext;
     private LinearLayout mLinearLayout;
@@ -111,5 +112,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public int getItemCount() {
         return mMessages.size();
+    }
+
+    public void changeMessageList(List<Message> newMsgs){
+        mMessages = newMsgs;
     }
 }
