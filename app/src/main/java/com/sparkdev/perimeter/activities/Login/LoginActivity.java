@@ -1,5 +1,6 @@
 package com.sparkdev.perimeter.activities.Login;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
 import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
 import com.sparkdev.perimeter.models.UserProfile;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
   private EditText mName;
   private EditText mPassword;
   //private TextView mInfo;
