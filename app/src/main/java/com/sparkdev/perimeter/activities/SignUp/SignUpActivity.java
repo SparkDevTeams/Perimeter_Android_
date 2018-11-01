@@ -1,5 +1,6 @@
 package com.sparkdev.perimeter.activities.SignUp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.support.v4.content.ContextCompat;
@@ -27,7 +28,7 @@ import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
 import com.sparkdev.perimeter.models.Firebase.SignUpInterface.PerimeterSignUpCompletionListener;
 
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends Activity {
   private EditText mEmAddr;
   private EditText mPW1;
   private EditText mPW2;
