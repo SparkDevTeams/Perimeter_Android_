@@ -15,14 +15,13 @@ import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.models.Message;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
+public class MessageThreadAdapter extends RecyclerView.Adapter<MessageThreadAdapter.MyViewHolder> {
 
     private List<Message> mMessages;        // This will hold your data
     private LayoutInflater contactInflater;      // This will be the inflater for ContactListAdapter
@@ -30,7 +29,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     private LinearLayout mLinearLayout;
 
     // ContactListAdapter Constructor
-    public RecyclerAdapter(Context mContext, List<Message> mMessages) {
+    public MessageThreadAdapter(Context mContext, List<Message> mMessages) {
         contactInflater = LayoutInflater.from(mContext); // Initialize the layout inflater
         this.mMessages = mMessages;
         this.mContext = mContext;
@@ -43,11 +42,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         public final TextView mMessageTextView;
         public final TextView mTimeStampTextView;
         public final CircleImageView mContactImage;
-        final RecyclerAdapter rowAdapter;
+        final MessageThreadAdapter rowAdapter;
 
         // Constructor where the first parameter is to inflate the layout and the second
         // parameter is to associate the ContactViewHolder with its adapter
-        public MyViewHolder(View itemView, RecyclerAdapter adapter) {
+        public MyViewHolder(View itemView, MessageThreadAdapter adapter) {
             super(itemView);
             // Initialize the view holder's text view from the XML resources (activity_contact_list.xml)
             // Be sure to cast it to the View type that you need it to be (i.e TextView)

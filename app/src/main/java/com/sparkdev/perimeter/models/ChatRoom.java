@@ -49,15 +49,32 @@ public class ChatRoom implements Parcelable{
 
     public ChatRoom() {}
 
-    // Parcelling constructor
-    public ChatRoom(Parcel in) {
-      this.mLocation = in.readString();
-      this.mChatRoomImageUrl = in.readString();
-      this.mCurrentMessagesId = in.readString();
+
+  protected ChatRoom(Parcel in) {
+    mId = in.readString();
+    mLocation = in.readString();
+    mBeaconIdMajor = in.readString();
+    mBeaconIdMinor = in.readString();
+    mUsers = in.createStringArrayList();
+    mCurrentMessagesId = in.readString();
+    mMessagesIds = in.createStringArrayList();
+    mChatRoomImageUrl = in.readString();
+    mDescription = in.readString();
+  }
+
+  public static final Creator<ChatRoom> CREATOR = new Creator<ChatRoom>() {
+    @Override
+    public ChatRoom createFromParcel(Parcel in) {
+      return new ChatRoom(in);
     }
 
+    @Override
+    public ChatRoom[] newArray(int size) {
+      return new ChatRoom[size];
+    }
+  };
 
-    public String getId() {
+  public String getId() {
         return mId;
     }
 
@@ -109,9 +126,15 @@ public class ChatRoom implements Parcelable{
   }
 
   @Override
-  public void writeToParcel(Parcel dest, int i) {
-      dest.writeString(this.mLocation);
-      dest.writeString(this.mChatRoomImageUrl);
-      dest.writeString(this.getCurrentMessagesId());
+  public void writeToParcel(Parcel parcel, int i) {
+    parcel.writeString(mId);
+    parcel.writeString(mLocation);
+    parcel.writeString(mBeaconIdMajor);
+    parcel.writeString(mBeaconIdMinor);
+    parcel.writeStringList(mUsers);
+    parcel.writeString(mCurrentMessagesId);
+    parcel.writeStringList(mMessagesIds);
+    parcel.writeString(mChatRoomImageUrl);
+    parcel.writeString(mDescription);
   }
 }

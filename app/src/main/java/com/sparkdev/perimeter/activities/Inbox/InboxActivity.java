@@ -28,10 +28,15 @@ import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
 
+import org.altbeacon.beacon.BeaconConsumer;
+import org.altbeacon.beacon.BeaconManager;
+import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.Identifier;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class InboxActivity extends AppCompatActivity {
+public class InboxActivity extends AppCompatActivity implements BeaconConsumer{
 
   private LinearLayoutManager llm;
   private DividerItemDecoration itemDecoration;
@@ -41,6 +46,17 @@ public class InboxActivity extends AppCompatActivity {
   private List<ChatRoom> mChatRooms ;
   private Context mContext = this;
   private static final String TAG = "InboxActivity";
+
+  private BeaconManager mBeaconManager;
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    mBeaconManager = BeaconManager.getInstanceForApplication(this.getApplicationContext());
+    mBeaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser
+        .EDDYSTONE_UID_LAYOUT));
+    mBeaconManager.bind(this);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +150,11 @@ public class InboxActivity extends AppCompatActivity {
             }
         });
     }
+
+  @Override
+  public void onBeaconServiceConnect() {
+    Identifier myBeaconId;
+  }
 }
 
 
