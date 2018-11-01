@@ -27,7 +27,9 @@ import com.sparkdev.perimeter.models.Firebase.SignUpInterface.PerimeterSignUpCom
 import com.sparkdev.perimeter.models.UserProfile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -227,5 +229,41 @@ public class FirebaseAPI {
 
   }
 
+  public void createNewUserAccount(final String email, String password, final String displayName, final PerimeterSignUpCompletionListener listener) {
+
+      // first create the account in firebase
+      FirebaseAuth auth = FirebaseAuth.getInstance();
+      auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+          @Override
+          public void onComplete(@NonNull Task<AuthResult> task) {
+
+              if (task.isSuccessful()) {
+
+                  // user was successfully created in firebase authentication
+                  String userUID = task.getResult().getUser().getUid();
+
+                  // now create the user profile document. The document id will be userUID we got back from firebase
+                  CollectionReference usersRef = mFirestore.collection("Users");
+                  DocumentReference userDocRef = usersRef.document(userUID);
+
+                  HashMap<String, Object> userInfo = new HashMap<>();
+                  userInfo.put("displayName", displayName);
+                  userInfo.put("email", email);
+                  userInfo.put("firstName", "");
+                  userInfo.put("lastName", "");
+
+                  // this sets the contents of the newly created document
+                  userDocRef.set(userInfo);
+
+                  // finally tell the listener(The create account activity) that we have successfully create the user
+                  listener.onSuccess();
+
+
+              } else {
+                  listener.onFailure();
+              }
+          }
+      });
+  }
 
 }
