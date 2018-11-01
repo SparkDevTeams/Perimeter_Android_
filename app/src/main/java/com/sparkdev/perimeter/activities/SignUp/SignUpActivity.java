@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.Inbox.InboxActivity;
 import com.sparkdev.perimeter.activities.Login.LoginActivity;
@@ -47,6 +48,8 @@ public class SignUpActivity extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_signup);
+
+    mFirebaseAPI = FirebaseAPI.getInstance(this);
 
     mSignUp = findViewById(R.id.signUpBID);
     mEmAddr = findViewById(R.id.emailID);
@@ -189,16 +192,28 @@ public class SignUpActivity extends Activity {
     }*/
 
   private void validate(String userName, String password) {
-    mFirebaseAPI.createSignUpUser(userName, password, new PerimeterSignUpCompletionListener() {
-      @Override
-      public void onSuccess() {
-        startActivity(new Intent());
-      }
+//    mFirebaseAPI.createSignUpUser(userName, password, new PerimeterSignUpCompletionListener() {
+//      @Override
+//      public void onSuccess() {
+//        startActivity(new Intent());
+//      }
+//
+//      @Override
+//      public void onFailure() {
+//
+//      }
+//    });
 
-      @Override
-      public void onFailure() {
+      mFirebaseAPI.createNewUserAccount(userName, password, "jungleJoe", new PerimeterSignUpCompletionListener() {
+          @Override
+          public void onSuccess() {
+              Toast.makeText(SignUpActivity.this, "User was successfully created", Toast.LENGTH_SHORT).show();
+          }
 
-      }
-    });
+          @Override
+          public void onFailure() {
+              Toast.makeText(SignUpActivity.this, "Failed to create user", Toast.LENGTH_SHORT).show();
+          }
+      });
   }
 }
