@@ -1,12 +1,15 @@
 package com.sparkdev.perimeter.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.firestore.PropertyName;
 import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class ChatRoom {
+public class ChatRoom implements Parcelable{
 
    @PropertyName("id")
    private String mId;
@@ -45,6 +48,13 @@ public class ChatRoom {
     }
 
     public ChatRoom() {}
+
+    // Parcelling constructor
+    public ChatRoom(Parcel in) {
+      this.mLocation = in.readString();
+      this.mChatRoomImageUrl = in.readString();
+      this.mCurrentMessagesId = in.readString();
+    }
 
 
     public String getId() {
@@ -92,4 +102,16 @@ public class ChatRoom {
     public void setLocation (String location) { mLocation = location;}
 
     public void setChatRoomImageUrl(String chatRoomImageUrl) { mChatRoomImageUrl = chatRoomImageUrl; }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int i) {
+      dest.writeString(this.mLocation);
+      dest.writeString(this.mChatRoomImageUrl);
+      dest.writeString(this.getCurrentMessagesId());
+  }
 }
