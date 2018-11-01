@@ -128,7 +128,7 @@ public class FirebaseAPI {
           getUserWithUserID(userID, new PerimeterGetUserCompletionListener() {
             @Override
             public void onSuccess(UserProfile profile) {
-              listener1.onSuccess();
+              listener1.onSuccess(profile);
             }
 
             @Override
