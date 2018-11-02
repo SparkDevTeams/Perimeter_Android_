@@ -14,8 +14,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.sparkdev.perimeter.R;
-import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
-import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.UserProfile;
 
