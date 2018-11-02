@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentReference;
@@ -20,10 +23,12 @@ import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
 import com.sparkdev.perimeter.models.ChatRoom;
+import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.UpdateChatRoomsMessageCompletionListener;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
 import com.sparkdev.perimeter.models.Firebase.FirestoreMessagesCollection;
 import com.sparkdev.perimeter.models.Message;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +43,43 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
   private List<Message> mMessages;
   private FirebaseAPI mFirebaseAPI;
   private ChatRoom mChatRoom = new ChatRoom();
+  private Button mSendButton;
+  private EditText mReceiveText;
+  private Bundle data;
+  private ChatRoom chRoom;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_message_thread);
-
     mFirebaseAPI = FirebaseAPI.getInstance(this);
+    //Intent passing data must be in Oncreate()
+
+    data = getIntent().getExtras();
+    chRoom = (ChatRoom) data.getParcelable("chat_room");
+
+    mReceiveText = findViewById(R.id.text_input);
+    mSendButton= findViewById(R.id.send_button);
+    mSendButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Message sendMessages = new Message(new Timestamp(20180212),mReceiveText.getText().toString(),"LaysChip","text","audio","image","video","ECS","37537854"
+                ,"AstridR");
+        
+        mFirebaseAPI.sendMessage(chRoom, sendMessages, new UpdateChatRoomsMessageCompletionListener() {
+          @Override
+          public void onSuccess() {
+            Log.d(TAG, "onSuccess: We have updated the chatroom");
+          }
+
+          @Override
+          public void onFailure() {
+
+          }
+        });
+      }
+    });
+
 
     getIncomingIntent();
     mFirebaseAPI.getMessagesForChatRoom(mChatRoom, this);
@@ -81,7 +116,6 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     // Connect the adapter to the RecyclerView
     mRecyclerView.setAdapter(mAdapter);
 
-    setUpListeners();
   }
 
   public void onFailure() {
@@ -89,15 +123,12 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
   }
 
   private void getIncomingIntent() {
-    if (getIntent().hasExtra("chat_room") && getIntent().hasExtra("chat_location") && getIntent().hasExtra("chat_icon")) {
-      String currentMessagesId = getIntent().getStringExtra("chat_room");
-      String chatRoomLocation = getIntent().getStringExtra("chat_location");
-      String chatRoomImageUrl = getIntent().getStringExtra("chat_icon");
 
-      setChatRoom(currentMessagesId);
-      setChatRoomLocation(chatRoomLocation);
-      setChatRoomIcon(chatRoomImageUrl);
-    }
+
+      setChatRoom(chRoom.getCurrentMessagesId());
+      setChatRoomLocation(chRoom.getLocation());
+      setChatRoomIcon(chRoom.getChatRoomImageUrl());
+
   }
 
   private void setChatRoom(String currentMessagesId) {
@@ -112,33 +143,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     mChatRoom.setChatRoomImageUrl(chatRoomImageUrl);
   }
 
-  private void setUpListeners() {
-    DocumentReference docRef = (DocumentReference) FirebaseFirestore.getInstance()
-        .collection("Messages").addSnapshotListener(new EventListener<QuerySnapshot>() {
-          @Override
-          public void onEvent(@Nullable QuerySnapshot snapshots,
-                              @Nullable FirebaseFirestoreException e) {
-            if (e != null) {
-              Log.w(TAG, "listen:error", e);
-              return;
-            }
+  //Add Listeners for new message from firebase- call method
 
-            //update message list and notify adapter of the change.
-            List<Message> newMsgs = new ArrayList<>();
-            for (int i = 0; i < snapshots.getDocuments().size(); i++) {
-              DocumentSnapshot document = snapshots.getDocuments().get(i);
-              if (document.getId().equals(mChatRoom.getCurrentMessagesId())) {
-                FirestoreMessagesCollection messagesCollection = document.toObject(FirestoreMessagesCollection.class);
-                newMsgs = messagesCollection.getMessages();
-                break;
-              }
-            }
 
-            mAdapter.changeMessageList(newMsgs);
-            mAdapter.notifyDataSetChanged();
-
-          }
-        });
-
-  }
 }

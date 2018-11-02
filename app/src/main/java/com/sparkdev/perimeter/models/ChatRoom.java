@@ -1,12 +1,15 @@
 package com.sparkdev.perimeter.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.firestore.PropertyName;
 import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class ChatRoom {
+public class ChatRoom implements Parcelable {
 
    @PropertyName("id")
    private String mId;
@@ -46,6 +49,30 @@ public class ChatRoom {
 
     public ChatRoom() {}
 
+
+    protected ChatRoom(Parcel in) {
+        mId = in.readString();
+        mLocation = in.readString();
+        mBeaconIdMajor = in.readString();
+        mBeaconIdMinor = in.readString();
+        mUsers = in.createStringArrayList();
+        mCurrentMessagesId = in.readString();
+        mMessagesIds = in.createStringArrayList();
+        mChatRoomImageUrl = in.readString();
+        mDescription = in.readString();
+    }
+
+    public static final Creator<ChatRoom> CREATOR = new Creator<ChatRoom>() {
+        @Override
+        public ChatRoom createFromParcel(Parcel in) {
+            return new ChatRoom(in);
+        }
+
+        @Override
+        public ChatRoom[] newArray(int size) {
+            return new ChatRoom[size];
+        }
+    };
 
     public String getId() {
         return mId;
@@ -92,4 +119,22 @@ public class ChatRoom {
     public void setLocation (String location) { mLocation = location;}
 
     public void setChatRoomImageUrl(String chatRoomImageUrl) { mChatRoomImageUrl = chatRoomImageUrl; }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mLocation);
+        dest.writeString(mBeaconIdMajor);
+        dest.writeString(mBeaconIdMinor);
+        dest.writeStringList(mUsers);
+        dest.writeString(mCurrentMessagesId);
+        dest.writeStringList(mMessagesIds);
+        dest.writeString(mChatRoomImageUrl);
+        dest.writeString(mDescription);
+    }
 }

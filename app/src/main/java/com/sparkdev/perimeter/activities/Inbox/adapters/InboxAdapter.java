@@ -2,6 +2,7 @@ package com.sparkdev.perimeter.activities.Inbox.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -87,9 +88,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
       @Override
       public void onClick(View view) {
          Intent intent = new Intent(mContext, MessageThread.class);
-         intent.putExtra("chat_room", currentChat.getCurrentMessagesId());
-         intent.putExtra("chat_location",currentChat.getLocation());
-         intent.putExtra("chat_icon",currentChat.getChatRoomImageUrl());
+         intent.putExtra("chat_room", (Parcelable) currentChat);
+
          mContext.startActivity(intent);
       }
     });

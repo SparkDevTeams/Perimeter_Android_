@@ -184,26 +184,9 @@ public class SignUpActivity extends Activity {
     return flag;
   }
 
-    /*
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-    }*/
+
 
   private void validate(String userName, String password, String displayName) {
-//    mFirebaseAPI.createSignUpUser(userName, password, new PerimeterSignUpCompletionListener() {
-//      @Override
-//      public void onSuccess() {
-//        startActivity(new Intent());
-//      }
-//
-//      @Override
-//      public void onFailure() {
-//
-//      }
-//    });
 
       mFirebaseAPI.createNewUserAccount(userName, password, displayName, new PerimeterSignUpCompletionListener() {
           @Override

@@ -64,22 +64,21 @@ public class InboxActivity extends AppCompatActivity {
 
           public void onSuccess(List<ChatRoom> chatRooms) {
             mChatRooms = chatRooms;
-              Message testing = new Message(new Timestamp(20180212), "this message","hdfjdfsdf","text","audio","image","video","ECS","37537854"
+              Message testing = new Message(new Timestamp(20180212), "Update","hdfjdfsdf","text","audio","image","video","ECS","37537854"
                       ,"Astrid");
 
-              //userMessage.put("lastMessage",testing);
               ChatRoom obj = chatRooms.get(0);
               fb.updateMessages(obj, testing, new UpdateChatRoomsMessageCompletionListener() {
                   @Override
 
                   public void onSuccess() {
 
-                      Log.d(TAG, "it worked hello");
+
                   }
 
                   @Override
                   public void onFailure() {
-                      Log.d(TAG, "it didnt work");
+
                   }
               });
 

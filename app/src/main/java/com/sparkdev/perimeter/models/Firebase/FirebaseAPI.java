@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
@@ -175,62 +176,6 @@ public class FirebaseAPI {
     });
   }
 
-//  public void createSignUpUser(String email, String password, final PerimeterSignUpCompletionListener signListener) {
-//
-//    FirebaseAuth auth = FirebaseAuth.getInstance();
-//    FirebaseUser user = auth.getCurrentUser();
-//
-//    auth.createUserWithEmailAndPassword(email, password)
-//        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//          @Override
-//          public void onComplete(@NonNull Task<AuthResult> task) {
-//            if (task.isSuccessful()) {
-//              FirebaseAuth authSign = FirebaseAuth.getInstance();
-//              Log.d(TAG, "SignUpUser: succcess");
-//
-//              FirebaseUser signUpUser = authSign.getCurrentUser();
-//
-//              getSignUpUserInfo(signUpUser, new PerimeterGetSignUpCompletionListener() {
-//                @Override
-//                public void onSuccess(UserProfile profile) {
-//                  signListener.onSuccess();
-//                }
-//
-//                @Override
-//                public void onFailure() {
-//                  signListener.onFailure();
-//                }
-//              });
-//            }
-//
-//          }
-//        });
-//  }
-//
-//  public void getSignUpUserInfo(FirebaseUser newUser, final PerimeterGetSignUpCompletionListener listenerSign) {
-//    CollectionReference signUpUserReference = mFirestore.collection("Users");
-//    mFirestore.collection("Users").add(newUser.getIdToken(true));
-//    DocumentReference signUpDocuments = signUpUserReference.document();
-//    //mFirestore.collection(“Users”).add(newUser);
-//
-//    signUpDocuments.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//      @Override
-//      public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//        if (task.isSuccessful()) {
-//          Gson signObject = new Gson();
-//          UserProfile signUpProfile = signObject.fromJson(task.getResult().getData().toString(), UserProfile.class);
-//          listenerSign.onSuccess(signUpProfile);
-//
-//          Log.d(TAG, "User with DisplayName " + signUpProfile.getDisplayName());
-//        } else {
-//          listenerSign.onFailure();
-//          Log.d(TAG, task.getException().getMessage());
-//        }
-//      }
-//    });
-//
-//
-//  }
 
   public void createNewUserAccount(final String email, String password, final String displayName, final PerimeterSignUpCompletionListener listener) {
 
@@ -270,8 +215,6 @@ public class FirebaseAPI {
   }
 
   public void updateMessages(ChatRoom chatObj, Message newMessage , final UpdateChatRoomsMessageCompletionListener listenerMessage){
-//  Message hei = new Message(new Timestamp(995858), "this message","hdfjdfsdf","text","audio","image","video","ECS","37537854"
-//  ,"Astrid");
 
     //reference to ChatRoom object
     DocumentReference refChatRoom = mFirestore.collection("ChatRooms").document(chatObj.getId());
@@ -281,12 +224,39 @@ public class FirebaseAPI {
 
   //update last messafe sent in chatroom
 
-    refChatRoom.update("lastMessage",refMessages);
-//      HashMap<String, Object> userMessage = new HashMap<>();
-//      userMessage.put("lastMessage",newMessage);
+    refChatRoom.update("lastMessage",newMessage.toMap());
 
 
-//updateMessages(ChatRoom.c,hei,listenerMessage);
+  }
+
+  public void sendMessage(ChatRoom chatroom, final Message newMessage, final UpdateChatRoomsMessageCompletionListener listener) {
+    //reference to ChatRoom object
+    DocumentReference refChatRoom = mFirestore.collection("ChatRooms").document(chatroom.getId());
+
+    //reference to Message object
+
+
+    //update last messafe sent in chatroom
+
+    refChatRoom.update("lastMessage",newMessage.toMap());
+
+    final DocumentReference messagesRef = mFirestore.collection("Messages").document(chatroom.getCurrentMessagesId());
+    messagesRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+      @Override
+      public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+        if (task.isSuccessful()) {
+
+          FirestoreMessagesCollection currentMessages = task.getResult().toObject(FirestoreMessagesCollection.class);
+          currentMessages.addMessage(newMessage);
+
+          messagesRef.update("messages", currentMessages.toMap());
+          listener.onSuccess();
+        } else {
+          listener.onFailure();
+        }
+      }
+    });
 
   }
 
