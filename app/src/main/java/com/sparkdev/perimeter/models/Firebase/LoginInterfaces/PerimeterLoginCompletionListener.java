@@ -6,7 +6,7 @@ public interface PerimeterLoginCompletionListener {
 
 
     //method call when login is successful
-    public void onSuccess(UserProfile profile);
+    public void onSuccess();
 
     //method call when login is failure
     public void onFailure();
