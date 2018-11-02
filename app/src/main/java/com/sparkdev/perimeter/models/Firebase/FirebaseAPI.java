@@ -78,8 +78,10 @@ public class FirebaseAPI {
           List<ChatRoom> chatRooms = new ArrayList<>();
 
           List<DocumentSnapshot> documents = task.getResult().getDocuments();
-
+          Log.d(TAG, "onComplete: " + documents.toString());
           for (DocumentSnapshot document : documents) {
+            Log.d(TAG, "onComplete: " + document.getData().toString());
+
             ChatRoom chatRoom = document.toObject(ChatRoom.class);
             chatRooms.add(chatRoom);
           }

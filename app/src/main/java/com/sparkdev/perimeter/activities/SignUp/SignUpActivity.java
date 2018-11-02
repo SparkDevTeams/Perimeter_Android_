@@ -208,6 +208,8 @@ public class SignUpActivity extends Activity {
           @Override
           public void onSuccess() {
               Toast.makeText(SignUpActivity.this, "User was successfully created", Toast.LENGTH_SHORT).show();
+              startActivity(new Intent(SignUpActivity.this, InboxActivity.class));
+
           }
 
           @Override

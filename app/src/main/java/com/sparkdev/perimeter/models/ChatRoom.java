@@ -1,9 +1,7 @@
 package com.sparkdev.perimeter.models;
 
 import com.google.firebase.firestore.PropertyName;
-import com.google.gson.annotations.SerializedName;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChatRoom {
@@ -17,7 +15,7 @@ public class ChatRoom {
    @PropertyName("beaconIdMinor")
    private String mBeaconIdMinor;
    @PropertyName("usersId")
-   private ArrayList<String> mUsers;
+   private ArrayList<String> mUserIds;
    @PropertyName("currentMessagesId")
    private String mCurrentMessagesId;
    @PropertyName("messagesIds")
@@ -36,7 +34,7 @@ public class ChatRoom {
         mLocation = location;
         mBeaconIdMajor = beaconIdMajor;
         mBeaconIdMinor = beaconIdMinor;
-        mUsers = users;
+        mUserIds = users;
         mDescription = description;
         mCurrentMessagesId = currentMessagesId;
         mMessagesIds = messagesIds;
@@ -63,8 +61,8 @@ public class ChatRoom {
         return mBeaconIdMinor;
     }
 
-    public ArrayList<String> getUsers() {
-        return mUsers;
+    public ArrayList<String> getUsersId() {
+        return mUserIds;
     }
 
     public String getDescription() {
@@ -92,4 +90,5 @@ public class ChatRoom {
     public void setLocation (String location) { mLocation = location;}
 
     public void setChatRoomImageUrl(String chatRoomImageUrl) { mChatRoomImageUrl = chatRoomImageUrl; }
+
 }
