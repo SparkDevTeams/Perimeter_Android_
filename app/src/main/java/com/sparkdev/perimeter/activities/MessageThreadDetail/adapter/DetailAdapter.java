@@ -1,16 +1,22 @@
 package com.sparkdev.perimeter.activities.MessageThreadDetail.adapter;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
+import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
+import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.UserProfile;
 
 import java.util.List;
@@ -18,13 +24,15 @@ import java.util.List;
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.UsersViewHolder> {
 
     private List<UserProfile> mUsers;
+    private ChatRoom mChatRoom;
     private Context mContext;
 
     //Adapter constructor
-    public DetailAdapter(Context context, List<UserProfile> users)
+    public DetailAdapter(Context context, List<UserProfile> users, ChatRoom chatRoom)
     {
         mUsers = users;
         mContext = context;
+        mChatRoom = chatRoom;
     }
 
     //inner class
@@ -44,6 +52,8 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.UsersViewH
         }
     }
     //end of inner class
+
+
 
     @NonNull
     @Override

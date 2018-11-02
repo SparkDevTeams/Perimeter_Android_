@@ -6,17 +6,22 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
 import com.sparkdev.perimeter.activities.MessageThreadDetail.adapter.DetailAdapter;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
+import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
 import com.sparkdev.perimeter.models.UserProfile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MessageThreadDetailActivity extends AppCompatActivity {
@@ -28,24 +33,37 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
   private FirebaseAPI fb;
   private List<UserProfile> mUsers = new ArrayList<>() ;
   private Context mContext = this;
+  private ChatRoom mChatRoom = new ChatRoom();
+
+  private String [] users = {"WTYeGambWghxX7K11IWLVS7Odmh2", "G811mzvJdl0OLWhB9D1M"};
+  private ArrayList<String> userIds = new ArrayList<>(Arrays.asList(users));
+
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_message_thread_detail);
 
-    getSupportActionBar().setTitle("Chat Details");
+    Toolbar toolbar = (Toolbar)findViewById(R.id.detailsToolbar);
+    setSupportActionBar(toolbar);
 
-    //test the adapter with dummy data
-    populateList();
+
+    mChatRoom.setChatRoomImageUrl("https://firebasestorage.googleapis.com/v0/b/perimeter-b0dc8.appspot.com/o/ecs.jpg?alt=media&token=bfcf935f-cc4e-47c1-968d-89b960959d75");
+    mChatRoom.setUsers(userIds);
+    mChatRoom.setDescription("A chatroom for the ECS building on the MCC");
 
     // Get access to the activity's RecyclerView
     recyclerView = (RecyclerView) findViewById(R.id.usersRecycler);
 
-    // Create the InboxAdapter and supply the adapter with the data
-    mCustomAdapter = new DetailAdapter(mContext, mUsers);
-    recyclerView.setAdapter(mCustomAdapter);
-    recyclerView.setNestedScrollingEnabled(false);
+    getUsers();
+
+    if(mUsers.size() != 0) {
+        // Create the InboxAdapter and supply the adapter with the data
+        mCustomAdapter = new DetailAdapter(mContext, mUsers, mChatRoom);
+        recyclerView.setAdapter(mCustomAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
+    }
 
       // Define the RecyclerView's default layout manager and orientation
     llm = new LinearLayoutManager(this);
@@ -53,6 +71,27 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
     recyclerView.setLayoutManager(llm);
 
   }
+
+  private void getUsers()
+  {
+      FirebaseAPI fb = FirebaseAPI.getInstance(this);
+      for(String user : mChatRoom.getUsers())
+      {
+          fb.getUserWithUserID(user, new PerimeterGetUserCompletionListener() {
+              @Override
+              public void onSuccess(UserProfile profile) {
+                   mUsers.add(profile);
+              }
+
+              @Override
+              public void onFailure() {
+                  Toast.makeText(mContext,"Unable to load chat detail", Toast.LENGTH_SHORT).show();
+              }
+          });
+      }
+
+  }
+
 
   private void populateList()
   {
@@ -93,5 +132,6 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
         mUsers.get(10).setDisplayName("Astrid");
         mUsers.get(11).setDisplayName("Dayana");
   }
+
 
 }
