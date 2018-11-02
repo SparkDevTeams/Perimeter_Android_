@@ -92,4 +92,13 @@ public class ChatRoom {
     public void setLocation (String location) { mLocation = location;}
 
     public void setChatRoomImageUrl(String chatRoomImageUrl) { mChatRoomImageUrl = chatRoomImageUrl; }
+
+    public void setUsers(ArrayList<String> users) {
+        mUsers = users;
+    }
+
+    public void setDescription(String description)
+    {
+        mDescription = description;
+    }
 }

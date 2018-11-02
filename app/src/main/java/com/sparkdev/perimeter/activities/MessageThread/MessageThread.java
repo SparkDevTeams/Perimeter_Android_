@@ -1,5 +1,6 @@
 package com.sparkdev.perimeter.activities.MessageThread;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentReference;
@@ -17,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.activities.MessageThreadDetail.MessageThreadDetailActivity;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
 import com.sparkdev.perimeter.models.ChatRoom;
@@ -76,6 +79,18 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     return true;
   }
 
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.chat_settings:
+                Intent intent = new Intent(MessageThread.this, MessageThreadDetailActivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item) ;
+        }
+    }
+
   public void onSuccess(List<Message> messages) {
     mMessages = messages;
     // Create the adapter and supply the adapter with the data (i.e from an arraylist or database)
@@ -91,7 +106,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
   }
 
   private void getIncomingIntent() {
-    if (getIntent().hasExtra("chat_room") && getIntent().hasExtra("chat_location") && getIntent().hasExtra("chat_icon")) {
+    if (getIntent().hasExtra("chat_room")) {
       String currentMessagesId = getIntent().getStringExtra("chat_room");
       String chatRoomLocation = getIntent().getStringExtra("chat_location");
       String chatRoomImageUrl = getIntent().getStringExtra("chat_icon");
@@ -101,6 +116,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
       setChatRoomIcon(chatRoomImageUrl);
     }
   }
+
 
   private void setChatRoom(String currentMessagesId) {
     mChatRoom.setCurrentMessagesId(currentMessagesId);
