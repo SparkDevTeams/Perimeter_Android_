@@ -37,11 +37,6 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
   private Context mContext = this;
   private final ChatRoom mChatRoom = new ChatRoom();
 
-  private String [] users = {"WTYeGambWghxX7K11IWLVS7Odmh2", "G811mzvJdl0OLWhB9D1M"};
-  private ArrayList<String> userIds = new ArrayList<>(Arrays.asList(users));
-
-
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -106,7 +101,7 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
   private void setImage(ChatRoom chatRoom)
   {
       ImageView image = (ImageView) findViewById(R.id.chatImageDetail);
-      Glide.with(mContext).load(chatRoom.getChatRoomImageUrl()).into(image);
+      Glide.with(this).load(chatRoom.getChatRoomImageUrl()).into(image);
   }
 
   private void setDescription(ChatRoom chatRoom)
