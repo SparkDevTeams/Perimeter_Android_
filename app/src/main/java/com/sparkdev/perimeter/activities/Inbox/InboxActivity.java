@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +28,7 @@ import com.sparkdev.perimeter.activities.Settings.Settings_Activity;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,13 +43,14 @@ public class InboxActivity extends AppCompatActivity{
   private Context mContext = this;
   private static final String TAG = "InboxActivity";
 
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_inbox);
 
     //Set action bar title
-    getSupportActionBar().setTitle("Message Inbox");
+   getSupportActionBar().setTitle("Message Inbox");
 
     // Get access to the activity's RecyclerView
     recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);

@@ -6,46 +6,56 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
 import com.sparkdev.perimeter.activities.MessageThreadDetail.adapter.DetailAdapter;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
+import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
 import com.sparkdev.perimeter.models.UserProfile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MessageThreadDetailActivity extends AppCompatActivity {
 
   private LinearLayoutManager llm;
-  private DividerItemDecoration itemDecoration;
   private RecyclerView recyclerView;
   private DetailAdapter mCustomAdapter;
   private FirebaseAPI fb;
   private List<UserProfile> mUsers = new ArrayList<>() ;
   private Context mContext = this;
+  private final ChatRoom mChatRoom = new ChatRoom();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_message_thread_detail);
 
-    getSupportActionBar().setTitle("Chat Details");
-
-    //test the adapter with dummy data
-    populateList();
+    Toolbar toolbar = (Toolbar)findViewById(R.id.detailsToolbar);
+    setSupportActionBar(toolbar);
 
     // Get access to the activity's RecyclerView
     recyclerView = (RecyclerView) findViewById(R.id.usersRecycler);
 
-    // Create the InboxAdapter and supply the adapter with the data
-    mCustomAdapter = new DetailAdapter(mContext, mUsers);
-    recyclerView.setAdapter(mCustomAdapter);
-    recyclerView.setNestedScrollingEnabled(false);
+    getIncomingIntent();
+
+    if(mUsers.size() != 0) {
+        // Create the InboxAdapter and supply the adapter with the data
+        mCustomAdapter = new DetailAdapter(mContext, mUsers);
+        recyclerView.setAdapter(mCustomAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
+    }
 
       // Define the RecyclerView's default layout manager and orientation
     llm = new LinearLayoutManager(this);
@@ -54,44 +64,52 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
 
   }
 
-  private void populateList()
+  private void getIncomingIntent()
   {
-        UserProfile user = new UserProfile();
-        UserProfile user2 = new UserProfile();
-        UserProfile user3 = new UserProfile();
-        UserProfile user4 = new UserProfile();
-        UserProfile user5= new UserProfile();
-        UserProfile user6 = new UserProfile();
-        UserProfile user7 = new UserProfile();
-        UserProfile user8 = new UserProfile();
-        UserProfile user9 = new UserProfile();
-        UserProfile user10 = new UserProfile();
-        UserProfile user11= new UserProfile();
-        UserProfile user12 = new UserProfile();
-        mUsers.add(user);
-        mUsers.add(user2);
-        mUsers.add(user3);
-        mUsers.add(user4);
-        mUsers.add(user5);
-        mUsers.add(user6);
-        mUsers.add(user7);
-        mUsers.add(user8);
-        mUsers.add(user9);
-        mUsers.add(user10);
-        mUsers.add(user11);
-        mUsers.add(user12);
-        mUsers.get(0).setDisplayName("Vanessa");
-        mUsers.get(1).setDisplayName("Richard");
-        mUsers.get(2).setDisplayName("Davonne");
-        mUsers.get(3).setDisplayName("Cassandra");
-        mUsers.get(4).setDisplayName("Astrid");
-        mUsers.get(5).setDisplayName("Dayana");
-        mUsers.get(6).setDisplayName("Vanessa");
-        mUsers.get(7).setDisplayName("Richard");
-        mUsers.get(8).setDisplayName("Davonne");
-        mUsers.get(9).setDisplayName("Cassandra");
-        mUsers.get(10).setDisplayName("Astrid");
-        mUsers.get(11).setDisplayName("Dayana");
+      Bundle data = getIntent().getExtras();
+      final ChatRoom chatRoom = (ChatRoom) data.getParcelable("currentChatRoom");
+      setImage(chatRoom);
+      setDescription(chatRoom);
+      fillUsers(chatRoom);
   }
+
+  private void fillUsers(ChatRoom chatRoom)
+  {
+      FirebaseAPI fb = FirebaseAPI.getInstance(this);
+      if(chatRoom.getUsers() == null)
+      {
+          Toast.makeText(mContext,"No users ", Toast.LENGTH_SHORT).show();
+          return;
+      }
+      for(String user : chatRoom.getUsers())
+      {
+          fb.getUserWithUserID(user, new PerimeterGetUserCompletionListener() {
+              @Override
+              public void onSuccess(UserProfile profile) {
+                   mUsers.add(profile);
+              }
+
+              @Override
+              public void onFailure() {
+                  Toast.makeText(mContext,"Unable to load chat detail", Toast.LENGTH_SHORT).show();
+              }
+          });
+      }
+
+  }
+
+  private void setImage(ChatRoom chatRoom)
+  {
+      ImageView image = (ImageView) findViewById(R.id.chatImageDetail);
+      Glide.with(this).load(chatRoom.getChatRoomImageUrl()).into(image);
+  }
+
+  private void setDescription(ChatRoom chatRoom)
+  {
+      TextView description = (TextView)findViewById(R.id.descriptionText);
+      description.setText(chatRoom.getDescription());
+  }
+
+
 
 }
