@@ -22,15 +22,13 @@ import java.util.List;
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.UsersViewHolder> {
 
     private List<UserProfile> mUsers;
-    private ChatRoom mChatRoom;
     private Context mContext;
 
     //Adapter constructor
-    public DetailAdapter(Context context, List<UserProfile> users, ChatRoom chatRoom)
+    public DetailAdapter(Context context, List<UserProfile> users)
     {
         mUsers = users;
         mContext = context;
-        mChatRoom = chatRoom;
     }
 
     //inner class

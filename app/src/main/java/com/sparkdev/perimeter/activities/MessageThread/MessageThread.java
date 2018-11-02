@@ -2,6 +2,7 @@ package com.sparkdev.perimeter.activities.MessageThread;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -80,6 +81,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
       switch(item.getItemId()){
           case R.id.chat_settings:
               Intent intent = new Intent(MessageThread.this, MessageThreadDetailActivity.class);
+              intent.putExtra("currentChatRoom", (Parcelable) mChatRoom);
               startActivity(intent);
               return true;
           default:
@@ -93,6 +95,8 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     mAdapter = new MessageThreadAdapter(this, mMessages);
     // Connect the adapter to the RecyclerView
     mRecyclerView.setAdapter(mAdapter);
+
+    setUpListeners();
   }
 
   public void onFailure() {
@@ -130,12 +134,10 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
 
   private void getIncomingIntent() {
     Bundle data = getIntent().getExtras();
-    final ChatRoom chRoom = (ChatRoom) data.getParcelable("chat_room");
-    setChatRoom(chRoom.getCurrentMessagesId());
-    setChatRoomLocation(chRoom.getLocation());
-    setChatRoomIcon(chRoom.getChatRoomImageUrl());
+    mChatRoom = (ChatRoom) data.getParcelable("chat_room");
   }
 
+  /*
   private void setChatRoom(String currentMessagesId) {
     mChatRoom.setCurrentMessagesId(currentMessagesId);
   }
@@ -147,4 +149,5 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
   private void setChatRoomIcon(String chatRoomImageUrl) {
     mChatRoom.setChatRoomImageUrl(chatRoomImageUrl);
   }
+  */
 }
