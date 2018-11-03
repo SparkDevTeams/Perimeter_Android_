@@ -1,11 +1,40 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+  </style>
+
+  <!-- Same theme without the action bar on top -->
+  <!--<style name="AppTheme.NoActionBar" parent="Base.Theme.AppCompat.Light.DarkActionBar">-->
+    <!--<item name="android:windowActionBar">false</item>-->
+    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--<item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>-->
+  <!--</style>-->
+
+  <!-- overflow icon color -->
+  <style name="MyOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+    <item name="android:tint">@color/colorAccent</item>
+  </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorControlNormal">@color/colorAccent</item>
     </style>
+
+    <!-- Toolbar  theme. -->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+
+
 
 </resources>
