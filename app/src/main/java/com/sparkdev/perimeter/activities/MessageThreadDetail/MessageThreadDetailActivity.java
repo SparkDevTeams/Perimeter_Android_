@@ -35,7 +35,7 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
   private FirebaseAPI fb;
   private List<UserProfile> mUsers = new ArrayList<>() ;
   private Context mContext = this;
-  private final ChatRoom mChatRoom = new ChatRoom();
+  private  ChatRoom mChatRoom;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +50,12 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
 
     getIncomingIntent();
 
-    if(mUsers.size() != 0) {
-        // Create the InboxAdapter and supply the adapter with the data
-        mCustomAdapter = new DetailAdapter(mContext, mUsers);
-        recyclerView.setAdapter(mCustomAdapter);
-        recyclerView.setNestedScrollingEnabled(false);
-    }
+
+    // Create the InboxAdapter and supply the adapter with the data
+    mCustomAdapter = new DetailAdapter(mContext, mUsers);
+    recyclerView.setAdapter(mCustomAdapter);
+    recyclerView.setNestedScrollingEnabled(false);
+
 
       // Define the RecyclerView's default layout manager and orientation
     llm = new LinearLayoutManager(this);
@@ -67,26 +67,32 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
   private void getIncomingIntent()
   {
       Bundle data = getIntent().getExtras();
-      final ChatRoom chatRoom = (ChatRoom) data.getParcelable("currentChatRoom");
-      setImage(chatRoom);
-      setDescription(chatRoom);
-      fillUsers(chatRoom);
+      mChatRoom = (ChatRoom) data.getParcelable("currentChatRoom");
+      setImage(mChatRoom);
+      setDescription(mChatRoom);
+      fillUsers(mChatRoom);
   }
 
   private void fillUsers(ChatRoom chatRoom)
   {
-      FirebaseAPI fb = FirebaseAPI.getInstance(this);
-      if(chatRoom.getUsers() == null)
+      fb = FirebaseAPI.getInstance(this);
+      if(getUserIds() == null)
       {
           Toast.makeText(mContext,"No users ", Toast.LENGTH_SHORT).show();
           return;
       }
-      for(String user : chatRoom.getUsers())
+
+      ArrayList<String> userIds  = getUserIds();
+
+      for(String user : userIds)
       {
           fb.getUserWithUserID(user, new PerimeterGetUserCompletionListener() {
               @Override
               public void onSuccess(UserProfile profile) {
-                   mUsers.add(profile);
+
+                  mUsers.add(profile);
+                  mCustomAdapter.setNewUsers(mUsers);
+                  mCustomAdapter.notifyDataSetChanged();
               }
 
               @Override
@@ -110,6 +116,11 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
       description.setText(chatRoom.getDescription());
   }
 
+
+  private ArrayList<String> getUserIds() {
+
+      return new ArrayList<>(mChatRoom.getUserProfileIds().keySet());
+  }
 
 
 }

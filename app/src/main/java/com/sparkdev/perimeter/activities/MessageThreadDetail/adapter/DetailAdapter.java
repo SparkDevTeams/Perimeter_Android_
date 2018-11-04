@@ -17,6 +17,7 @@ import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.UserProfile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.UsersViewHolder> {
@@ -73,4 +74,6 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.UsersViewH
     public int getItemCount() {
         return mUsers.size();
     }
+
+    public void setNewUsers(List<UserProfile> userProfiles) {mUsers = userProfiles;}
 }
