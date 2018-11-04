@@ -1,6 +1,8 @@
 package com.sparkdev.perimeter.activities.MessageThreadDetail;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -8,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -17,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
+import com.sparkdev.perimeter.activities.MessageThread.MessageThread;
 import com.sparkdev.perimeter.activities.MessageThreadDetail.adapter.DetailAdapter;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
@@ -42,8 +46,7 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_message_thread_detail);
 
-    Toolbar toolbar = (Toolbar)findViewById(R.id.detailsToolbar);
-    setSupportActionBar(toolbar);
+    setUpToolbar();
 
     // Get access to the activity's RecyclerView
     recyclerView = (RecyclerView) findViewById(R.id.usersRecycler);
@@ -62,6 +65,19 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
     llm.setOrientation(LinearLayoutManager.VERTICAL);
     recyclerView.setLayoutManager(llm);
 
+  }
+
+  private void setUpToolbar()
+  {
+      Toolbar toolbar = (Toolbar)findViewById(R.id.detailsToolbar);
+      setSupportActionBar(toolbar);
+      toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              finish();
+              overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+          }
+      });
   }
 
   private void getIncomingIntent()
