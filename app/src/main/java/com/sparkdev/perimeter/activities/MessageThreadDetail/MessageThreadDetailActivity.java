@@ -1,6 +1,8 @@
 package com.sparkdev.perimeter.activities.MessageThreadDetail;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -8,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -17,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
+import com.sparkdev.perimeter.activities.MessageThread.MessageThread;
 import com.sparkdev.perimeter.activities.MessageThreadDetail.adapter.DetailAdapter;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
@@ -35,27 +39,26 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
   private FirebaseAPI fb;
   private List<UserProfile> mUsers = new ArrayList<>() ;
   private Context mContext = this;
-  private final ChatRoom mChatRoom = new ChatRoom();
+  private  ChatRoom mChatRoom;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_message_thread_detail);
 
-    Toolbar toolbar = (Toolbar)findViewById(R.id.detailsToolbar);
-    setSupportActionBar(toolbar);
+    setUpToolbar();
 
     // Get access to the activity's RecyclerView
     recyclerView = (RecyclerView) findViewById(R.id.usersRecycler);
 
     getIncomingIntent();
 
-    if(mUsers.size() != 0) {
-        // Create the InboxAdapter and supply the adapter with the data
-        mCustomAdapter = new DetailAdapter(mContext, mUsers);
-        recyclerView.setAdapter(mCustomAdapter);
-        recyclerView.setNestedScrollingEnabled(false);
-    }
+
+    // Create the InboxAdapter and supply the adapter with the data
+    mCustomAdapter = new DetailAdapter(mContext, mUsers);
+    recyclerView.setAdapter(mCustomAdapter);
+    recyclerView.setNestedScrollingEnabled(false);
+
 
       // Define the RecyclerView's default layout manager and orientation
     llm = new LinearLayoutManager(this);
@@ -64,29 +67,48 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
 
   }
 
+  private void setUpToolbar()
+  {
+      Toolbar toolbar = (Toolbar)findViewById(R.id.detailsToolbar);
+      setSupportActionBar(toolbar);
+      toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              finish();
+              overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+          }
+      });
+  }
+
   private void getIncomingIntent()
   {
       Bundle data = getIntent().getExtras();
-      final ChatRoom chatRoom = (ChatRoom) data.getParcelable("currentChatRoom");
-      setImage(chatRoom);
-      setDescription(chatRoom);
-      fillUsers(chatRoom);
+      mChatRoom = (ChatRoom) data.getParcelable("currentChatRoom");
+      setImage(mChatRoom);
+      setDescription(mChatRoom);
+      fillUsers(mChatRoom);
   }
 
   private void fillUsers(ChatRoom chatRoom)
   {
-      FirebaseAPI fb = FirebaseAPI.getInstance(this);
-      if(chatRoom.getUsers() == null)
+      fb = FirebaseAPI.getInstance(this);
+      if(getUserIds() == null)
       {
           Toast.makeText(mContext,"No users ", Toast.LENGTH_SHORT).show();
           return;
       }
-      for(String user : chatRoom.getUsers())
+
+      ArrayList<String> userIds  = getUserIds();
+
+      for(String user : userIds)
       {
           fb.getUserWithUserID(user, new PerimeterGetUserCompletionListener() {
               @Override
               public void onSuccess(UserProfile profile) {
-                   mUsers.add(profile);
+
+                  mUsers.add(profile);
+                  mCustomAdapter.setNewUsers(mUsers);
+                  mCustomAdapter.notifyDataSetChanged();
               }
 
               @Override
@@ -110,6 +132,11 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
       description.setText(chatRoom.getDescription());
   }
 
+
+  private ArrayList<String> getUserIds() {
+
+      return new ArrayList<>(mChatRoom.getUserProfileIds().keySet());
+  }
 
 
 }

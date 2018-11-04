@@ -184,8 +184,6 @@ public class SignUpActivity extends Activity {
     return flag;
   }
 
-
-
   private void validate(String userName, String password, String displayName) {
 
       mFirebaseAPI.createNewUserAccount(userName, password, displayName, new PerimeterSignUpCompletionListener() {
