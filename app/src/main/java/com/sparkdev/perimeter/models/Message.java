@@ -88,4 +88,17 @@ public class Message {
         return mSenderDisplayName;
     }
 
+    public Map<String, Object> toMap(){
+        HashMap<String,Object> Messagemap = new HashMap<>();
+        Messagemap.put("timestamp",mTimestamp);
+        Messagemap.put("message",mMessage);
+        Messagemap.put("senderId",mSenderId);
+        Messagemap.put("messageType",mMessageType);
+        Messagemap.put("chatRoomId",mChatRoomId);
+        Messagemap.put("messageId",mMessageId);
+        Messagemap.put("senderDisplayName",mSenderDisplayName);
+
+        return Messagemap;
+    }
+
 }

@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -25,10 +28,12 @@ import com.sparkdev.perimeter.activities.MessageThreadDetail.MessageThreadDetail
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomMessagesCompletionListener;
 import com.sparkdev.perimeter.activities.MessageThread.adapters.MessageThreadAdapter;
 import com.sparkdev.perimeter.models.ChatRoom;
+import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.UpdateChatRoomsMessageCompletionListener;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
 import com.sparkdev.perimeter.models.Firebase.FirestoreMessagesCollection;
 import com.sparkdev.perimeter.models.Message;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,13 +46,43 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
   private List<Message> mMessages;
   private FirebaseAPI mFirebaseAPI;
   private ChatRoom mChatRoom = new ChatRoom();
+  private Button mSendButton;
+  private EditText mReceiveText;
+  private Bundle data;
+  private ChatRoom chRoom;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_message_thread);
-
     mFirebaseAPI = FirebaseAPI.getInstance(this);
+    //Intent passing data must be in Oncreate()
+
+    data = getIntent().getExtras();
+    chRoom = (ChatRoom) data.getParcelable("chat_room");
+
+    mReceiveText = findViewById(R.id.text_input);
+    mSendButton= findViewById(R.id.send_button);
+    mSendButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Message sendMessages = new Message(new Timestamp(20180212),mReceiveText.getText().toString(),"LaysChip","text","audio","image","video","ECS","37537854"
+                ,"AstridR");
+
+        mFirebaseAPI.sendMessage(chRoom, sendMessages, new UpdateChatRoomsMessageCompletionListener() {
+          @Override
+          public void onSuccess() {
+            Log.d(TAG, "onSuccess: We have updated the chatroom");
+          }
+
+          @Override
+          public void onFailure() {
+
+          }
+        });
+      }
+    });
+
 
     getIncomingIntent();
     mFirebaseAPI.getMessagesForChatRoom(mChatRoom, this);
@@ -103,6 +138,27 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     Toast.makeText(this, "Unable to load messages", Toast.LENGTH_SHORT).show();
   }
 
+  private void getIncomingIntent() {
+
+
+      setChatRoom(chRoom.getCurrentMessagesId());
+      setChatRoomLocation(chRoom.getLocation());
+      setChatRoomIcon(chRoom.getChatRoomImageUrl());
+
+  }
+
+  private void setChatRoom(String currentMessagesId) {
+    mChatRoom.setCurrentMessagesId(currentMessagesId);
+  }
+
+  private void setChatRoomLocation(String chatRoomLocation) {
+    mChatRoom.setLocation(chatRoomLocation);
+  }
+
+  private void setChatRoomIcon(String chatRoomImageUrl) {
+    mChatRoom.setChatRoomImageUrl(chatRoomImageUrl);
+  }
+
   private void setUpListeners()
   {
       DocumentReference docRef = (DocumentReference) FirebaseFirestore.getInstance()
@@ -131,23 +187,4 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
                   }
               });
   }
-
-  private void getIncomingIntent() {
-    Bundle data = getIntent().getExtras();
-    mChatRoom = (ChatRoom) data.getParcelable("chat_room");
-  }
-
-  /*
-  private void setChatRoom(String currentMessagesId) {
-    mChatRoom.setCurrentMessagesId(currentMessagesId);
-  }
-
-  private void setChatRoomLocation(String chatRoomLocation) {
-    mChatRoom.setLocation(chatRoomLocation);
-  }
-
-  private void setChatRoomIcon(String chatRoomImageUrl) {
-    mChatRoom.setChatRoomImageUrl(chatRoomImageUrl);
-  }
-  */
 }
