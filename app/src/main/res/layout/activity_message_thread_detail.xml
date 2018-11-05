@@ -47,7 +47,7 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/chatImageDetail"
-                    android:layout_width="match_parent"
+                    android:layout_width="190dp"
                     android:layout_height="190dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"

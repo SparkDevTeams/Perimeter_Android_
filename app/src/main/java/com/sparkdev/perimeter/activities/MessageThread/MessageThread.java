@@ -116,7 +116,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
       switch(item.getItemId()){
           case R.id.chat_settings:
               Intent intent = new Intent(MessageThread.this, MessageThreadDetailActivity.class);
-              intent.putExtra("currentChatRoom", (Parcelable) mChatRoom);
+              intent.putExtra("currentChatRoom", (Parcelable) chRoom);
               startActivity(intent);
               return true;
           default:

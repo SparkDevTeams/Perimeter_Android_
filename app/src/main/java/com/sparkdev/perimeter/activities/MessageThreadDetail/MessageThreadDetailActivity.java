@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MessageThreadDetailActivity extends AppCompatActivity {
 
   private LinearLayoutManager llm;
@@ -122,7 +124,7 @@ public class MessageThreadDetailActivity extends AppCompatActivity {
 
   private void setImage(ChatRoom chatRoom)
   {
-      ImageView image = (ImageView) findViewById(R.id.chatImageDetail);
+      CircleImageView image = (CircleImageView) findViewById(R.id.chatImageDetail);
       Glide.with(this).load(chatRoom.getChatRoomImageUrl()).into(image);
   }
 
