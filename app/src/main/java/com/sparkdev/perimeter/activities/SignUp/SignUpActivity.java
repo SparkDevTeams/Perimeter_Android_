@@ -101,6 +101,7 @@ public class SignUpActivity extends Activity {
           String emAddrStr = mEmAddr.getText().toString();
           String pw1Str = mPW1.getText().toString();
           String pw2Str = mPW2.getText().toString();
+          String displayName = mname.getText().toString();
           String nameStr = mname.getText().toString();
           String warning = "Invalid Email Address";
 
@@ -112,7 +113,7 @@ public class SignUpActivity extends Activity {
                 Toast.LENGTH_SHORT).show();
           } else if (validPassword(pw1Str, pw2Str)) {//makes sure passwords are equal
             mwarn1.setVisibility(View.GONE);
-            validate(emAddrStr, pw1Str); //FIREBASE
+            validate(emAddrStr, pw1Str,displayName); //FIREBASE
           }
         }
       }
@@ -183,31 +184,13 @@ public class SignUpActivity extends Activity {
     return flag;
   }
 
-    /*
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-    }*/
+  private void validate(String userName, String password, String displayName) {
 
-  private void validate(String userName, String password) {
-//    mFirebaseAPI.createSignUpUser(userName, password, new PerimeterSignUpCompletionListener() {
-//      @Override
-//      public void onSuccess() {
-//        startActivity(new Intent());
-//      }
-//
-//      @Override
-//      public void onFailure() {
-//
-//      }
-//    });
-
-      mFirebaseAPI.createNewUserAccount(userName, password, "jungleJoe", new PerimeterSignUpCompletionListener() {
+      mFirebaseAPI.createNewUserAccount(userName, password, displayName, new PerimeterSignUpCompletionListener() {
           @Override
           public void onSuccess() {
               Toast.makeText(SignUpActivity.this, "User was successfully created", Toast.LENGTH_SHORT).show();
+              startActivity(new Intent(SignUpActivity.this, InboxActivity.class));
           }
 
           @Override

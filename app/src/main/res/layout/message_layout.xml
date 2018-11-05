@@ -13,7 +13,7 @@ another once the app is created-->
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="10dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/ic_user" />
 
     <LinearLayout
         android:id="@+id/text_message"
@@ -43,7 +43,7 @@ another once the app is created-->
                 android:id="@+id/time_stamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="end"

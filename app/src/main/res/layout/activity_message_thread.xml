@@ -45,7 +45,8 @@
         <EditText
             android:id="@+id/text_input"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:padding="7dp"
             android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="5dp"
             android:hint="Type a message..."
@@ -53,6 +54,7 @@
             android:imeOptions="actionSend"
             android:layout_toEndOf="@+id/mic_button"
             android:layout_toStartOf="@+id/send_button"
+            android:background="@drawable/rounded_message_edittext"
             />
 
         <Button
