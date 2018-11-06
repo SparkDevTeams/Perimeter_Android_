@@ -13,12 +13,15 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sparkdev.perimeter.R;
-import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
-import com.sparkdev.perimeter.activities.MessageThread.adapters.RecyclerAdapter;
+import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.UserProfile;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.UsersViewHolder> {
 
@@ -34,21 +37,25 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.UsersViewH
 
     //inner class
     public class UsersViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageView;
+        private CircleImageView imageView;
         private TextView userName;
+        private TextView displayName;
         private RelativeLayout rowLayout;
 
 
         public UsersViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imageView = (ImageView)itemView.findViewById(R.id.userImage);
+            imageView = (CircleImageView) itemView.findViewById(R.id.userImage);
             userName = (TextView) itemView.findViewById(R.id.userName);
+            displayName = (TextView) itemView.findViewById(R.id.displayName);
             rowLayout = (RelativeLayout) itemView.findViewById(R.id.userRow);
 
         }
     }
     //end of inner class
+
+
 
     @NonNull
     @Override
@@ -64,12 +71,19 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.UsersViewH
     public void onBindViewHolder(@NonNull UsersViewHolder usersViewHolder, int i) {
         UserProfile currentUsers = mUsers.get(i);
 
-//        usersViewHolder.imageView   user profile?
-        usersViewHolder.userName.setText(currentUsers.getDisplayName());
+        if(currentUsers.getProfileImageUrl() == null)
+            usersViewHolder.imageView.setImageResource(R.drawable.ic_user);
+        else
+            Glide.with(mContext).load(currentUsers.getProfileImageUrl()).into(usersViewHolder.imageView);
+
+        usersViewHolder.userName.setText(currentUsers.getFirstName() + " " + currentUsers.getLastName());
+        usersViewHolder.displayName.setText("(" + currentUsers.getDisplayName()+ ")");
     }
 
     @Override
     public int getItemCount() {
         return mUsers.size();
     }
+
+    public void setNewUsers(List<UserProfile> userProfiles) {mUsers = userProfiles;}
 }

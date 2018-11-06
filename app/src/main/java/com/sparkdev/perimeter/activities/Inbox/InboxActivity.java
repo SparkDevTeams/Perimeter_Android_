@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,12 +27,16 @@ import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
 import com.sparkdev.perimeter.activities.Settings.Settings_Activity;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.UpdateChatRoomsMessageCompletionListener;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
+import com.sparkdev.perimeter.models.Message;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class InboxActivity extends AppCompatActivity {
+public class InboxActivity extends AppCompatActivity{
 
   private LinearLayoutManager llm;
   private DividerItemDecoration itemDecoration;
@@ -42,23 +47,42 @@ public class InboxActivity extends AppCompatActivity {
   private Context mContext = this;
   private static final String TAG = "InboxActivity";
 
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_inbox);
 
     //Set action bar title
-    getSupportActionBar().setTitle("Message Inbox");
+   getSupportActionBar().setTitle("Message Inbox");
 
     // Get access to the activity's RecyclerView
     recyclerView = (RecyclerView) findViewById(R.id.messagesRecyclerView);
 
     //fetch ChatRooms list from Firebase
       fb = FirebaseAPI.getInstance(this);
+
       fb.getAllChatRooms( new GetChatRoomsCompletionListener(){
 
           public void onSuccess(List<ChatRoom> chatRooms) {
             mChatRooms = chatRooms;
+              Message testing = new Message(new Timestamp(20180212), "Update","hdfjdfsdf","text","audio","image","video","ECS","37537854"
+                      ,"Astrid");
+
+              ChatRoom obj = chatRooms.get(0);
+              fb.updateMessages(obj, testing, new UpdateChatRoomsMessageCompletionListener() {
+                  @Override
+
+                  public void onSuccess() {
+
+
+                  }
+
+                  @Override
+                  public void onFailure() {
+
+                  }
+              });
 
             // Create the InboxAdapter and supply the adapter with the data
             mCustomAdapter = new InboxAdapter(mContext, mChatRooms);
@@ -110,7 +134,7 @@ public class InboxActivity extends AppCompatActivity {
     //Listeners determine if data has changed in firebase.
     public void setUpListeners()
     {
-        DocumentReference docRef = (DocumentReference) FirebaseFirestore.getInstance()
+        final DocumentReference docRef = (DocumentReference) FirebaseFirestore.getInstance()
                 .collection("ChatRooms").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots,
@@ -134,6 +158,9 @@ public class InboxActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 }
 
 

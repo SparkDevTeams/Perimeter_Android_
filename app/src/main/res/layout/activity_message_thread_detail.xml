@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.MessageThreadDetail.MessageThreadDetailActivity"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightGray">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/detailsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationContentDescription="@string/abc_action_bar_up_description"
+        android:theme="@style/AppTheme.PopupOverlay"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:titleTextColor="@android:color/white"
+        app:title="Chat Details" />
+
+    <ScrollView
     android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_below="@+id/detailsToolbar">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,7 +47,7 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/chatImageDetail"
-                    android:layout_width="match_parent"
+                    android:layout_width="190dp"
                     android:layout_height="190dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
@@ -103,3 +123,5 @@
     </RelativeLayout>
 
 </ScrollView>
+
+</RelativeLayout>
