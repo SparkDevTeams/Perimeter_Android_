@@ -35,6 +35,7 @@ import com.sparkdev.perimeter.models.Message;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MessageThread extends AppCompatActivity implements GetChatRoomMessagesCompletionListener {
@@ -50,6 +51,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
   private EditText mReceiveText;
   private Bundle data;
   private ChatRoom chRoom;
+  private Date currentTime;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +68,9 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     mSendButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Message sendMessages = new Message(new Timestamp(20180212),mReceiveText.getText().toString(),"LaysChip","text","audio","image","video","ECS","37537854"
-                ,"AstridR");
+        Message sendMessages = new Message(new Timestamp(currentTime.getTime()),mReceiveText.getText()
+            .toString(),"v7ZRexU7WSX3meII6jK6bLWJxvB3","text","audio","image","video","ECS","37537854"
+                ,"cassandra");
 
         mFirebaseAPI.sendMessage(chRoom, sendMessages, new UpdateChatRoomsMessageCompletionListener() {
           @Override
@@ -96,6 +99,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     // Define the RecyclerView's default layout manager
     mLayoutManager = new LinearLayoutManager(this);
     mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    mLayoutManager.setStackFromEnd(true);
 
     mRecyclerView.setLayoutManager(mLayoutManager);
 

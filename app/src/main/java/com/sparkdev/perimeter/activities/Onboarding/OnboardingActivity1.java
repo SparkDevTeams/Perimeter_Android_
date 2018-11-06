@@ -13,8 +13,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrInterface;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.Login.LoginActivity;
 import com.sparkdev.perimeter.activities.Onboarding.adapters.SliderAdapter;

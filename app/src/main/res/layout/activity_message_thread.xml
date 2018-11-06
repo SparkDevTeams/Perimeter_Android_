@@ -30,6 +30,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginHorizontal="5dp"
+            android:layout_marginBottom="0dp"
             android:layout_centerVertical="true"
             android:background="@drawable/ic_photo_camera_black_24dp"/>
 
@@ -38,6 +39,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginHorizontal="5dp"
+            android:layout_marginBottom="0dp"
             android:layout_centerVertical="true"
             android:background="@drawable/ic_mic_black_24dp"
             android:layout_toEndOf="@+id/camera_button" />
@@ -45,11 +47,12 @@
         <EditText
             android:id="@+id/text_input"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:padding="7dp"
-            android:layout_marginHorizontal="5dp"
+            android:layout_height="wrap_content"
+            android:maxHeight="100dp"
+            android:padding="10dp"
             android:layout_marginVertical="5dp"
             android:hint="Type a message..."
+            android:isScrollContainer="true"
             android:inputType="textAutoComplete|textCapSentences|textMultiLine"
             android:imeOptions="actionSend"
             android:layout_toEndOf="@+id/mic_button"
@@ -63,6 +66,7 @@
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="5dp"
+            android:layout_marginBottom="0dp"
             android:layout_centerVertical="true"
             style="?android:attr/borderlessButtonStyle"
             android:background="?android:attr/selectableItemBackground"
