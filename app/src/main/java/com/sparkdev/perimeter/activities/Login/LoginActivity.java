@@ -1,6 +1,7 @@
 package com.sparkdev.perimeter.activities.Login;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.sparkdev.perimeter.R;
+import com.sparkdev.perimeter.activities.Inbox.InboxActivity;
+import com.sparkdev.perimeter.activities.SignUp.SignUpActivity;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
 import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
 import com.sparkdev.perimeter.models.UserProfile;
@@ -45,19 +48,13 @@ public class LoginActivity extends Activity {
     mLogin = findViewById(R.id.btnLogin);
     mCreateAccount = findViewById(R.id.tvCreateAccount);
     mAuth = FirebaseAuth.getInstance();
-    // mName.setSelection(1);
-    //mPassword.setSelection(1);
     String text = "Don't have an account? Create One";
     SpannableString ss = new SpannableString(text);
 
     ClickableSpan clickableSpan1 = new ClickableSpan() {
       @Override
       public void onClick(View widget) {
-        //I think I'll refer to Dayana's code here for when she sets up her part.
-        //for now it opens up a to a random page but will be needd to go to the create account page
-        //going to take out the SecondActivity thing that I had and then gonn add a toast
-        //Intent intent =new Intent(LoginActivity.this, SecondActivity.class);
-        // startActivity(intent);
+        startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
         Log.d(TAG, "To sign-up!");
         Toast.makeText(LoginActivity.this, "To the sign up page", Toast.LENGTH_SHORT).show();
       }
@@ -74,14 +71,6 @@ public class LoginActivity extends Activity {
     });
   }
 
-  @Override
-  public void onStart() {
-    super.onStart();
-    // Check if user is signed in (non-null) and update UI accordingly.
-    FirebaseUser currentUser = mAuth.getCurrentUser();
-    //updateUI(currentUser);
-  }
-
   private void validate(final String userName, String password) {
     //Firebase stuff will probably end up here
     mAuth.signInWithEmailAndPassword(userName, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -91,23 +80,13 @@ public class LoginActivity extends Activity {
         if (task.isSuccessful()) {
           Log.d(TAG, "Login successful");
           Toast.makeText(LoginActivity.this, "Login passed", Toast.LENGTH_SHORT).show();
-          FirebaseUser user = mAuth.getCurrentUser();
-          //updateUI(user);
+          startActivity(new Intent(LoginActivity.this, InboxActivity.class));
         } else {
           Log.d(TAG, "Login unsuccessful");
           Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
-          //updateUI(null);
         }
       }
     });
-  }
-
-  //might not need at all
-  private void updateUI(FirebaseUser user) {
-    //hideProgressDialog();
-    if (user != null) {
-
-    }
   }
 
 }

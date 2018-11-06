@@ -35,6 +35,7 @@ import com.sparkdev.perimeter.models.Message;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
   private EditText mReceiveText;
   private Bundle data;
   private ChatRoom chRoom;
-  private Date currentTime;
+  private Date currentTime = Calendar.getInstance().getTime();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
     mSendButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Message sendMessages = new Message(new Timestamp(currentTime.getTime()),mReceiveText.getText()
+        Message sendMessages = new Message(new Timestamp(System.currentTimeMillis()),mReceiveText.getText()
             .toString(),"v7ZRexU7WSX3meII6jK6bLWJxvB3","text","audio","image","video","ECS","37537854"
                 ,"cassandra");
 
