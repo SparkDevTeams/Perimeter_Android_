@@ -196,6 +196,20 @@ public class FirebaseAPI {
                   // user was successfully created in firebase authentication
                   String userUID = task.getResult().getUser().getUid();
 
+                  UserProfile.setCurrentUserID(userUID);
+
+                  getUserWithUserID(userUID, new PerimeterGetUserCompletionListener() {
+                    @Override
+                    public void onSuccess(UserProfile profile) {
+                      UserProfile.setCurrentProfile(profile);
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+                  });
+
                   // now create the user profile document. The document id will be userUID we got back from firebase
                   CollectionReference usersRef = mFirestore.collection("Users");
                   DocumentReference userDocRef = usersRef.document(userUID);
