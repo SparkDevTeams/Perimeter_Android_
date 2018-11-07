@@ -3,64 +3,76 @@ package com.sparkdev.perimeter.models;
 import com.google.firebase.firestore.PropertyName;
 
 public class UserProfile {
-    @PropertyName("firstName")
-    private String mFirstName;
-    @PropertyName("lastName")
-    private String mLastName;
-    @PropertyName("email")
-    private String mEmail;
-    @PropertyName("displayName")
-    private String mDisplayName;
-    @PropertyName("profileImageUrl")
-    private String mProfileImageUrl;
+  @PropertyName("firstName")
+  private String mFirstName;
+  @PropertyName("lastName")
+  private String mLastName;
+  @PropertyName("email")
+  private String mEmail;
+  @PropertyName("displayName")
+  private String mDisplayName;
+  @PropertyName("profileImageUrl")
+  private String mProfileImageUrl;
 
-    public UserProfile(String firstName, String lastName, String email, String displayName, String profileImageUrl) {
-        mFirstName = firstName;
-        mLastName = lastName;
-        mEmail = email;
-        mDisplayName = displayName;
-        mProfileImageUrl = profileImageUrl;
-    }
+  public static UserProfile currentProfile;
+  public static String currentUserID;
 
-    public UserProfile(){}
+  public UserProfile(String firstName, String lastName, String email, String displayName, String profileImageUrl) {
+    mFirstName = firstName;
+    mLastName = lastName;
+    mEmail = email;
+    mDisplayName = displayName;
+    mProfileImageUrl = profileImageUrl;
+  }
 
-    public String getFirstName() {
-        return mFirstName;
-    }
+  public UserProfile() {
+  }
 
-    public String getLastName() {
-        return mLastName;
-    }
+  public String getFirstName() {
+    return mFirstName;
+  }
 
-    public String getEmail() {
-        return mEmail;
-    }
+  public String getLastName() {
+    return mLastName;
+  }
 
-    public String getDisplayName() {
-        return mDisplayName;
-    }
+  public String getEmail() {
+    return mEmail;
+  }
 
-    public String getProfileImageUrl() {
-        return mProfileImageUrl;
-    }
+  public String getDisplayName() {
+    return mDisplayName;
+  }
 
-    public void setFirstName(String firstName) {
-        mFirstName = firstName;
-    }
+  public String getProfileImageUrl() {
+    return mProfileImageUrl;
+  }
 
-    public void setLastName(String lastName) {
-        mLastName = lastName;
-    }
+  public void setFirstName(String firstName) {
+    mFirstName = firstName;
+  }
 
-    public void setEmail(String email) {
-        mEmail = email;
-    }
+  public void setLastName(String lastName) {
+    mLastName = lastName;
+  }
 
-    public void setDisplayName(String displayName) {
-        mDisplayName = displayName;
-    }
+  public void setEmail(String email) {
+    mEmail = email;
+  }
 
-    public void setProfileImageUrl(String profileImageUrl) {
-        mProfileImageUrl = profileImageUrl;
-    }
+  public void setDisplayName(String displayName) {
+    mDisplayName = displayName;
+  }
+
+  public void setProfileImageUrl(String profileImageUrl) {
+    mProfileImageUrl = profileImageUrl;
+  }
+
+  public static void setCurrentProfile(UserProfile currentProfile) {
+    UserProfile.currentProfile = currentProfile;
+  }
+
+  public static void setCurrentUserID(String currentUserID) {
+    UserProfile.currentUserID = currentUserID;
+  }
 }

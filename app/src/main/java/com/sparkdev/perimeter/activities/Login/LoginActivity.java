@@ -26,6 +26,7 @@ import com.sparkdev.perimeter.activities.Inbox.InboxActivity;
 import com.sparkdev.perimeter.activities.SignUp.SignUpActivity;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
 import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterGetUserCompletionListener;
+import com.sparkdev.perimeter.models.Firebase.LoginInterfaces.PerimeterLoginCompletionListener;
 import com.sparkdev.perimeter.models.UserProfile;
 
 public class LoginActivity extends Activity {
@@ -35,8 +36,9 @@ public class LoginActivity extends Activity {
   private Button mLogin;
   private TextView mCreateAccount;
   private int mCounter = 1;
-  private FirebaseAuth mAuth;
+  private FirebaseAPI mFirebaseAPI;
   private final String TAG = "LoginActivity";
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,9 @@ public class LoginActivity extends Activity {
     mPassword = findViewById(R.id.etPassword);
     mLogin = findViewById(R.id.btnLogin);
     mCreateAccount = findViewById(R.id.tvCreateAccount);
-    mAuth = FirebaseAuth.getInstance();
+
+    mFirebaseAPI = FirebaseAPI.getInstance(this);
+
     String text = "Don't have an account? Create One";
     SpannableString ss = new SpannableString(text);
 
@@ -72,19 +76,18 @@ public class LoginActivity extends Activity {
   }
 
   private void validate(final String userName, String password) {
-    //Firebase stuff will probably end up here
-    mAuth.signInWithEmailAndPassword(userName, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    mFirebaseAPI.loginUser(userName, password, new PerimeterLoginCompletionListener() {
       @Override
-      public void onComplete(@NonNull Task<AuthResult> task) {
-
-        if (task.isSuccessful()) {
-          Log.d(TAG, "Login successful");
+      public void onSuccess() {
+        Log.d(TAG, "Login successful");
           Toast.makeText(LoginActivity.this, "Login passed", Toast.LENGTH_SHORT).show();
           startActivity(new Intent(LoginActivity.this, InboxActivity.class));
-        } else {
+      }
+
+      @Override
+      public void onFailure() {
           Log.d(TAG, "Login unsuccessful");
           Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
-        }
       }
     });
   }
