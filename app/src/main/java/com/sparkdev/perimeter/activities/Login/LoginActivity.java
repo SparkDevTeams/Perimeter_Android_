@@ -70,7 +70,8 @@ public class LoginActivity extends Activity {
     mLogin.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        validate(mName.getText().toString(), mPassword.getText().toString());
+        if(!mName.getText().toString().isEmpty() && !mPassword.getText().toString().isEmpty())
+          validate(mName.getText().toString(), mPassword.getText().toString());
       }
     });
   }

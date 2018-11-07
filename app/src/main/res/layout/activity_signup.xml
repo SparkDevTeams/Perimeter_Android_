@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:background="#343437"
-                                             tools:context=".activities.SignUp.SignUpActivity"
-                                             tools:layout_editor_absoluteY="25dp">
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#343437"
+    tools:context=".activities.SignUp.SignUpActivity"
+    tools:layout_editor_absoluteY="25dp">
 
 
   <ScrollView
       android:id="@+id/scrollView2"
       android:layout_width="374dp"
       android:layout_height="match_parent"
+      android:layout_marginBottom="10dp"
+      android:layout_marginEnd="8dp"
       android:layout_marginStart="8dp"
       android:layout_marginTop="8dp"
-      android:layout_marginEnd="8dp"
-      android:layout_marginBottom="10dp"
       android:clipToPadding="true"
       android:fillViewport="true"
       android:scrollbarStyle="insideInset"
@@ -37,37 +38,37 @@
           android:id="@+id/imageView3"
           android:layout_width="315dp"
           android:layout_height="130dp"
-          android:layout_marginRight="50dp"
-          android:layout_marginLeft="50dp"
-          android:layout_marginTop="65dp"
           android:layout_gravity="center_vertical|center"
-          android:layout_marginStart="8dp"
-          android:layout_marginEnd="8dp"
           android:layout_marginBottom="40dp"
+          android:layout_marginEnd="8dp"
+          android:layout_marginLeft="50dp"
+          android:layout_marginRight="50dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginTop="65dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:srcCompat="@drawable/logo" />
+          app:srcCompat="@drawable/logo"/>
 
       <EditText
           android:id="@+id/emailID"
-          android:layout_gravity="center"
           android:layout_width="300dp"
           android:layout_height="40dp"
+          android:layout_gravity="center"
           android:layout_marginBottom="15dp"
           android:layout_marginEnd="8dp"
           android:layout_marginStart="8dp"
           android:layout_marginTop="8dp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintVertical_bias="0.144"
           android:background="@drawable/rounded_edittext"
           android:ems="10"
           android:hint="Email Address"
           android:inputType="textEmailAddress"
           android:password="false"
           android:textAlignment="center"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintVertical_bias="0.144"
           tools:layout_editor_absoluteX="73dp"
           tools:layout_editor_absoluteY="206dp"/>
 
@@ -75,14 +76,10 @@
           android:id="@+id/pass1ID"
           android:layout_width="300dp"
           android:layout_height="40dp"
+          android:layout_gravity="center"
           android:layout_marginBottom="15dp"
           android:layout_marginEnd="8dp"
           android:layout_marginStart="8dp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintVertical_bias="0.144"
-          android:layout_gravity="center"
           android:layout_marginTop="15dp"
           android:background="@drawable/rounded_edittext"
           android:ems="10"
@@ -91,8 +88,12 @@
           android:password="true"
           android:phoneNumber="false"
           android:textAlignment="center"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintVertical_bias="0.144"
           tools:layout_editor_absoluteX="73dp"
-          tools:layout_editor_absoluteY="269dp" />
+          tools:layout_editor_absoluteY="269dp"/>
 
       <TextView
           android:id="@+id/criteriaID"
@@ -103,7 +104,7 @@
           android:text="Password must be at least 8 characters long, have one special character, number, uppercase and lowercase letter."
           android:textAlignment="center"
           android:textColor="#FFFFFF"
-          android:visibility="gone" />
+          android:visibility="gone"/>
 
       <TextView
           android:id="@+id/warn1ID"
@@ -113,21 +114,17 @@
           android:text="Password does not reach criteria!"
           android:textAlignment="center"
           android:textColor="#FF0000"
-          android:visibility="gone" />
+          android:visibility="gone"/>
 
       <EditText
           android:id="@+id/pass2ID"
           android:layout_width="300dp"
           android:layout_height="40dp"
+          android:layout_gravity="center"
           android:layout_marginBottom="15dp"
           android:layout_marginEnd="8dp"
           android:layout_marginStart="8dp"
           android:layout_marginTop="15dp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintVertical_bias="0.144"
-          android:layout_gravity="center"
           android:background="@drawable/rounded_edittext"
           android:ems="10"
           android:hint="Confirm Password"
@@ -135,8 +132,12 @@
           android:password="true"
           android:phoneNumber="false"
           android:textAlignment="center"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintVertical_bias="0.144"
           tools:layout_editor_absoluteX="73dp"
-          tools:layout_editor_absoluteY="329dp" />
+          tools:layout_editor_absoluteY="329dp"/>
 
       <TextView
           android:id="@+id/warn2ID"
@@ -148,29 +149,29 @@
           android:textColor="#FF0000"
           android:visibility="gone"
           tools:layout_editor_absoluteX="66dp"
-          tools:layout_editor_absoluteY="488dp" />
+          tools:layout_editor_absoluteY="488dp"/>
 
       <EditText
           android:id="@+id/dNameID"
           android:layout_width="300dp"
           android:layout_height="40dp"
+          android:layout_gravity="center"
           android:layout_marginBottom="15dp"
           android:layout_marginEnd="8dp"
           android:layout_marginStart="8dp"
           android:layout_marginTop="15dp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintVertical_bias="0.144"
-          android:layout_gravity="center"
           android:background="@drawable/rounded_edittext"
           android:ems="10"
           android:hint="Display Name"
           android:inputType="textPersonName"
           android:textAlignment="center"
           android:textColorHighlight="#262626"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintVertical_bias="0.144"
           tools:layout_editor_absoluteX="73dp"
-          tools:layout_editor_absoluteY="389dp" />
+          tools:layout_editor_absoluteY="389dp"/>
 
       <Button
           android:id="@+id/signUpBID"
@@ -178,37 +179,37 @@
 
           android:layout_width="300dp"
           android:layout_height="40dp"
+          android:layout_gravity="center"
           android:layout_marginBottom="15dp"
           android:layout_marginEnd="8dp"
           android:layout_marginStart="8dp"
           android:layout_marginTop="20dp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintVertical_bias="0.254"
-          android:layout_gravity="center"
           android:background="@drawable/roundedbutton"
           android:isScrollContainer="true"
           android:text="Sign Up"
           android:textAlignment="center"
           android:textColor="@android:color/white"
           android:visibility="visible"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintVertical_bias="0.254"
           tools:layout_editor_absoluteX="136dp"
-          tools:layout_editor_absoluteY="474dp" />
+          tools:layout_editor_absoluteY="474dp"/>
 
       <TextView
           android:id="@+id/loginID"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textColor="#808080"
-          android:layout_marginRight="50dp"
-          android:layout_marginLeft="50dp"
-          android:layout_marginBottom="30dp"
           android:layout_gravity="center"
+          android:layout_marginBottom="30dp"
+          android:layout_marginLeft="50dp"
+          android:layout_marginRight="50dp"
+          android:text="Already have an account? Login."
           android:textAlignment="center"
+          android:textColor="#808080"
           tools:layout_editor_absoluteX="66dp"
-          tools:layout_editor_absoluteY="488dp"
-          android:text="Already have an account? Login." />
+          tools:layout_editor_absoluteY="488dp"/>
 
 
     </LinearLayout>
