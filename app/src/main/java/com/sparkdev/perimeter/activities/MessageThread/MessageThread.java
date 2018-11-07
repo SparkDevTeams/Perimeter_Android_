@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentReference;
@@ -32,6 +33,7 @@ import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.UpdateChatRooms
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
 import com.sparkdev.perimeter.models.Firebase.FirestoreMessagesCollection;
 import com.sparkdev.perimeter.models.Message;
+import com.sparkdev.perimeter.models.UserProfile;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -53,6 +55,8 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
   private Bundle data;
   private ChatRoom chRoom;
   private Date currentTime = Calendar.getInstance().getTime();
+  private ImageButton mCameraButton;
+  private ImageButton mMicButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +74,9 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
       @Override
       public void onClick(View v) {
         Message sendMessages = new Message(new Timestamp(System.currentTimeMillis()),mReceiveText.getText()
-            .toString(),"v7ZRexU7WSX3meII6jK6bLWJxvB3","text","audio","image","video","ECS","37537854"
-                ,"cassandra");
+            .toString(),UserProfile.currentUserID,"text","audio","image","video",chRoom
+            .getId(),
+            "37537854", UserProfile.currentProfile.getDisplayName());
 
         mFirebaseAPI.sendMessage(chRoom, sendMessages, new UpdateChatRoomsMessageCompletionListener() {
           @Override
@@ -84,6 +89,22 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
 
           }
         });
+      }
+    });
+
+    mCameraButton = findViewById(R.id.camera_button);
+    mCameraButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Toast.makeText(MessageThread.this, "Coming soon", Toast.LENGTH_SHORT).show();
+      }
+    });
+
+    mMicButton = findViewById(R.id.mic_button);
+    mMicButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Toast.makeText(MessageThread.this, "Coming soon", Toast.LENGTH_SHORT).show();
       }
     });
 

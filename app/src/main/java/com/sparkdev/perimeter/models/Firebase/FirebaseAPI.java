@@ -133,6 +133,8 @@ public class FirebaseAPI {
           AuthResult loginResult = task.getResult();
           String userID = loginResult.getUser().getUid();
 
+          UserProfile.setCurrentUserID(userID);
+
           getUserWithUserID(userID, new PerimeterGetUserCompletionListener() {
             @Override
             public void onSuccess(UserProfile profile) {
@@ -167,6 +169,8 @@ public class FirebaseAPI {
           UserProfile profile = task.getResult().toObject(UserProfile.class);
 
           userListener.onSuccess(profile);
+
+          UserProfile.setCurrentProfile(profile);
 
           Log.d(TAG, "User with DisplayName " + profile.getDisplayName());
         } else {

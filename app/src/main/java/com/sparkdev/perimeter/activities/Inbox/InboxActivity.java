@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
+import com.sparkdev.perimeter.activities.Settings.SettingsActivity;
 import com.sparkdev.perimeter.activities.Settings.Settings_Activity;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
@@ -66,23 +67,23 @@ public class InboxActivity extends AppCompatActivity{
 
           public void onSuccess(List<ChatRoom> chatRooms) {
             mChatRooms = chatRooms;
-              Message testing = new Message(new Timestamp(20180212), "Update","hdfjdfsdf","text","audio","image","video","ECS","37537854"
-                      ,"Astrid");
-
-              ChatRoom obj = chatRooms.get(0);
-              fb.updateMessages(obj, testing, new UpdateChatRoomsMessageCompletionListener() {
-                  @Override
-
-                  public void onSuccess() {
-
-
-                  }
-
-                  @Override
-                  public void onFailure() {
-
-                  }
-              });
+//              Message testing = new Message(new Timestamp(20180212), "Update","hdfjdfsdf","text","audio","image","video","ECS","37537854"
+//                      ,"Astrid");
+//
+//              ChatRoom obj = chatRooms.get(0);
+//              fb.updateMessages(obj, testing, new UpdateChatRoomsMessageCompletionListener() {
+//                  @Override
+//
+//                  public void onSuccess() {
+//
+//
+//                  }
+//
+//                  @Override
+//                  public void onFailure() {
+//
+//                  }
+//              });
 
             // Create the InboxAdapter and supply the adapter with the data
             mCustomAdapter = new InboxAdapter(mContext, mChatRooms);
