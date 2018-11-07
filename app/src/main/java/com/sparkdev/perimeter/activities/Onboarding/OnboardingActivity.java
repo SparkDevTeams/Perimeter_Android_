@@ -50,6 +50,7 @@ public class OnboardingActivity extends AppCompatActivity {
         if(mCurrentPage==2){
           Intent intent= new Intent(OnboardingActivity.this,LoginActivity.class);
           startActivity(intent);
+          finish();
 
         }
         else

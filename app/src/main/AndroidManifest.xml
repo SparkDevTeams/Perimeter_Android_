@@ -11,21 +11,19 @@
       android:theme="@style/AppTheme">
     <activity android:name=".activities.Onboarding.OnboardingActivity"
               android:theme="@style/AppTheme.NoActionBar">
-    </activity>
-    <activity android:name=".activities.SignUp.SignUpActivity"
-              android:theme="@style/AppTheme.NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
+    </activity>
+    <activity android:name=".activities.SignUp.SignUpActivity"
+              android:theme="@style/AppTheme.NoActionBar">
     </activity>
     <activity android:name=".activities.Login.LoginActivity">
     </activity>
     <activity android:name=".activities.Inbox.InboxActivity">
     </activity>
     <activity android:name=".activities.MessageThread.MessageThread">
-    </activity>
-    <activity android:name=".activities.Settings.SettingsActivity">
     </activity>
     <activity android:name=".activities.MessageThreadDetail.MessageThreadDetailActivity" android:theme="@style/AppTheme.NoActionBar">
     </activity>

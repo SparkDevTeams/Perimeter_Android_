@@ -127,6 +127,7 @@ public class LoginActivity extends Activity {
         Log.d(TAG, "Login successful");
           Toast.makeText(LoginActivity.this, "Login passed", Toast.LENGTH_SHORT).show();
           startActivity(new Intent(LoginActivity.this, InboxActivity.class));
+          finish();
       }
 
       @Override
