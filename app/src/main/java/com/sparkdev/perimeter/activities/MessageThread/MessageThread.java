@@ -89,6 +89,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
 
           }
         });
+        mReceiveText.getText().clear();
       }
     });
 
@@ -210,6 +211,7 @@ public class MessageThread extends AppCompatActivity implements GetChatRoomMessa
                       }
                       mAdapter.changeMessageList(newMsgs);
                       mAdapter.notifyDataSetChanged();
+                      mRecyclerView.smoothScrollToPosition(mRecyclerView.getAdapter().getItemCount());
                   }
               });
   }

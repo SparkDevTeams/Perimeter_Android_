@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,17 +23,13 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.sparkdev.perimeter.R;
 import com.sparkdev.perimeter.activities.Inbox.adapters.InboxAdapter;
-import com.sparkdev.perimeter.activities.Settings.SettingsActivity;
+import com.sparkdev.perimeter.activities.Login.LoginActivity;
 import com.sparkdev.perimeter.activities.Settings.Settings_Activity;
 import com.sparkdev.perimeter.models.ChatRoom;
 import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.GetChatRoomsCompletionListener;
-import com.sparkdev.perimeter.models.Firebase.ChatRoomInterfaces.UpdateChatRoomsMessageCompletionListener;
 import com.sparkdev.perimeter.models.Firebase.FirebaseAPI;
-import com.sparkdev.perimeter.models.Message;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class InboxActivity extends AppCompatActivity{
@@ -67,23 +62,6 @@ public class InboxActivity extends AppCompatActivity{
 
           public void onSuccess(List<ChatRoom> chatRooms) {
             mChatRooms = chatRooms;
-//              Message testing = new Message(new Timestamp(20180212), "Update","hdfjdfsdf","text","audio","image","video","ECS","37537854"
-//                      ,"Astrid");
-//
-//              ChatRoom obj = chatRooms.get(0);
-//              fb.updateMessages(obj, testing, new UpdateChatRoomsMessageCompletionListener() {
-//                  @Override
-//
-//                  public void onSuccess() {
-//
-//
-//                  }
-//
-//                  @Override
-//                  public void onFailure() {
-//
-//                  }
-//              });
 
             // Create the InboxAdapter and supply the adapter with the data
             mCustomAdapter = new InboxAdapter(mContext, mChatRooms);
@@ -102,6 +80,7 @@ public class InboxActivity extends AppCompatActivity{
     llm = new LinearLayoutManager(this);
     llm.setOrientation(LinearLayoutManager.VERTICAL);
     recyclerView.setLayoutManager(llm);
+    llm.setStackFromEnd(true);
 
 
     // Add the line divider between each row
@@ -125,7 +104,10 @@ public class InboxActivity extends AppCompatActivity{
       case R.id.item1:
         startActivity(new Intent(InboxActivity.this, Settings_Activity.class));
         return true;
-
+      case R.id.item2:
+        startActivity(new Intent(InboxActivity.this, LoginActivity.class));
+        finish();
+        return true;
       default:
         return super.onOptionsItemSelected(item) ;
     }
