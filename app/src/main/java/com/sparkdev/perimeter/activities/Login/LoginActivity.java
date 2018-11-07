@@ -2,11 +2,16 @@ package com.sparkdev.perimeter.activities.Login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
@@ -38,7 +43,8 @@ public class LoginActivity extends Activity {
   private int mCounter = 1;
   private FirebaseAPI mFirebaseAPI;
   private final String TAG = "LoginActivity";
-
+  private int color;
+  private ColorStateList tintList;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,16 @@ public class LoginActivity extends Activity {
     mLogin = findViewById(R.id.btnLogin);
     mCreateAccount = findViewById(R.id.tvCreateAccount);
 
+
+    mLogin.setEnabled(false);
+    color = ContextCompat.getColor(this, R.color.colorGreyish);
+    tintList = ColorStateList.valueOf(color);
+    ViewCompat.setBackgroundTintList(mLogin, tintList);
+
+
+    mName.addTextChangedListener(signUpTextWatcher);
+    mPassword.addTextChangedListener(signUpTextWatcher);
+
     mFirebaseAPI = FirebaseAPI.getInstance(this);
 
     String text = "Don't have an account? Create One";
@@ -60,7 +76,6 @@ public class LoginActivity extends Activity {
       public void onClick(View widget) {
         startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
         Log.d(TAG, "To sign-up!");
-        Toast.makeText(LoginActivity.this, "To the sign up page", Toast.LENGTH_SHORT).show();
       }
     };
     ss.setSpan(clickableSpan1, 23, 33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -75,6 +90,35 @@ public class LoginActivity extends Activity {
       }
     });
   }
+
+  public TextWatcher signUpTextWatcher = new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+      String name = mName.getText().toString();
+      String pw = mPassword.getText().toString();
+
+      mLogin.setEnabled(!name.isEmpty() && !pw.isEmpty());
+      if (mLogin.isEnabled()) {
+        color = ContextCompat.getColor(LoginActivity.this, R.color.colorAccent);
+        tintList = ColorStateList.valueOf(color);
+        ViewCompat.setBackgroundTintList(mLogin, tintList);
+      } else {
+        color = ContextCompat.getColor(LoginActivity.this, R.color.colorGreyish);
+        tintList = ColorStateList.valueOf(color);
+        ViewCompat.setBackgroundTintList(mLogin, tintList);
+      }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+  };
 
   private void validate(final String userName, String password) {
     mFirebaseAPI.loginUser(userName, password, new PerimeterLoginCompletionListener() {
